@@ -23,6 +23,7 @@ ENV/
 # Project data and results
 data/raw/
 data/processed/
+data/research/
 results/
 
 # Environment
