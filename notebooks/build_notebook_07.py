@@ -1,10 +1,3 @@
-"""One-off script that generates notebooks/07_research_forecast.ipynb.
-
-Not part of the pipeline — run manually if the notebook needs to be
-regenerated from scratch. Mirrors the cell structure/conventions of
-01-06 (sys.path bootstrap, src.config/src.research imports, Agg backend).
-"""
-
 import sys
 from pathlib import Path
 

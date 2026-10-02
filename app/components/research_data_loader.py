@@ -1,10 +1,3 @@
-"""Streamlit-facing data access for the Research module.
-
-Mirrors the @st.cache_data pattern used by components/data_loader.py, but
-delegates the actual logic (API fetch / aggregation / Prophet fitting) to
-src/research/ so the same code path is shared with the notebooks.
-"""
-
 import sys
 from pathlib import Path
 

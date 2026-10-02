@@ -12,9 +12,6 @@ def forecast_comparison_chart(
     logistic_forecast: pd.DataFrame,
     logistic_cap: float,
 ) -> go.Figure:
-    """Historical publication counts + both Prophet forecasts (linear vs
-    logistic growth) on one chart, so the two assumptions can be compared
-    visually."""
     fig = go.Figure()
 
     fig.add_trace(go.Scatter(

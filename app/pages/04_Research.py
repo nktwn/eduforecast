@@ -17,9 +17,6 @@ st.set_page_config(
 )
 st.markdown(GLASS_CSS, unsafe_allow_html=True)
 
-# The sidebar faculty selector is kept for navigation consistency with the
-# other pages, but this page's data is university-wide (OpenAlex has no
-# clean per-faculty affiliation breakdown — see PROJECT_STATUS.md §4.4 risk 5).
 selected_code = st.session_state.get("selected_faculty", "AAA")
 sidebar_logo(selected_code, FACULTY_MAP)
 

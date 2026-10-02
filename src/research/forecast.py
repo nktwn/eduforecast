@@ -1,12 +1,3 @@
-"""Prophet-based publication-count forecasting, linear vs logistic growth.
-
-Scope note (see also PROJECT_STATUS.md §4 and the module README): this is
-fit on 6-7 yearly observations (2020-2026) for a single institution. It is a
-proof-of-concept forecast, not a high-precision one — confidence intervals
-are wide by construction, and the backtest below is a single held-out-year
-sanity check, not a statistically rigorous validation.
-"""
-
 from dataclasses import dataclass, field
 
 import pandas as pd
@@ -29,9 +20,6 @@ def _new_model(growth: str) -> Prophet:
 
 
 def compute_logistic_cap(df_yearly: pd.DataFrame, multiplier: float = LOGISTIC_CAP_MULTIPLIER) -> float:
-    """Expert-guess saturation ceiling for growth='logistic' (see
-    config.LOGISTIC_CAP_MULTIPLIER docstring — this is NOT derived from the
-    data, just the observed peak scaled by an assumed headroom factor)."""
     return float(df_yearly["works_count"].max()) * multiplier
 
 
@@ -65,7 +53,7 @@ def predict(model: Prophet, periods: int, cap: float | None = None) -> pd.DataFr
 class BacktestResult:
     backtest_year: int
     actual: float
-    predictions: dict = field(default_factory=dict)  # growth -> {predicted, lower, upper, abs_error, pct_error}
+    predictions: dict = field(default_factory=dict)
     note: str = (
         "Leave-last-year-out sanity check on a single held-out point. "
         "NOT k-fold or time-series cross-validation: with only 6-7 yearly "
@@ -77,8 +65,6 @@ def backtest_leave_last_year_out(
     df_yearly: pd.DataFrame,
     cap_multiplier: float = LOGISTIC_CAP_MULTIPLIER,
 ) -> BacktestResult:
-    """Trains on all years except the most recent one, predicts that held-out
-    year, and compares to the actual observed count."""
     last_year = int(df_yearly["year"].max())
     train_df = df_yearly[df_yearly["year"] < last_year].reset_index(drop=True)
     actual = float(df_yearly.loc[df_yearly["year"] == last_year, "works_count"].iloc[0])
@@ -111,8 +97,8 @@ def backtest_leave_last_year_out(
 
 @dataclass
 class ForecastComparison:
-    history: pd.DataFrame            # year, works_count (training window)
-    linear_forecast: pd.DataFrame     # prophet predict() output
+    history: pd.DataFrame
+    linear_forecast: pd.DataFrame
     logistic_forecast: pd.DataFrame
     logistic_cap: float
     backtest: BacktestResult
@@ -122,8 +108,6 @@ def run_forecast_comparison(
     df_yearly: pd.DataFrame,
     years_ahead: int = FORECAST_YEARS_AHEAD,
 ) -> ForecastComparison:
-    """Fits both growth variants on the full training window and forecasts
-    `years_ahead` years forward, plus runs the leave-last-year-out backtest."""
     df_prophet = to_prophet_frame(df_yearly)
     cap = compute_logistic_cap(df_yearly)
 

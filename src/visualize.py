@@ -1,5 +1,3 @@
-"""Plotting utilities for EduForecast — all figures saved as PNG and PDF."""
-
 from pathlib import Path
 from typing import Optional
 
@@ -17,7 +15,6 @@ _DPI = 300
 
 
 def _save(fig: plt.Figure, save_path: Path | str) -> None:
-    """Save *fig* as both PNG and PDF at *save_path* (extension is replaced)."""
     base = Path(save_path).with_suffix("")
     for ext in (".png", ".pdf"):
         out = base.with_suffix(ext)
@@ -31,20 +28,6 @@ def plot_temporal_auc(
     results_dict: dict[str, list[tuple[int, float]]],
     save_path: Optional[Path | str] = None,
 ) -> plt.Figure:
-    """Line plot of AUC-ROC over weeks, one line per model.
-
-    Parameters
-    ----------
-    results_dict:
-        ``{model_name: [(week, auc), ...]}`` mapping.
-    save_path:
-        File path (without extension) to save PNG and PDF.
-        Defaults to ``FIGURES_DIR / "temporal_auc"``.
-
-    Returns
-    -------
-    Matplotlib Figure.
-    """
     fig, ax = plt.subplots(figsize=_FIG_SIZE_WIDE)
     for model_name, weekly_results in results_dict.items():
         if not weekly_results:
@@ -68,24 +51,6 @@ def plot_feature_importance(
     model_name: str,
     save_path: Optional[Path | str] = None,
 ) -> plt.Figure:
-    """Horizontal bar chart of the top-15 features by importance.
-
-    Parameters
-    ----------
-    importances:
-        Array of importance scores (same length as *feature_names*).
-    feature_names:
-        List of feature name strings.
-    model_name:
-        Used in the chart title.
-    save_path:
-        Save path stem. Defaults to
-        ``FIGURES_DIR / f"feature_importance_{model_name}"``.
-
-    Returns
-    -------
-    Matplotlib Figure.
-    """
     top_n = 15
     indices = np.argsort(importances)[-top_n:]
     top_names = [feature_names[i] for i in indices]
@@ -107,24 +72,6 @@ def plot_confusion_matrix(
     model_name: str,
     save_path: Optional[Path | str] = None,
 ) -> plt.Figure:
-    """Heatmap confusion matrix for binary predictions.
-
-    Parameters
-    ----------
-    y_true:
-        Ground-truth labels.
-    y_pred:
-        Hard predictions.
-    model_name:
-        Used in the chart title.
-    save_path:
-        Save path stem. Defaults to
-        ``FIGURES_DIR / f"confusion_matrix_{model_name}"``.
-
-    Returns
-    -------
-    Matplotlib Figure.
-    """
     fig, ax = plt.subplots(figsize=(8, 6))
     disp = ConfusionMatrixDisplay.from_predictions(
         y_true,
@@ -144,19 +91,6 @@ def plot_roc_curve(
     results_dict: dict[str, tuple[np.ndarray, np.ndarray, float]],
     save_path: Optional[Path | str] = None,
 ) -> plt.Figure:
-    """Overlay ROC curves for multiple models.
-
-    Parameters
-    ----------
-    results_dict:
-        ``{model_name: (y_true, y_prob, auc_score)}`` mapping.
-    save_path:
-        Save path stem. Defaults to ``FIGURES_DIR / "roc_curves"``.
-
-    Returns
-    -------
-    Matplotlib Figure.
-    """
     fig, ax = plt.subplots(figsize=_FIG_SIZE_DEFAULT)
     ax.plot([0, 1], [0, 1], "k--", linewidth=1, label="Random (AUC = 0.50)")
 

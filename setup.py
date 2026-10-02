@@ -1,5 +1,3 @@
-"""Package setup for EduForecast."""
-
 from setuptools import find_packages, setup
 
 setup(
