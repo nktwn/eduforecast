@@ -1,8 +1,12 @@
+import re
+
 import numpy as np
 import pandas as pd
 
 from src.finance.config import (
     CONTROLS,
+    CPI_PATH,
+    YEAR_MAX,
     EF_ALL_STUDENTS,
     GR_ADJUSTED_COHORT,
     GR_BACHELOR_COMPLETERS_150,
@@ -16,6 +20,7 @@ from src.finance.config import (
     YEARS,
     files_for_year,
 )
+from src.finance.criterion import COVID_TARGET_YEARS, GASB75_PUBLIC_TARGET_YEAR, MIN_COHORT, PRICE_BASE_FY
 from src.finance.download import load
 
 STATES = {
@@ -214,9 +219,97 @@ def finalize(panel: pd.DataFrame) -> pd.DataFrame:
     p["sch_gross_per_fte"] = p["exp_sch_gross"] / valid_fte
     p["sch_gross_share_of_total_with_discounts"] = p["exp_sch_gross"] / p["exp_total_with_discounts"].where(
         p["exp_total_with_discounts"] > 0)
+    deflator = p["year"].map(cpi_deflator())
+    for c in CATEGORIES + ["total", "core_total"]:
+        p[f"{c}_per_fte_real"] = p[f"{c}_per_fte"] * deflator
+    p["exp_core_total_real"] = p["exp_core_total"] * deflator
+    p["sch_gross_per_fte_real"] = p["sch_gross_per_fte"] * deflator
+    p["cpi_deflator_to_fy_base"] = deflator
+
+    has_bachelor = p.groupby("unitid")["grad_cohort"].transform(lambda s: (s > 0).any())
+    p["has_bachelor_cohort"] = has_bachelor
+    p["eligible_retention"] = has_bachelor & (p["retention_cohort"] >= MIN_COHORT)
+    p["eligible_grad"] = p["grad_cohort"] >= MIN_COHORT
+    p["flag_covid"] = p["year"].isin(COVID_TARGET_YEARS)
+    p["flag_gasb75"] = (p["control"] == 1) & (p["year"] == GASB75_PUBLIC_TARGET_YEAR)
     p["fte_per_faculty"] = p["fte_total"] / p["faculty_ft_instructional"].where(p["faculty_ft_instructional"] > 0)
     keep = [c for c in p.columns if not c.startswith(("C21", "C18", "C15", "CC", "PRCH_", "DEGGRANT"))]
     return p[keep].sort_values(["unitid", "year"]).reset_index(drop=True)
+
+
+def cpi_deflator() -> dict[int, float]:
+    cpi = pd.read_csv(CPI_PATH)
+    cpi.columns = ["date", "cpi"]
+    cpi["date"] = pd.to_datetime(cpi["date"])
+    cpi["fy"] = cpi["date"].dt.year + (cpi["date"].dt.month >= 7).astype(int)
+    fy = cpi.groupby("fy")["cpi"].agg(["mean", "size"])
+    fy = fy[fy["size"] == 12]["mean"]
+    return (fy[PRICE_BASE_FY] / fy).to_dict()
+
+
+SAME_ENTITY_SIMILARITY = 0.5
+STOP_WORDS = {"the", "of", "university", "college", "inc", "main", "campus", "and", "at", "school", "state"}
+
+
+def name_similarity(a: str, b: str) -> float:
+    def tokens(x):
+        return {t for t in re.findall(r"[a-z]+", str(x).lower()) if t not in STOP_WORDS}
+    ta, tb = tokens(a), tokens(b)
+    if not ta or not tb:
+        return float(str(a).lower().split("-")[0].strip() == str(b).lower().split("-")[0].strip())
+    return len(ta & tb) / len(ta | tb)
+
+
+def splice_series(p: pd.DataFrame, hd: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+    first = p.groupby("unitid")["year"].min()
+    last = p.groupby("unitid")["year"].max()
+    names = p.groupby("unitid")["name"].last()
+    hd = hd.assign(NEWID=pd.to_numeric(hd["NEWID"], errors="coerce"))
+    links = []
+    for unitid, last_year in last[last < YEAR_MAX].items():
+        rows = hd[(hd["UNITID"] == unitid) & (hd["year"] >= last_year) & (hd["NEWID"] > 0)].sort_values("year")
+        if not rows.empty:
+            links.append((unitid, int(rows["NEWID"].iloc[0]), last_year))
+    n_predecessors = pd.Series([b for _, b, _ in links]).value_counts().to_dict()
+
+    successor_of, superseded_from, flags, events = {}, {}, {}, []
+    for a, b, last_year in links:
+        event = {"unitid": a, "name": names[a], "newid": b, "last_year": last_year}
+        if b not in first.index or b == a:
+            events.append({**event, "type": "merged_outside_panel"})
+            continue
+        similarity = name_similarity(names[a], names[b])
+        event.update({"new_name": names[b], "name_similarity": round(similarity, 2)})
+        new_successor = first[b] >= last_year
+        if new_successor and n_predecessors[b] == 1:
+            successor_of[b] = a
+            superseded_from[a] = first[b]
+            flags[(b, first[b])] = "id_transition"
+            kind = "spliced_id_change"
+        elif new_successor:
+            flags[(b, first[b])] = "id_transition"
+            kind = "merger_new_entity_cut"
+        elif similarity >= SAME_ENTITY_SIMILARITY:
+            flags[(b, last_year + 1)] = "id_transition"
+            kind = "reporting_change_cut"
+        else:
+            flags[(b, last_year + 1)] = "merger_absorption"
+            kind = "real_merger_cut"
+        events.append({**event, "type": kind})
+
+    def root(u):
+        seen = set()
+        while u in successor_of and u not in seen:
+            seen.add(u)
+            u = successor_of[u]
+        return u
+
+    p["superseded"] = p["unitid"].map(superseded_from).le(p["year"]).fillna(False).astype(bool)
+    p["series_id"] = np.where(p["superseded"], p["unitid"], p["unitid"].map(root))
+    key = list(zip(p["unitid"], p["year"]))
+    p["id_transition"] = [flags.get(k) == "id_transition" for k in key]
+    p["merger_absorption"] = [flags.get(k) == "merger_absorption" for k in key]
+    return p, pd.DataFrame(events)
 
 
 def main():
@@ -226,9 +319,11 @@ def main():
         panels.append(part)
         hds.append(hd)
         print(year, len(part), flush=True)
-    panel = finalize(pd.concat(panels, ignore_index=True))
+    hd_all = pd.concat(hds, ignore_index=True)
+    panel, events = splice_series(finalize(pd.concat(panels, ignore_index=True)), hd_all)
     panel.to_parquet(PANEL_PATH, index=False)
-    pd.concat(hds, ignore_index=True).to_parquet(INSTITUTIONS_PATH, index=False)
+    hd_all.to_parquet(INSTITUTIONS_PATH, index=False)
+    events.to_csv(PANEL_PATH.parent / "id_events.csv", index=False)
     print(f"Saved {PANEL_PATH} {panel.shape}")
 
 

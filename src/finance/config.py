@@ -15,6 +15,8 @@ for _dir in (RAW_DIR, FINANCE_RESULTS_DIR, FIG_DIR):
     _dir.mkdir(parents=True, exist_ok=True)
 
 IPEDS_DATA_URL = "https://nces.ed.gov/ipeds/datacenter/data/{name}.zip"
+CPI_URL = "https://fred.stlouisfed.org/graph/fredgraph.csv?id=CPIAUCNS"
+CPI_PATH: Path = RAW_DIR / "CPIAUCNS.csv"
 
 YEAR_MIN = 2010
 YEAR_MAX = 2023

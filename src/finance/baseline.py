@@ -5,6 +5,7 @@ from src.finance.config import FINANCE_RESULTS_DIR, PANEL_PATH
 from src.finance.criterion import (
     BOOTSTRAP_SAMPLES,
     EVAL_ORIGINS,
+    EVAL_SCOPES,
     GROUP_COLUMN,
     GROUP_CHANGE_CLIP,
     GROUP_MIN_SIZE,
@@ -16,19 +17,23 @@ from src.finance.criterion import (
 
 
 def _series(panel: pd.DataFrame, target: str) -> pd.DataFrame:
-    kind = TARGETS[target]["kind"]
-    s = panel[["unitid", "year", GROUP_COLUMN, target]].copy()
-    if kind == "log":
+    spec = TARGETS[target]
+    p = panel[~panel["superseded"]]
+    if spec["eligibility"]:
+        p = p[p[spec["eligibility"]]]
+    s = p[["series_id", "year", "control", GROUP_COLUMN, target, "flag_covid", "flag_gasb75", "id_transition",
+           "merger_absorption"]].copy()
+    if spec["kind"] == "log":
         s = s[s[target] > 0]
         s["z"] = np.log(s[target])
     else:
         s["z"] = s[target]
-    s = s.dropna(subset=["z"]).sort_values(["unitid", "year"])
-    full = s.set_index(["unitid", "year"])
-    prev = full["z"].rename("z_prev")
+    s = s.dropna(subset=["z"]).sort_values(["series_id", "year"])
+    prev = s.set_index(["series_id", "year"])["z"].rename("z_prev")
     prev.index = prev.index.set_levels(prev.index.levels[1] + 1, level=1)
-    s = s.join(prev, on=["unitid", "year"])
-    s["change"] = s["z"] - s["z_prev"]
+    s = s.join(prev, on=["series_id", "year"])
+    s["change"] = (s["z"] - s["z_prev"]).where(~(s["id_transition"] | s["merger_absorption"]))
+    s["flagged"] = s["flag_covid"] | s["flag_gasb75"]
     return s
 
 
@@ -72,10 +77,13 @@ def main():
     preds.to_csv(FINANCE_RESULTS_DIR / "baseline_predictions.csv", index=False)
 
     summary, by_year, by_group = [], [], []
-    for target, p in preds.groupby("target"):
-        per_inst = p.groupby("unitid")[["err_naive", "err_group"]].mean()
-        summary.append({"target": target, "unit": TARGETS[target]["unit"], "n_points": len(p),
-                        **bootstrap_gain(per_inst, "group", rng)})
+    for target, all_p in preds.groupby("target"):
+        for scope in EVAL_SCOPES:
+            p = all_p if scope == "all_years" else all_p[~all_p["flagged"]]
+            per_inst = p.groupby("series_id")[["err_naive", "err_group"]].mean()
+            summary.append({"target": target, "scope": scope, "unit": TARGETS[target]["unit"], "n_points": len(p),
+                            **bootstrap_gain(per_inst, "group", rng)})
+        p = all_p
         y = p.groupby("year")[["err_naive", "err_group"]].mean().reset_index()
         by_year.append(y.assign(target=target, n=p.groupby("year").size().to_numpy()))
         g = p.groupby(GROUP_COLUMN)[["err_naive", "err_group"]].mean().reset_index()
