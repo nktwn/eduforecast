@@ -4,6 +4,23 @@ UNIVERSITY_TYPE_PLACEHOLDER = "TODO"
 
 FOUNDED_FALLBACK = {"NU": 2010}
 
+UNI_TYPES = {
+    "NU": "национальный",
+    "KBTU": "частный",
+    "SDU": "частный",
+    "SATBAYEV": "национальный",
+    "KAZNU": "национальный",
+    "ENU": "национальный",
+    "NARXOZ": "частный",
+    "KIMEP": "частный",
+    "SHAKARIM": "региональный",
+    "AITU": "государственный",
+    "SKOLTECH": "международный",
+    "INNOPOLIS": "международный",
+    "UNIST": "международный",
+    "MBZUAI": "международный",
+}
+
 
 @dataclass(frozen=True)
 class University:

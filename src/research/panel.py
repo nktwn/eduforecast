@@ -13,7 +13,7 @@ from src.research.config import (
     RESEARCH_DATA_DIR,
     WORKS_DIR,
 )
-from src.research.institutions import FOUNDED_FALLBACK, UNIVERSITIES, UNIVERSITY_TYPE_PLACEHOLDER, University
+from src.research.institutions import FOUNDED_FALLBACK, UNI_TYPES, UNIVERSITIES, UNIVERSITY_TYPE_PLACEHOLDER, University
 
 WORK_SELECT = ",".join([
     "id", "publication_year", "type", "fwci", "citation_normalized_percentile",
@@ -113,9 +113,11 @@ def _aggregate_year(g: pd.DataFrame) -> dict:
     known_countries = g["n_countries"].fillna(0) > 0
     fwci = g["fwci"].dropna()
     pct = g["top10"].dropna()
-    authors = set()
-    for ids in g["affiliated_authors"]:
+    authors, authors_no_hyper = set(), set()
+    for ids, n_auth in zip(g["affiliated_authors"], g["n_authorships"]):
         authors.update(ids)
+        if n_auth < AUTHORSHIPS_CAP:
+            authors_no_hyper.update(ids)
     return {
         "works_count": n,
         "works_articles_reviews": int(g["type"].isin(["article", "review"]).sum()),
@@ -128,6 +130,7 @@ def _aggregate_year(g: pd.DataFrame) -> dict:
         "fwci_median": float(fwci.median()) if len(fwci) else np.nan,
         "fwci_coverage": len(fwci) / n if n else np.nan,
         "unique_authors": len(authors),
+        "unique_authors_no_hyper": len(authors_no_hyper),
         "oa_share": float(g["is_oa"].fillna(False).astype(bool).mean()) if n else np.nan,
         "truncated_authorships_works": int((g["n_authorships"] >= AUTHORSHIPS_CAP).sum()),
         "works_without_affiliated_author_id": int((g["affiliated_authors"].str.len() == 0).sum()),
@@ -142,8 +145,17 @@ def _citations_received_by_year(works: pd.DataFrame) -> pd.Series:
     return pd.DataFrame(cites.tolist()).groupby("year")["cited_by_count"].sum()
 
 
-def build_university_rows(uni: University, works: pd.DataFrame, meta: dict, oa_counts: dict[int, int]):
+def _is_excluded(works: pd.DataFrame) -> pd.Series:
+    return works["is_retracted"].fillna(False).astype(bool) | works["is_paratext"].fillna(False).astype(bool)
+
+
+def build_university_rows(uni: University, all_works: pd.DataFrame, meta: dict, oa_counts: dict[int, int]):
     years = range(PANEL_YEAR_MIN, PARTIAL_YEAR + 1)
+    excluded = _is_excluded(all_works)
+    excluded_by_year = all_works[excluded].groupby("year").agg(
+        retracted=("is_retracted", "sum"), paratext=("is_paratext", "sum"))
+    all_by_year = all_works.groupby("year").size()
+    works = all_works[~excluded]
     train = works[works["year"].between(PANEL_YEAR_MIN, PANEL_YEAR_MAX)]
     field_totals = train["field"].dropna().value_counts()
     top_fields = list(field_totals.index[:TOP_FIELDS])
@@ -162,11 +174,14 @@ def build_university_rows(uni: University, works: pd.DataFrame, meta: dict, oa_c
             "country": uni.country,
             "group": uni.group,
             "founded": meta["founded"] or FOUNDED_FALLBACK.get(uni.key),
-            "uni_type": UNIVERSITY_TYPE_PLACEHOLDER,
+            "uni_type": UNI_TYPES.get(uni.key, UNIVERSITY_TYPE_PLACEHOLDER),
             "year": year,
             "is_partial": year == PARTIAL_YEAR,
             **_aggregate_year(g),
         }
+        row["works_count_all"] = int(all_by_year.get(year, 0))
+        row["retracted_excluded"] = int(excluded_by_year["retracted"].get(year, 0))
+        row["paratext_excluded"] = int(excluded_by_year["paratext"].get(year, 0))
         cby = meta["counts_by_year"].get(year, {})
         row["citations_received_in_year"] = (
             int(received.get(year, 0)) if year >= CITATIONS_BY_YEAR_FIRST else np.nan
