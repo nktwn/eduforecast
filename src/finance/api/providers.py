@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 
 from src.finance.api import demo_model
+from src.finance.baseline import latest_group_changes
 from src.finance.api.contract import CONTRACT_VERSION, TARGET_META, flag
 from src.finance.api.features import FEATURE_LABELS, FEATURES, build_frame, target_frame
 from src.finance.config import PANEL_PATH, YEAR_MAX, YEAR_MIN
@@ -18,6 +19,26 @@ COHORT_COLUMN = {"retention_rate": "retention_cohort", "grad_rate_150": "grad_co
 OUTLIER_CHANGE = {"percentage_points": 20.0, "log_ratio": 0.5}
 DATA_VINTAGE = {"source": "IPEDS Complete Data Files (NCES), выгрузка 2026-10-09", "first_year": YEAR_MIN,
                 "last_year": YEAR_MAX, "price_base": f"CPI-U, доллары FY{PRICE_BASE_FY}"}
+
+
+ALIASES = {
+    "ucla": "University of California-Los Angeles", "ucb": "University of California-Berkeley",
+    "uc berkeley": "University of California-Berkeley", "ucsd": "University of California-San Diego",
+    "ucd": "University of California-Davis", "uci": "University of California-Irvine",
+    "mit": "Massachusetts Institute of Technology", "nyu": "New York University",
+    "usc": "University of Southern California", "unc": "University of North Carolina at Chapel Hill",
+    "uva": "University of Virginia-Main Campus", "uiuc": "University of Illinois Urbana-Champaign",
+    "ut austin": "The University of Texas at Austin", "umich": "University of Michigan-Ann Arbor",
+    "georgia tech": "Georgia Institute of Technology-Main Campus", "cmu": "Carnegie Mellon University",
+    "caltech": "California Institute of Technology", "penn state": "Pennsylvania State University-Main Campus",
+    "osu": "Ohio State University-Main Campus", "asu": "Arizona State University Campus Immersion",
+    "tamu": "Texas A & M University-College Station", "virginia tech": "Virginia Polytechnic Institute and State University",
+    "lsu": "Louisiana State University and Agricultural & Mechanical College", "umd": "University of Maryland-College Park",
+    "uw-madison": "University of Wisconsin-Madison", "umn": "University of Minnesota-Twin Cities",
+    "fsu": "Florida State University", "uf": "University of Florida", "byu": "Brigham Young University",
+    "rpi": "Rensselaer Polytechnic Institute", "upenn": "University of Pennsylvania", "jhu": "Johns Hopkins University",
+    "ucf": "University of Central Florida", "uw": "University of Washington-Seattle Campus",
+}
 
 
 class Provider(Protocol):
@@ -39,20 +60,21 @@ class FinanceRepository:
         self.panel = panel if panel is not None else pd.read_parquet(PANEL_PATH)
         self.frame = build_frame(self.panel)
         self.targets = {t: target_frame(self.frame, t) for t in TARGETS}
+        self.group_changes = {t: latest_group_changes(self.panel, t) for t in TARGETS}
         latest = self.frame.sort_values("year").groupby("series_id").tail(1)
         self.directory = latest[["series_id", "unitid", "name", "state", "control_label", "carnegie_group",
                                  "peer_group", "year"]].rename(columns={"year": "last_year"}).reset_index(drop=True)
         self.directory["first_year"] = self.directory["series_id"].map(self.frame.groupby("series_id")["year"].min())
 
     def search(self, query: str, limit: int = 20) -> list[dict]:
-        q = query.strip().lower()
-        d = self.directory
+        q = " ".join(query.strip().lower().split())
+        d = self.directory.assign(_alias=self.directory["name"] == ALIASES.get(q))
         if q:
-            mask = d["name"].str.lower().str.contains(q, regex=False) | (d["state"].str.lower() == q)
+            mask = d["name"].str.lower().str.contains(q, regex=False) | (d["state"].str.lower() == q) | d["_alias"]
             if q.isdigit():
                 mask |= (d["unitid"] == int(q)) | (d["series_id"] == int(q))
             d = d[mask]
-        d = d.sort_values(["last_year", "name"], ascending=[False, True]).head(limit)
+        d = d.sort_values(["_alias", "last_year", "name"], ascending=[False, False, True]).head(limit)
         return [{"series_id": int(r.series_id), "unitid": int(r.unitid), "name": r.name, "state": r.state,
                  "control": r.control_label, "carnegie_group": r.carnegie_group, "first_year": int(r.first_year),
                  "last_year": int(r.last_year)}
@@ -198,7 +220,7 @@ class DemoProvider:
                          "upper": _to_level(last_value, change + q, scale),
                          "method": "split conformal (|остаток| на 2018 году)"},
         }
-        group_change = _num(last["group_change"])
+        group_change = _num(self.repo.group_changes[target].get((last["peer_group"], int(last["year"]))))
         block["baselines"] = [
             {"name": "naive", "value": last_value},
             {"name": "peer_group_mean_growth",

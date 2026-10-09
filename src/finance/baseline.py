@@ -37,13 +37,21 @@ def _series(panel: pd.DataFrame, target: str) -> pd.DataFrame:
     return s
 
 
+def group_mean_changes(changes: pd.DataFrame, target: str) -> pd.Series:
+    clip = GROUP_CHANGE_CLIP[TARGETS[target]["kind"]]
+    clipped = changes.assign(change_clipped=changes["change"].clip(-clip, clip))
+    group = clipped.groupby([GROUP_COLUMN, "year"])["change_clipped"].agg(["mean", "size"])
+    return group[group["size"] >= GROUP_MIN_SIZE]["mean"].rename("group_change")
+
+
+def latest_group_changes(panel: pd.DataFrame, target: str) -> pd.Series:
+    return group_mean_changes(_series(panel, target).dropna(subset=["change"]), target)
+
+
 def predictions(panel: pd.DataFrame, target: str) -> pd.DataFrame:
     s = _series(panel, target)
     changes = s.dropna(subset=["change"]).copy()
-    clip = GROUP_CHANGE_CLIP[TARGETS[target]["kind"]]
-    changes["change_clipped"] = changes["change"].clip(-clip, clip)
-    group = changes.groupby([GROUP_COLUMN, "year"])["change_clipped"].agg(["mean", "size"])
-    group = group[group["size"] >= GROUP_MIN_SIZE]["mean"].rename("group_change")
+    group = group_mean_changes(changes, target)
     group.index = group.index.set_levels(group.index.levels[1] + 1, level=1)
 
     test = changes[changes["year"].isin([o + 1 for o in EVAL_ORIGINS])].join(group, on=[GROUP_COLUMN, "year"])

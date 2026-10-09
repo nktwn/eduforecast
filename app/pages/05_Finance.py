@@ -30,6 +30,10 @@ st.markdown("""
 .flag-info { border-left:3px solid #64748b; } .flag-warning { border-left:3px solid #d97706; }
 .flag-critical { border-left:3px solid #dc2626; }
 .sev { font-weight:700; font-size:0.66rem; letter-spacing:0.05em; margin-right:6px; }
+.howto { background:#ffffff; border:1px solid #e3e6eb; border-radius:6px; padding:10px 16px; margin:0 0 16px 0;
+         font-size:0.8rem; color:#334155; line-height:1.55; }
+.howto b { color:#0f172a; }
+.iv-note { font-size:0.74rem; color:#6b7280; margin:-6px 0 14px 0; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -77,6 +81,17 @@ else:
                 f'{response["horizon_year"]} год даёт <b>демо-модель</b> ({prov["model_version"]}): обучена только на '
                 f'годах до 2019, гиперпараметры не подбирались, <b>по критерию успеха не оценивалась</b>. '
                 f'Не использовать для решений.</div>', unsafe_allow_html=True)
+st.markdown("""
+<div class="howto"><b>Как читать страницу</b><br>
+<b>Прогноз</b> — оценка показателя на следующий год от модели (синяя точка на графике).<br>
+<b>Интервал</b> — диапазон, в который реальное значение должно попадать примерно в 80% случаев (синяя полоса).<br>
+<b>Baseline</b> — простые ориентиры для сравнения: «как в прошлом году» (naive) и «прошлый год плюс средний рост похожих вузов».<br>
+<b>SHAP</b> — какие признаки вуза подняли или опустили прогноз и насколько.<br>
+<b>Флаги</b> — предупреждения о качестве данных: COVID-годы, смена отчётности в 2018, слияния и смена UNITID, малые когорты, аномальные скачки.
+</div>""", unsafe_allow_html=True)
+IV_NOTE = ("Интервал синтетический (мок)." if prov["is_mock"] else
+           "Интервал одинаковой ширины для всех вузов, калиброван на 2018 году; это демо-оценка.")
+
 if contract_errors:
     st.error("Ответ не соответствует контракту: " + "; ".join(contract_errors[:3]))
 
@@ -111,6 +126,8 @@ for col, t in zip(cols, targets.values()):
           <div class="metric-delta" style="color:#475569; line-height:1.5;">{delta}</div>
         </div>""", unsafe_allow_html=True)
 
+st.markdown(f'<div class="iv-note" style="margin-top:8px;">{IV_NOTE}</div>', unsafe_allow_html=True)
+
 st.markdown('<div class="section-title">История и прогноз</div>', unsafe_allow_html=True)
 selected = st.radio("Показатель", list(targets), format_func=lambda k: targets[k]["label"], horizontal=True,
                     key="fin_target", label_visibility="collapsed")
@@ -131,6 +148,10 @@ with right:
     if rows:
         st.dataframe(pd.DataFrame([(n, fmt_value(v, block["unit"])) for n, v in rows], columns=["", "Значение"]),
                      hide_index=True, use_container_width=True)
+        if block["forecast"]:
+            iv = block["forecast"]["interval"]
+            st.caption(f"Интервал {int(iv['level'] * 100)}%: {fmt_value(iv['lower'], block['unit'])} – "
+                       f"{fmt_value(iv['upper'], block['unit'])}. {IV_NOTE}".replace("$", "\\$"))
     else:
         st.caption(block["ineligible_reason"])
     st.markdown("**Флаги качества данных**")
@@ -146,9 +167,14 @@ with right:
 st.markdown('<div class="section-title">Почему такой прогноз: вклад признаков (SHAP)</div>', unsafe_allow_html=True)
 if block["explanation"]:
     ex = block["explanation"]
-    st.caption(f"Метод: {ex['method']}. Модель прогнозирует изменение за год; столбцы показывают, как каждый признак "
-               f"сдвигает прогноз изменения от среднего по обучающей выборке. Итог: "
-               f"{change_text(ex['prediction'], ex['scale'])}")
+    units = ("процентных пунктах (п.п.)" if ex["scale"] == "percentage_points" else
+             "процентах роста за год (приближённо)")
+    st.caption(
+        "Как читать: модель прогнозирует, на сколько показатель изменится за год. Нижний синий столбик — "
+        "среднее изменение по всем вузам в обучающих данных; каждый следующий столбик — один признак этого вуза: "
+        "зелёный поднимает прогноз, красный опускает, длина — насколько. Верхний синий столбик — итоговый прогноз "
+        f"изменения ({change_text(ex['prediction'], ex['scale'])}). Значения на столбиках — в {units}. "
+        f"Метод: {ex['method']}.")
     st.plotly_chart(shap_waterfall(ex), use_container_width=True, config={"displayModeBar": False})
 else:
     st.info(f"Для этого показателя прогноз не строится: {block['ineligible_reason']}")
