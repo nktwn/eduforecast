@@ -28,8 +28,8 @@ HLOFFER_MIN = 7
 GR_ADJUSTED_COHORT = 8
 GR_BACHELOR_COMPLETERS_150 = 12
 EF_ALL_STUDENTS = 1
-SIS_ALL_FULLTIME_INSTRUCTIONAL = 1
-S_F_TOTAL_FULLTIME_IRPS = 22
+EAP_FULLTIME_INSTRUCTION_2010 = 2230
+EAP_INSTRUCTIONAL_TOTAL = 21000
 HR_RESTRUCTURE_YEAR = 2012
 FINANCE_FORM_BREAK_FY = 2016
 
@@ -49,5 +49,5 @@ def files_for_year(year: int) -> dict[str, str]:
         "f_gasb": finance_name(year, "F1A"),
         "f_fasb": finance_name(year, "F2"),
     }
-    files["staff"] = f"S{year}_IS" if year >= HR_RESTRUCTURE_YEAR else f"S{year}_F"
+    files["eap"] = f"EAP{year}"
     return files
