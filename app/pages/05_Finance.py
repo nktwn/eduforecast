@@ -9,7 +9,9 @@ import streamlit as st
 
 from components.finance_charts import change_text, fmt_value, history_chart, peer_bar, shap_waterfall
 from components.finance_data_loader import CONTRACT_VERSION, PROVIDERS, forecast, search
-from components.styles import GLASS_CSS
+from components.styles import GLASS_CSS, require_data
+from src.finance.api.demo_model import META_PATH
+from src.finance.config import PANEL_PATH
 
 st.set_page_config(page_title="Финансы вузов (бета) | EduForecast-SIS", page_icon="Ф", layout="wide",
                    initial_sidebar_state="expanded")
@@ -47,6 +49,10 @@ with st.sidebar:
         <div style="font-size:0.68rem; color:#7d8db0; font-weight:500; margin-top:2px;">Модуль Finance · бета</div>
     </div>""", unsafe_allow_html=True)
     provider = st.radio("Источник прогноза", list(PROVIDERS), format_func=PROVIDERS.get, key="fin_provider")
+if provider == "demo":
+    require_data([PANEL_PATH, META_PATH], "Подготовка данных → Finance (IPEDS)",
+                 "Без данных можно открыть мок-режим: переключатель «Мок (синтетика)» в боковой панели.")
+with st.sidebar:
     query = st.text_input("Поиск вуза", value=st.session_state.get("fin_query", "Ohio State"),
                           placeholder="Название, штат (OH) или UNITID", key="fin_query")
     hits = search(provider, query)
@@ -136,7 +142,7 @@ block = targets[selected]
 left, right = st.columns([2.2, 1])
 with left:
     label = "Прогноз (мок)" if prov["is_mock"] else "Прогноз (демо-модель)"
-    st.plotly_chart(history_chart(block, f"{block['label']}, {block['unit']}", label), use_container_width=True,
+    st.plotly_chart(history_chart(block, f"{block['label']}, {block['unit']}", label), width="stretch",
                     config={"displayModeBar": False})
 with right:
     st.markdown("**Прогноз и baseline**")
@@ -147,7 +153,7 @@ with right:
     rows += [(names[b["name"]], b["value"]) for b in block["baselines"]]
     if rows:
         st.dataframe(pd.DataFrame([(n, fmt_value(v, block["unit"])) for n, v in rows], columns=["", "Значение"]),
-                     hide_index=True, use_container_width=True)
+                     hide_index=True, width="stretch")
         if block["forecast"]:
             iv = block["forecast"]["interval"]
             st.caption(f"Интервал {int(iv['level'] * 100)}%: {fmt_value(iv['lower'], block['unit'])} – "
@@ -175,7 +181,7 @@ if block["explanation"]:
         "зелёный поднимает прогноз, красный опускает, длина — насколько. Верхний синий столбик — итоговый прогноз "
         f"изменения ({change_text(ex['prediction'], ex['scale'])}). Значения на столбиках — в {units}. "
         f"Метод: {ex['method']}.")
-    st.plotly_chart(shap_waterfall(ex), use_container_width=True, config={"displayModeBar": False})
+    st.plotly_chart(shap_waterfall(ex), width="stretch", config={"displayModeBar": False})
 else:
     st.info(f"Для этого показателя прогноз не строится: {block['ineligible_reason']}")
 
@@ -188,13 +194,13 @@ with c1:
     last = next((p for p in reversed(block["history"]) if p["value"] is not None), None)
     bars = [(inst["name"], last["value"] if last else None, True)] + [(p["name"], p["latest"].get(selected), False)
                                                                        for p in peers]
-    st.plotly_chart(peer_bar(bars, block["unit"], f"{block['label']}, последний год"), use_container_width=True,
+    st.plotly_chart(peer_bar(bars, block["unit"], f"{block['label']}, последний год"), width="stretch",
                     config={"displayModeBar": False})
 with c2:
     table = pd.DataFrame([{"Вуз": p["name"], "Штат": p["state"],
                            block["label"]: fmt_value(p["latest"].get(selected), block["unit"]),
                            "Дистанция": round(p["distance"], 2)} for p in peers])
-    st.dataframe(table, hide_index=True, use_container_width=True)
+    st.dataframe(table, hide_index=True, width="stretch")
 
 with st.expander(f"Ответ API (контракт {response['contract_version']})"):
     st.caption(f"Провайдер: {prov['name']} · модель {prov['model_version']} · обучена до {prov['trained_through_year']} · "

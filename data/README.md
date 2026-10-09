@@ -2,6 +2,16 @@
 
 ## How to Download
 
+Quickest (UCI Machine Learning Repository mirror, scriptable):
+
+```bash
+mkdir -p data/raw
+curl -L -o /tmp/oulad.zip "https://archive.ics.uci.edu/static/public/349/open+university+learning+analytics+dataset.zip"
+unzip -o -j /tmp/oulad.zip "*.csv" -d data/raw
+```
+
+Original source (manual download in a browser):
+
 1. Go to: <https://analyse.kmi.open.ac.uk/open_dataset>
 2. Click **Download the dataset** and save the ZIP file.
 3. Extract **all CSV files** into `data/raw/` in this project.

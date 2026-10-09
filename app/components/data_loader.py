@@ -154,7 +154,7 @@ def train_risk_model(module_code: str):
     feature_cols = [
         "total_clicks", "active_days", "assessments_submitted",
         "avg_score", "min_score", "num_of_prev_attempts",
-        "studied_credits", "unregistered", "edu_enc", "imd_enc", "age_enc",
+        "studied_credits", "edu_enc", "imd_enc", "age_enc",
     ]
     X_df = df[feature_cols].fillna(0)
     y = df["is_withdrawn"].values
@@ -193,14 +193,15 @@ def train_risk_model(module_code: str):
         "min_score": "Очень низкий минимальный балл",
         "num_of_prev_attempts": "Повторные попытки прохождения",
         "studied_credits": "Сниженная учебная нагрузка",
-        "unregistered": "Отменена регистрация",
         "edu_enc": "Уровень начального образования",
         "imd_enc": "Социально-экономический фактор",
         "age_enc": "Возрастная группа",
     }
 
     def top_reason(row_idx):
-        idx = int(np.argmax(np.abs(shap_vals[row_idx])))
+        idx = int(np.argmax(shap_vals[row_idx]))
+        if shap_vals[row_idx][idx] <= 0:
+            return "Нет выраженных факторов риска"
         return feature_labels.get(feature_cols[idx], feature_cols[idx])
 
     df["top_risk_reason"] = [top_reason(i) for i in range(len(df))]

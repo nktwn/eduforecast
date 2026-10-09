@@ -1,85 +1,133 @@
-# EduForecast
+# EduForecast-SIS
 
-**Unified AI Early Warning and Decision Support System for Higher Education**
+Система аналитики и прогнозов для вуза. Одно Streamlit-приложение, три модуля:
 
-EduForecast predicts student dropout risk from weekly VLE interaction data
-using the Open University Learning Analytics Dataset (OULAD).
-Three models are compared — Random Forest, LSTM, and Temporal Fusion
-Transformer — and predictions are explained with SHAP.
+- **Academic** — риск отчисления студентов. Демо на открытом наборе OULAD.
+- **Research** — научная продуктивность Astana IT University по данным OpenAlex.
+- **Finance (бета)** — финансы и результаты вузов США (IPEDS): расходы на студента, приём, выпускаемость, retention.
 
 ---
 
-## Installation
+## Установка и запуск
+
+Нужен Python 3.10+ (проверено на 3.12).
 
 ```bash
-git clone <your-repo-url>
+git clone <url-репозитория> eduforecast
 cd eduforecast
+python -m venv .venv
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
+streamlit run app/main.py
 ```
 
-For TFT support (optional, may require manual dependency resolution):
+Приложение откроется на <http://localhost:8501>.
+
+- **Research** работает сразу: копия данных лежит в репозитории.
+- **Academic и Finance** до подготовки данных показывают сообщение «Данные не найдены» со ссылкой на нужный раздел ниже. Finance без данных можно открыть в мок-режиме: переключатель «Мок (синтетика)» в боковой панели.
+
+---
+
+## Подготовка данных
+
+Все команды выполняются из корня проекта с активированным `.venv`. Данные в git не хранятся, кроме копии OpenAlex для Research.
+
+### Academic (OULAD)
+
+Открытый набор Open University Learning Analytics Dataset (Open University, UK) — 7 CSV-файлов, около 460 МБ после распаковки. Загрузка и распаковка занимают около минуты.
 
 ```bash
-pip install pytorch-forecasting>=1.0.0
-# If the above fails:
-pip install pytorch-forecasting --no-deps
-pip install lightning einops
+mkdir -p data/raw
+curl -L -o /tmp/oulad.zip "https://archive.ics.uci.edu/static/public/349/open+university+learning+analytics+dataset.zip"
+unzip -o -j /tmp/oulad.zip "*.csv" -d data/raw
+```
+
+Должны появиться `studentInfo.csv`, `studentVle.csv`, `studentAssessment.csv`, `assessments.csv`, `studentRegistration.csv`, `courses.csv`, `vle.csv`. Первоисточник набора — <https://analyse.kmi.open.ac.uk/open_dataset>; там файлы нужно скачать вручную через браузер. Подробности — в [data/README.md](data/README.md).
+
+При первом открытии страницы Academic модель риска обучается заново, это занимает 5–30 секунд в зависимости от факультета.
+
+### Finance (IPEDS)
+
+Данные NCES IPEDS 2010–2023 и индекс цен CPI-U (FRED) скачиваются автоматически:
+
+```bash
+python -m src.finance.download         # ~1.1 ГБ, 127 файлов, 8–15 минут (зависит от сети)
+python -m src.finance.panel            # панель вуз × год → data/finance/panel.parquet, ~1 минута
+python -m src.finance.api.demo_model   # демо-модели LightGBM → data/finance/models/, ~1 минута
+```
+
+Загрузка кэширует файлы на диск: при обрыве повторный запуск докачает только недостающее. Проверить, что прогноз собирается по контракту API:
+
+```bash
+python -m src.finance.api.cli "UCLA"
+```
+
+### Research (OpenAlex)
+
+Ничего делать не нужно: копия ответа OpenAlex лежит в `data/research/raw/yearly_work_counts_I4405257690.json`, и страница работает без сети.
+
+Полная панель по 14 вузам для исследовательских отчётов (`python -m src.research.panel`) тянет данные из OpenAlex и упирается в дневной лимит бесплатного API (1000 запросов). Для неё нужен `OPENALEX_MAILTO` в `.env`.
+
+### Файл `.env` (необязательно)
+
+```
+GROQ_API_KEY=...          # для страницы «ИИ-советник»; без ключа она покажет «ИИ-советник временно недоступен»
+OPENALEX_MAILTO=you@example.com   # только для пересборки данных Research
 ```
 
 ---
 
-## Quick Start
+## Как пользоваться
 
-1. **Download OULAD** — follow the instructions in [data/README.md](data/README.md).
-2. **Run notebooks in order:**
+Страницы в боковом меню:
 
-| Notebook | Purpose |
-|----------|---------|
-| `01_eda.ipynb` | Exploratory data analysis |
-| `02_features.ipynb` | Feature engineering |
-| `03_baseline.ipynb` | Logistic Regression & Random Forest |
-| `04_lstm.ipynb` | LSTM model |
-| `05_tft.ipynb` | Temporal Fusion Transformer |
-| `06_shap.ipynb` | SHAP explainability |
+- **Главная** — сводка по выбранному факультету: число студентов, доля высокого риска, средний балл, индекс здоровья, активность по неделям и итоги по статусам. Факультет выбирается в боковой панели; начните с него, остальные страницы Academic используют тот же выбор.
+- **Студенты** — топ-5 студентов с наибольшим риском отчисления и таблица всех студентов с риском и главной причиной. Таблицу можно отфильтровать по уровню риска и статусу, найти студента по ID и выгрузить в CSV.
+- **Аналитика** — сравнение факультетов (индекс здоровья, % отчислений, рейтинг), иллюстративные бенчмарки, удержание по неделям с линейной экстраполяцией, данные Всемирного банка по Казахстану и главные факторы риска по SHAP. Здесь удобно искать факультеты, которым нужно внимание.
+- **ИИ-советник** — чат с языковой моделью (Llama 3.3 70B через Groq), которая получает агрегированные показатели выбранного факультета. Нажмите быстрый вопрос или задайте свой; нужен `GROQ_API_KEY`.
+- **Научная продуктивность** — число публикаций Astana IT University по годам из OpenAlex и прогноз Prophet в двух вариантах (линейный и логистический рост) с бэктестом на последнем полном году. Неполный текущий год показан отдельной точкой.
+- **Финансы (бета)** — найдите вуз США по названию, штату, UNITID или аббревиатуре (UCLA, MIT, NYU…). Откроется карточка с историей 2010–2023 и прогнозом на 2024 год по четырём показателям, интервалом, baseline, вкладами признаков (SHAP), похожими вузами и флагами качества данных. Вверху страницы есть блок «Как читать страницу».
 
 ---
 
-## Project Structure
+## Что в бете демо или мок
+
+- **Academic — демо-данные.** Это открытый набор OULAD (Open University, UK), а названия «факультетов» условные. Модель риска обучается на признаках за весь курс, поэтому для раннего предупреждения её оценки завышены; подробно в [ACADEMIC_AUDIT.md](ACADEMIC_AUDIT.md).
+- **Аналитика.** Бенчмарки («Мировой топ-100», «Цель AIU» и др.) заданы вручную для иллюстрации. «Удержание студентов» — линейная экстраполяция, а не модель. Если API Всемирного банка недоступен, показываются справочные значения с пометкой.
+- **Научная продуктивность** — proof-of-concept на 6 годовых точках. Потолок логистической модели — экспертная оценка.
+- **Финансы.**
+  - Прогнозы делает **демо-модель**: обучена на годах до 2019 и по критерию успеха не оценивалась.
+  - Интервал одной ширины для всех вузов.
+  - Режим «Мок» полностью синтетический.
+  - HTTP API нет: контракт `finance-forecast/0.1.0` описан, но страница вызывает провайдер напрямую.
+
+  Полный список — [FINANCE_BETA.md](FINANCE_BETA.md), §4.
+
+---
+
+## Отчёты и исследования
+
+| файл | содержание |
+|---|---|
+| [ACADEMIC_AUDIT.md](ACADEMIC_AUDIT.md) | аудит модуля Academic: утечки, оценка на неделе k, LSTM / TFT |
+| [DATA_AUDIT.md](DATA_AUDIT.md), [STAGE2_REPORT.md](STAGE2_REPORT.md) | Research: панель OpenAlex по 14 вузам, модели роста против naive |
+| [FINANCE_DATA_AUDIT.md](FINANCE_DATA_AUDIT.md) | Finance: данные IPEDS, гармонизация GASB / FASB, разрывы, baseline |
+| [FINANCE_BETA.md](FINANCE_BETA.md) | Finance: контракт API, провайдеры, экраны, что в бете мок |
+
+Ноутбуки `notebooks/01–06` воспроизводят исследование Academic (EDA, признаки, LR / RF, LSTM, TFT-inspired, SHAP); запускаются по порядку после подготовки OULAD.
+
+## Структура
 
 ```
-eduforecast/
-├── data/
-│   ├── raw/          ← OULAD CSV files (not tracked in git)
-│   └── processed/    ← engineered features (not tracked in git)
-├── notebooks/        ← analysis notebooks (run in order 01→06)
-├── src/
-│   ├── config.py     ← paths and hyperparameters
-│   ├── data_loader.py
-│   ├── features.py
-│   ├── models.py
-│   ├── evaluate.py
-│   └── visualize.py
-└── results/
-    ├── figures/
-    ├── metrics/
-    └── final_report.md
+app/            Streamlit: main.py (меню), home.py, pages/, components/
+src/            расчёты: research/, finance/ (в т.ч. finance/api — контракт, провайдеры, демо-модель)
+data/           данные (кроме копии OpenAlex — не в git)
+notebooks/      исследование Academic
+docs/           скриншоты и графики к отчётам
+tests/          проверка совпадения baseline (python -m tests.test_finance_group_baseline)
 ```
 
----
+## Набор данных OULAD
 
-## Models
-
-| Model | Library | Purpose |
-|-------|---------|---------|
-| Random Forest | scikit-learn | Tabular baseline |
-| LSTM | PyTorch | Sequential / temporal |
-| TFT | pytorch-forecasting | Multi-horizon temporal with attention |
-
----
-
-## Dataset
-
-> Kuzilek, J., Hlosta, M., & Zdrahal, Z. (2017).
-> *Open University Learning Analytics dataset.*
-> Scientific Data, 4, 170171.
-> <https://doi.org/10.1038/sdata.2017.171>
+> Kuzilek, J., Hlosta, M., & Zdrahal, Z. (2017). *Open University Learning Analytics dataset.*
+> Scientific Data, 4, 170171. <https://doi.org/10.1038/sdata.2017.171>

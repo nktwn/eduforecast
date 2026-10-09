@@ -4,8 +4,8 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import io
 import streamlit as st
-from components.data_loader import FACULTY_MAP, train_risk_model, RISK_COLORS, RISK_LABELS_RU, RESULT_RU
-from components.styles import GLASS_CSS, sidebar_logo
+from components.data_loader import DATA_DIR as OULAD_DIR, FACULTY_MAP, train_risk_model, RISK_COLORS, RISK_LABELS_RU, RESULT_RU
+from components.styles import GLASS_CSS, demo_data_banner, require_data, sidebar_logo
 
 st.set_page_config(
     page_title="Студенты | EduForecast-SIS",
@@ -14,6 +14,8 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 st.markdown(GLASS_CSS, unsafe_allow_html=True)
+require_data([OULAD_DIR / f for f in ("studentInfo.csv", "studentVle.csv", "studentAssessment.csv", "assessments.csv", "studentRegistration.csv")], "Подготовка данных → Academic (OULAD)")
+demo_data_banner()
 st.markdown("""
 <style>
 .top-student-card {
@@ -151,7 +153,7 @@ st.dataframe(
         .map(style_risk,  subset=["Риск"])
         .map(style_score, subset=["Балл"])
         .format({"Скор (%)": "{:.1f}%", "Балл": "{:.1f}"}),
-    use_container_width=True,
+    width="stretch",
     height=460,
 )
 

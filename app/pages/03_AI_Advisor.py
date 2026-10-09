@@ -8,9 +8,10 @@ import requests
 import streamlit as st
 from dotenv import load_dotenv
 from components.data_loader import (
+    DATA_DIR as OULAD_DIR,
     FACULTY_MAP, train_risk_model, compute_health_index, get_faculty_data,
 )
-from components.styles import GLASS_CSS, sidebar_logo
+from components.styles import GLASS_CSS, demo_data_banner, require_data, sidebar_logo
 
 load_dotenv(Path(__file__).parent.parent.parent / ".env")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
@@ -24,6 +25,8 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 st.markdown(GLASS_CSS, unsafe_allow_html=True)
+require_data([OULAD_DIR / f for f in ("studentInfo.csv", "studentVle.csv", "studentAssessment.csv", "assessments.csv", "studentRegistration.csv")], "Подготовка данных → Academic (OULAD)")
+demo_data_banner()
 st.markdown("""
 <style>
 .chat-user {
@@ -147,9 +150,12 @@ SYSTEM_PROMPT = f"""Ты — AI советник декана {faculty_name} в 
 5. Фокусируйся на действиях которые декан может предпринять сейчас
 6. При вопросах об отдельных студентах — уточни что работаешь с агрегированными данными"""
 
+UNAVAILABLE = "ИИ-советник временно недоступен"
+
+
 def call_groq(messages: list) -> str:
     if not GROQ_API_KEY:
-        return "GROQ_API_KEY не задан. Добавьте ключ в файл .env"
+        return f"{UNAVAILABLE}: не задан GROQ_API_KEY в .env."
     try:
         r = requests.post(
             GROQ_URL,
@@ -159,15 +165,16 @@ def call_groq(messages: list) -> str:
                      "Content-Type": "application/json"},
             timeout=30,
         )
-        r.raise_for_status()
-        return r.json()["choices"][0]["message"]["content"]
     except requests.exceptions.Timeout:
-        return "Превышено время ожидания. Попробуйте снова."
-    except requests.exceptions.HTTPError:
-        code = r.status_code if r else "?"
-        return f"Ошибка API ({code}). Проверьте GROQ_API_KEY в .env"
-    except Exception as e:
-        return f"Ошибка: {e}"
+        return f"{UNAVAILABLE}: сервис не ответил вовремя. Попробуйте позже."
+    except requests.exceptions.RequestException:
+        return f"{UNAVAILABLE}: нет соединения с сервисом."
+    if r.status_code != 200:
+        return f"{UNAVAILABLE} (код ответа API: {r.status_code})."
+    try:
+        return r.json()["choices"][0]["message"]["content"]
+    except (ValueError, KeyError, IndexError):
+        return f"{UNAVAILABLE}: неожиданный ответ сервиса."
 
 SUGGESTIONS = [
     "Какова главная проблема факультета?",
@@ -182,41 +189,40 @@ sug_cols = st.columns(len(SUGGESTIONS))
 clicked_sug = None
 for i, (c, sug) in enumerate(zip(sug_cols, SUGGESTIONS)):
     with c:
-        if st.button(sug, key=f"s{i}", use_container_width=True):
+        if st.button(sug, key=f"s{i}", width="stretch"):
             clicked_sug = sug
 
 ck = f"chat_{selected_code}"
 if ck not in st.session_state:
     st.session_state[ck] = []
 
-st.markdown('<div class="glass-card" style="min-height:360px; max-height:520px; overflow-y:auto;">', unsafe_allow_html=True)
+with st.container(border=True, height=460):
 
-if not st.session_state[ck]:
-    st.markdown(
-        '<div class="empty-chat">'
-        ''
-        '  <div style="font-weight:600; font-size:0.95rem;">Задайте вопрос декана</div>'
-        '  <div style="font-size:0.82rem; margin-top:4px;">Советник ответит на основе реальных данных факультета</div>'
-        '</div>',
-        unsafe_allow_html=True,
-    )
-else:
-    for msg in st.session_state[ck]:
-        if msg["role"] == "user":
-            st.markdown(
-                f'<div class="chat-label" style="text-align:right; color:#2563eb; margin-right:15%;">Вы</div>'
-                f'<div class="chat-user">{msg["content"]}</div>',
-                unsafe_allow_html=True,
-            )
-        else:
-            body = msg["content"].replace("\n\n", "<br><br>").replace("\n", "<br>")
-            st.markdown(
-                f'<div class="chat-label" style="color:#2563eb;">ИИ советник</div>'
-                f'<div class="chat-ai">{body}</div>',
-                unsafe_allow_html=True,
-            )
+    if not st.session_state[ck]:
+        st.markdown(
+            '<div class="empty-chat">'
+            ''
+            '  <div style="font-weight:600; font-size:0.95rem;">Задайте вопрос декана</div>'
+            '  <div style="font-size:0.82rem; margin-top:4px;">Советник ответит на основе реальных данных факультета</div>'
+            '</div>',
+            unsafe_allow_html=True,
+        )
+    else:
+        for msg in st.session_state[ck]:
+            if msg["role"] == "user":
+                st.markdown(
+                    f'<div class="chat-label" style="text-align:right; color:#2563eb; margin-right:15%;">Вы</div>'
+                    f'<div class="chat-user">{msg["content"]}</div>',
+                    unsafe_allow_html=True,
+                )
+            else:
+                body = msg["content"].replace("\n\n", "<br><br>").replace("\n", "<br>")
+                st.markdown(
+                    f'<div class="chat-label" style="color:#2563eb;">ИИ советник</div>'
+                    f'<div class="chat-ai">{body}</div>',
+                    unsafe_allow_html=True,
+                )
 
-st.markdown("</div>", unsafe_allow_html=True)
 
 inp_c, btn_c = st.columns([5, 1])
 with inp_c:
@@ -228,7 +234,7 @@ with inp_c:
         key="ai_input",
     )
 with btn_c:
-    send = st.button("Отправить", type="primary", use_container_width=True)
+    send = st.button("Отправить", type="primary", width="stretch")
 
 question = (user_input or clicked_sug or "").strip()
 if (send or clicked_sug) and question:
@@ -244,7 +250,7 @@ if (send or clicked_sug) and question:
 cl1, cl2 = st.columns([1, 3])
 with cl1:
     if st.session_state[ck]:
-        if st.button("Очистить историю", use_container_width=True):
+        if st.button("Очистить историю", width="stretch"):
             st.session_state[ck] = []
             st.rerun()
 

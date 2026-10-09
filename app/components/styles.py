@@ -243,3 +243,40 @@ def sidebar_logo(selected_code, faculty_map):
         """, unsafe_allow_html=True)
 
     return code
+
+
+DEMO_DATA_NOTE = ("Демо-данные: открытый набор OULAD (Open University, UK), названия факультетов условные.")
+
+
+def demo_data_banner():
+    import streamlit as st
+    st.markdown(
+        '<div style="background:#eff6ff; border:1px solid #bfdbfe; border-left:4px solid #2563eb; border-radius:6px;'
+        ' padding:8px 14px; font-size:0.82rem; color:#1e3a8a; margin:0 0 16px 0;">'
+        f'{DEMO_DATA_NOTE}</div>',
+        unsafe_allow_html=True,
+    )
+
+
+def sidebar_brand(subtitle: str, footer_html: str):
+    import streamlit as st
+    with st.sidebar:
+        st.markdown(f"""
+        <div style="padding:18px 0 16px 0; border-bottom:1px solid #1c2c4d; margin-bottom:14px;">
+            <div style="font-size:1.05rem; font-weight:700; color:#f1f5f9;">EduForecast-SIS</div>
+            <div style="font-size:0.68rem; color:#7d8db0; font-weight:500; margin-top:2px;">{subtitle}</div>
+        </div>
+        <div style="margin-top:8px; font-size:0.68rem; color:#5b6b8c; line-height:1.9;">{footer_html}</div>
+        """, unsafe_allow_html=True)
+
+
+def require_data(paths, readme_section: str, hint: str = ""):
+    import streamlit as st
+    missing = [p for p in paths if not p.exists()]
+    if not missing:
+        return
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[2]
+    names = ", ".join(f"`{p.resolve().relative_to(root) if p.resolve().is_relative_to(root) else p}`" for p in missing[:4])
+    st.error(f"**Данные не найдены:** {names}. См. README, раздел «{readme_section}». {hint}")
+    st.stop()
