@@ -29,14 +29,15 @@ RESULT_RU      = {
 
 @st.cache_data(show_spinner="Загрузка данных OULAD...")
 def load_raw_data():
-    info = pd.read_csv(DATA_DIR / "studentInfo.csv")
+    na = {"na_values": ["?"]}
+    info = pd.read_csv(DATA_DIR / "studentInfo.csv", **na)
     vle = pd.read_csv(
         DATA_DIR / "studentVle.csv",
         dtype={"id_student": "int32", "sum_click": "int32", "date": "int32"},
     )
-    assessments_raw = pd.read_csv(DATA_DIR / "studentAssessment.csv")
-    assessments = pd.read_csv(DATA_DIR / "assessments.csv")
-    registration = pd.read_csv(DATA_DIR / "studentRegistration.csv")
+    assessments_raw = pd.read_csv(DATA_DIR / "studentAssessment.csv", **na)
+    assessments = pd.read_csv(DATA_DIR / "assessments.csv", **na)
+    registration = pd.read_csv(DATA_DIR / "studentRegistration.csv", **na)
     return info, vle, assessments_raw, assessments, registration
 
 @st.cache_data(show_spinner=False)
