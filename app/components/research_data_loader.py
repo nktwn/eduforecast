@@ -7,7 +7,7 @@ if str(PROJECT_ROOT) not in sys.path:
 
 import streamlit as st
 
-from src.research.aggregate import build_yearly_counts, filter_training_window
+from src.research.aggregate import build_yearly_counts, filter_training_window, partial_years
 from src.research.config import OPENALEX_INSTITUTION_NAME, TRAINING_YEAR_MAX, TRAINING_YEAR_MIN
 from src.research.forecast import ForecastComparison, run_forecast_comparison
 
@@ -21,8 +21,8 @@ def load_yearly_counts():
 
 @st.cache_data(show_spinner="Построение прогноза (Prophet)...")
 def get_forecast_comparison() -> ForecastComparison:
-    _, training = load_yearly_counts()
-    return run_forecast_comparison(training)
+    full, training = load_yearly_counts()
+    return run_forecast_comparison(training, partial=partial_years(full))
 
 
 INSTITUTION_NAME = OPENALEX_INSTITUTION_NAME

@@ -11,6 +11,7 @@ def forecast_comparison_chart(
     linear_forecast: pd.DataFrame,
     logistic_forecast: pd.DataFrame,
     logistic_cap: float,
+    partial: pd.DataFrame | None = None,
 ) -> go.Figure:
     fig = go.Figure()
 
@@ -21,6 +22,14 @@ def forecast_comparison_chart(
         marker=dict(size=7, color=C_DARK),
         hovertemplate="%{x}: %{y:.0f} публикаций<extra></extra>",
     ))
+
+    if partial is not None and not partial.empty:
+        fig.add_trace(go.Scatter(
+            x=partial["year"], y=partial["works_count"],
+            mode="markers", name="Неполный год (не в обучении)",
+            marker=dict(size=9, color="white", line=dict(color=C_DARK, width=2)),
+            hovertemplate="%{x}: %{y:.0f} публикаций на текущую дату (неполный год)<extra></extra>",
+        ))
 
     last_hist_year = int(history["year"].max())
 

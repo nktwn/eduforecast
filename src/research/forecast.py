@@ -55,16 +55,25 @@ class BacktestResult:
     actual: float
     predictions: dict = field(default_factory=dict)
     note: str = (
-        "Leave-last-year-out sanity check on a single held-out point. "
-        "NOT k-fold or time-series cross-validation: with only 6-7 yearly "
-        "observations there isn't enough data for a statistically meaningful CV."
+        "Leave-last-year-out sanity check on a single held-out point: train on "
+        "complete years up to the year before, predict the last complete year. "
+        "The partial current year is never used. NOT k-fold or time-series "
+        "cross-validation: with only 6 complete yearly observations there isn't "
+        "enough data for a statistically meaningful CV."
     )
+
+
+def _assert_complete_years(df_yearly: pd.DataFrame) -> None:
+    if "is_partial" in df_yearly and df_yearly["is_partial"].any():
+        partial = df_yearly.loc[df_yearly["is_partial"], "year"].tolist()
+        raise ValueError(f"Partial years {partial} must not be used for training or evaluation")
 
 
 def backtest_leave_last_year_out(
     df_yearly: pd.DataFrame,
     cap_multiplier: float = LOGISTIC_CAP_MULTIPLIER,
 ) -> BacktestResult:
+    _assert_complete_years(df_yearly)
     last_year = int(df_yearly["year"].max())
     train_df = df_yearly[df_yearly["year"] < last_year].reset_index(drop=True)
     actual = float(df_yearly.loc[df_yearly["year"] == last_year, "works_count"].iloc[0])
@@ -102,12 +111,15 @@ class ForecastComparison:
     logistic_forecast: pd.DataFrame
     logistic_cap: float
     backtest: BacktestResult
+    partial: pd.DataFrame
 
 
 def run_forecast_comparison(
     df_yearly: pd.DataFrame,
     years_ahead: int = FORECAST_YEARS_AHEAD,
+    partial: pd.DataFrame | None = None,
 ) -> ForecastComparison:
+    _assert_complete_years(df_yearly)
     df_prophet = to_prophet_frame(df_yearly)
     cap = compute_logistic_cap(df_yearly)
 
@@ -125,4 +137,5 @@ def run_forecast_comparison(
         logistic_forecast=logistic_fcst,
         logistic_cap=cap,
         backtest=backtest,
+        partial=partial if partial is not None else df_yearly.iloc[0:0],
     )

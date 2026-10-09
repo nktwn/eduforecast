@@ -18,6 +18,7 @@ OPENALEX_INSTITUTION_NAME: str = "Astana IT University"
 OPENALEX_API_BASE: str = "https://api.openalex.org"
 
 TRAINING_YEAR_MIN: int = 2020
-TRAINING_YEAR_MAX: int = 2026
+TRAINING_YEAR_MAX: int = 2025
+PARTIAL_YEAR: int = 2026
 
 LOGISTIC_CAP_MULTIPLIER: float = 2.0

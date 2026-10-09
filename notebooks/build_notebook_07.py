@@ -17,8 +17,9 @@ cells.append(nbf.v4.new_markdown_cell(
     "public OpenAlex API, comparing Prophet `growth='linear'` vs "
     "`growth='logistic'`.\n\n"
     "**Scope limitation (read before trusting any number below):** this "
-    "fits on **6-7 yearly data points** (2020-2026; 2019 excluded, see cell "
-    "below). That is far too little data for a high-precision forecast — "
+    "fits on **6 complete yearly data points** (2020-2025; 2019 excluded, see "
+    "cell below; 2026 is a partial year and is kept separately, never used for "
+    "training or evaluation). That is far too little data for a high-precision forecast — "
     "confidence intervals are wide by construction, and the only validation "
     "performed is a single leave-last-year-out sanity check, not "
     "cross-validation. Treat this as a proof-of-concept for the modelling "
@@ -37,14 +38,15 @@ cells.append(nbf.v4.new_code_cell(
     "PROJECT_ROOT = Path.cwd().parent\n"
     "if str(PROJECT_ROOT) not in sys.path:\n"
     "    sys.path.insert(0, str(PROJECT_ROOT))\n\n"
-    "from src.research.aggregate import build_yearly_counts, filter_training_window, to_prophet_frame\n"
+    "from src.research.aggregate import build_yearly_counts, filter_training_window, partial_years, to_prophet_frame\n"
     "from src.research.config import (\n"
     "    FIGURES_DIR, METRICS_DIR, OPENALEX_INSTITUTION_NAME,\n"
-    "    TRAINING_YEAR_MIN, TRAINING_YEAR_MAX, LOGISTIC_CAP_MULTIPLIER,\n"
+    "    TRAINING_YEAR_MIN, TRAINING_YEAR_MAX, PARTIAL_YEAR, LOGISTIC_CAP_MULTIPLIER,\n"
     ")\n"
     "from src.research.forecast import run_forecast_comparison\n\n"
     "print(f'Institution: {OPENALEX_INSTITUTION_NAME}')\n"
-    "print(f'Training window: {TRAINING_YEAR_MIN}-{TRAINING_YEAR_MAX}')"
+    "print(f'Training window: {TRAINING_YEAR_MIN}-{TRAINING_YEAR_MAX} (complete years only)')\n"
+    "print(f'Partial year (excluded from training and evaluation): {PARTIAL_YEAR}')"
 ))
 
 cells.append(nbf.v4.new_markdown_cell("## 1. Collect & Aggregate (OpenAlex)"))
@@ -59,21 +61,26 @@ cells.append(nbf.v4.new_code_cell(
     "# institution's pre-registration/startup period, not an actual annual\n"
     "# publication rate. Including it would distort both the trend fit and\n"
     "# the logistic cap computed below.\n"
+    "# The current year is incomplete (data as of the snapshot date), so it is\n"
+    "# kept separately and never used for training or evaluation.\n"
     "training = filter_training_window(full_counts)\n"
+    "partial = partial_years(full_counts)\n"
+    "print('Partial (not used):')\n"
+    "print(partial.to_string(index=False))\n"
     "training"
 ))
 
 cells.append(nbf.v4.new_markdown_cell(
     "## 2. Forecast: linear vs logistic growth\n\n"
     f"The logistic variant needs a saturating `cap`. There is no way to "
-    f"derive this from 7 points, so it is set explicitly as an **expert "
+    f"derive this from 6 points, so it is set explicitly as an **expert "
     f"guess** (current peak × {LOGISTIC_CAP_MULTIPLIER:g}, see "
     "`src/research/config.py::LOGISTIC_CAP_MULTIPLIER`), not a value fit "
     "from the data."
 ))
 
 cells.append(nbf.v4.new_code_cell(
-    "comparison = run_forecast_comparison(training)\n"
+    "comparison = run_forecast_comparison(training, partial=partial)\n"
     "print(f'Logistic cap (expert guess): {comparison.logistic_cap:.0f}')\n"
     "comparison.linear_forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail(4)"
 ))
@@ -84,7 +91,9 @@ cells.append(nbf.v4.new_code_cell(
 
 cells.append(nbf.v4.new_code_cell(
     "fig, ax = plt.subplots(figsize=(9, 5))\n"
-    "ax.plot(training['year'], training['works_count'], 'o-', color='#0f172a', label='Факт')\n\n"
+    "ax.plot(training['year'], training['works_count'], 'o-', color='#0f172a', label='Факт')\n"
+    "ax.plot(partial['year'], partial['works_count'], 'o', color='#0f172a', markerfacecolor='white',\n"
+    "        markersize=8, label='Неполный год (не в обучении)')\n\n"
     "last_year = training['year'].max()\n"
     "for fcst, label, color in (\n"
     "    (comparison.linear_forecast, 'Прогноз (linear)', '#2563eb'),\n"
@@ -106,8 +115,9 @@ cells.append(nbf.v4.new_code_cell(
 
 cells.append(nbf.v4.new_markdown_cell(
     "## 3. Backtest (sanity check, NOT cross-validation)\n\n"
-    "Train on 2020-2025, predict 2026, compare against the actual observed "
-    "count (753). With only 6-7 yearly points there is not enough data for "
+    "Train on 2020-2024, predict 2025, compare against the actual observed "
+    "2025 count. The partial year 2026 is not used. With only 6 complete "
+    "yearly points there is not enough data for "
     "a statistically meaningful k-fold or time-series cross-validation — "
     "this is a single held-out-year sanity check, named as such on purpose."
 ))
@@ -140,8 +150,9 @@ cells.append(nbf.v4.new_markdown_cell(
     "University), aggregated at the whole-institution level (no "
     "per-department breakdown — OpenAlex doesn't expose clean sub-institution "
     "IDs; see PROJECT_STATUS.md §4.4).\n"
-    "- Training window: 2020-2026 (7 points), 2019 dropped as a non-representative "
-    "startup-period outlier.\n"
+    "- Training window: 2020-2025 (6 complete years), 2019 dropped as a "
+    "non-representative startup-period outlier. 2026 is partial and is kept "
+    "separately, never used for training or evaluation.\n"
     "- Two Prophet variants compared: `linear` (no ceiling) and `logistic` "
     "(ceiling = expert-guessed cap, not data-derived).\n"
     "- Validation: one leave-last-year-out sanity check, explicitly not a "

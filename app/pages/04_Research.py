@@ -27,18 +27,26 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+with st.spinner("Загрузка данных и построение прогноза..."):
+    comparison = get_forecast_comparison()
+
+partial_note = ""
+if not comparison.partial.empty:
+    partial_list = ", ".join(str(y) for y in comparison.partial["year"])
+    partial_note = (
+        f" Год {partial_list} неполный (данные на текущую дату): показан на графике "
+        "отдельной точкой и не используется ни в обучении, ни в оценке."
+    )
+
 st.warning(
     "**Proof-of-concept, не высокоточный прогноз.** Модель обучена всего на "
-    f"{TRAINING_WINDOW[1] - TRAINING_WINDOW[0] + 1} годовых точках "
+    f"{TRAINING_WINDOW[1] - TRAINING_WINDOW[0] + 1} полных годовых точках "
     f"({TRAINING_WINDOW[0]}–{TRAINING_WINDOW[1]}; 2019 исключён — всего 1 публикация, "
     "дорегистрационный период вуза). При таком малом N доверительные интервалы "
     "прогноза широкие, а бэктест ниже — это проверка на одном отложенном годе, "
-    "**не** кросс-валидация.",
+    f"**не** кросс-валидация.{partial_note}",
     icon="⚠️",
 )
-
-with st.spinner("Загрузка данных и построение прогноза..."):
-    comparison = get_forecast_comparison()
 
 st.markdown('<div class="section-title">Факт и прогноз (linear vs logistic)</div>', unsafe_allow_html=True)
 
@@ -49,6 +57,7 @@ st.plotly_chart(
         comparison.linear_forecast,
         comparison.logistic_forecast,
         comparison.logistic_cap,
+        comparison.partial,
     ),
     use_container_width=True, config={"displayModeBar": False},
 )
