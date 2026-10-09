@@ -1,10 +1,16 @@
 import numpy as np
 import pandas as pd
+import pytest
+
+from src.finance.api.demo_model import META_PATH
 
 from src.finance.api.providers import DemoProvider
 from src.finance.baseline import latest_group_changes, predictions
 from src.finance.config import PANEL_PATH, YEAR_MAX
 from src.finance.criterion import TARGETS
+
+pytestmark = pytest.mark.skipif(not (PANEL_PATH.exists() and META_PATH.exists()),
+                                reason="needs local Finance panel and demo models (see README)")
 
 
 def test_predictions_use_shared_group_changes():
