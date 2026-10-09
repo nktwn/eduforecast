@@ -24,6 +24,7 @@ ENV/
 data/raw/
 data/processed/
 data/research/
+data/finance/
 results/
 
 # Environment
