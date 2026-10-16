@@ -46,3 +46,7 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Advisor query log and Streamlit secrets
+logs/
+.streamlit/secrets.toml

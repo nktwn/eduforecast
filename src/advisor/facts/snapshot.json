@@ -1,5 +1,5 @@
 {
- "built_at": "2026-10-16T10:44:53+00:00",
+ "built_at": "2026-10-16T10:58:09+00:00",
  "n_facts": 398,
  "facts": [
   {
@@ -12,7 +12,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|ALL",
    "attention": false,
    "tags": [
@@ -29,7 +29,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|ALL",
    "attention": false,
    "tags": [
@@ -46,7 +46,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|ALL",
    "attention": false,
    "tags": [
@@ -63,7 +63,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|ALL",
    "attention": false,
    "tags": [
@@ -80,7 +80,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|ALL",
    "attention": false,
    "tags": [
@@ -97,7 +97,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|ALL",
    "attention": false,
    "tags": [
@@ -114,7 +114,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. ",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|ALL",
    "attention": false,
    "tags": [
@@ -131,7 +131,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. Это проверка модели на прошлых данных, не прогноз по людям.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|ALL",
    "attention": false,
    "tags": [
@@ -148,7 +148,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|AAA",
    "attention": false,
    "tags": [
@@ -165,7 +165,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|AAA",
    "attention": false,
    "tags": [
@@ -182,7 +182,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|AAA",
    "attention": false,
    "tags": [
@@ -199,7 +199,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|AAA",
    "attention": false,
    "tags": [
@@ -216,7 +216,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|AAA",
    "attention": false,
    "tags": [
@@ -233,7 +233,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|AAA",
    "attention": false,
    "tags": [
@@ -250,7 +250,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. ",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|AAA",
    "attention": false,
    "tags": [
@@ -267,7 +267,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. Это проверка модели на прошлых данных, не прогноз по людям.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|AAA",
    "attention": false,
    "tags": [
@@ -284,7 +284,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|BBB",
    "attention": false,
    "tags": [
@@ -301,7 +301,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|BBB",
    "attention": false,
    "tags": [
@@ -318,7 +318,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|BBB",
    "attention": false,
    "tags": [
@@ -335,7 +335,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|BBB",
    "attention": false,
    "tags": [
@@ -352,7 +352,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|BBB",
    "attention": false,
    "tags": [
@@ -369,7 +369,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|BBB",
    "attention": false,
    "tags": [
@@ -386,7 +386,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. ",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|BBB",
    "attention": false,
    "tags": [
@@ -403,7 +403,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. Это проверка модели на прошлых данных, не прогноз по людям.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|BBB",
    "attention": false,
    "tags": [
@@ -420,7 +420,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|CCC",
    "attention": false,
    "tags": [
@@ -437,7 +437,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|CCC",
    "attention": false,
    "tags": [
@@ -454,7 +454,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|CCC",
    "attention": false,
    "tags": [
@@ -471,7 +471,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|CCC",
    "attention": false,
    "tags": [
@@ -488,7 +488,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|CCC",
    "attention": false,
    "tags": [
@@ -505,7 +505,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|CCC",
    "attention": false,
    "tags": [
@@ -522,7 +522,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. ",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|CCC",
    "attention": false,
    "tags": [
@@ -539,7 +539,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. Это проверка модели на прошлых данных, не прогноз по людям.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|CCC",
    "attention": false,
    "tags": [
@@ -556,7 +556,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|DDD",
    "attention": false,
    "tags": [
@@ -573,7 +573,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|DDD",
    "attention": false,
    "tags": [
@@ -590,7 +590,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|DDD",
    "attention": false,
    "tags": [
@@ -607,7 +607,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|DDD",
    "attention": false,
    "tags": [
@@ -624,7 +624,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|DDD",
    "attention": false,
    "tags": [
@@ -641,7 +641,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|DDD",
    "attention": false,
    "tags": [
@@ -658,7 +658,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. ",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|DDD",
    "attention": false,
    "tags": [
@@ -675,7 +675,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. Это проверка модели на прошлых данных, не прогноз по людям.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|DDD",
    "attention": false,
    "tags": [
@@ -692,7 +692,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|EEE",
    "attention": false,
    "tags": [
@@ -709,7 +709,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|EEE",
    "attention": false,
    "tags": [
@@ -726,7 +726,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|EEE",
    "attention": false,
    "tags": [
@@ -743,7 +743,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|EEE",
    "attention": false,
    "tags": [
@@ -760,7 +760,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|EEE",
    "attention": false,
    "tags": [
@@ -777,7 +777,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|EEE",
    "attention": false,
    "tags": [
@@ -794,7 +794,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. ",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|EEE",
    "attention": false,
    "tags": [
@@ -811,7 +811,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. Это проверка модели на прошлых данных, не прогноз по людям.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|EEE",
    "attention": false,
    "tags": [
@@ -828,7 +828,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|FFF",
    "attention": false,
    "tags": [
@@ -845,7 +845,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|FFF",
    "attention": false,
    "tags": [
@@ -862,7 +862,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|FFF",
    "attention": false,
    "tags": [
@@ -879,7 +879,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|FFF",
    "attention": false,
    "tags": [
@@ -896,7 +896,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|FFF",
    "attention": false,
    "tags": [
@@ -913,7 +913,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|FFF",
    "attention": false,
    "tags": [
@@ -930,7 +930,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. ",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|FFF",
    "attention": false,
    "tags": [
@@ -947,7 +947,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. Это проверка модели на прошлых данных, не прогноз по людям.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|FFF",
    "attention": false,
    "tags": [
@@ -964,7 +964,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|GGG",
    "attention": false,
    "tags": [
@@ -981,7 +981,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|GGG",
    "attention": false,
    "tags": [
@@ -998,7 +998,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|GGG",
    "attention": false,
    "tags": [
@@ -1015,7 +1015,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|GGG",
    "attention": false,
    "tags": [
@@ -1032,7 +1032,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|GGG",
    "attention": false,
    "tags": [
@@ -1049,7 +1049,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|GGG",
    "attention": false,
    "tags": [
@@ -1066,7 +1066,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. ",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|GGG",
    "attention": false,
    "tags": [
@@ -1083,7 +1083,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. Это проверка модели на прошлых данных, не прогноз по людям.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|GGG",
    "attention": false,
    "tags": [
@@ -1100,7 +1100,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|ALL",
    "attention": false,
    "tags": [
@@ -1117,7 +1117,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|ALL",
    "attention": false,
    "tags": [
@@ -1134,7 +1134,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|ALL",
    "attention": false,
    "tags": [
@@ -1151,7 +1151,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|ALL",
    "attention": false,
    "tags": [
@@ -1168,7 +1168,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|ALL",
    "attention": false,
    "tags": [
@@ -1185,7 +1185,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|ALL",
    "attention": false,
    "tags": [
@@ -1202,7 +1202,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. ",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|ALL",
    "attention": false,
    "tags": [
@@ -1219,7 +1219,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. Это проверка модели на прошлых данных, не прогноз по людям.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|ALL",
    "attention": false,
    "tags": [
@@ -1236,7 +1236,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|AAA",
    "attention": false,
    "tags": [
@@ -1253,7 +1253,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|AAA",
    "attention": false,
    "tags": [
@@ -1270,7 +1270,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|AAA",
    "attention": false,
    "tags": [
@@ -1287,7 +1287,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|AAA",
    "attention": false,
    "tags": [
@@ -1304,7 +1304,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|AAA",
    "attention": false,
    "tags": [
@@ -1321,7 +1321,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|AAA",
    "attention": false,
    "tags": [
@@ -1338,7 +1338,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. ",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|AAA",
    "attention": false,
    "tags": [
@@ -1355,7 +1355,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. Это проверка модели на прошлых данных, не прогноз по людям.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|AAA",
    "attention": false,
    "tags": [
@@ -1372,7 +1372,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|BBB",
    "attention": false,
    "tags": [
@@ -1389,7 +1389,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|BBB",
    "attention": false,
    "tags": [
@@ -1406,7 +1406,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|BBB",
    "attention": false,
    "tags": [
@@ -1423,7 +1423,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|BBB",
    "attention": false,
    "tags": [
@@ -1440,7 +1440,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|BBB",
    "attention": false,
    "tags": [
@@ -1457,7 +1457,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|BBB",
    "attention": false,
    "tags": [
@@ -1474,7 +1474,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. ",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|BBB",
    "attention": false,
    "tags": [
@@ -1491,7 +1491,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. Это проверка модели на прошлых данных, не прогноз по людям.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|BBB",
    "attention": false,
    "tags": [
@@ -1508,7 +1508,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|CCC",
    "attention": false,
    "tags": [
@@ -1525,7 +1525,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|CCC",
    "attention": false,
    "tags": [
@@ -1542,7 +1542,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|CCC",
    "attention": false,
    "tags": [
@@ -1559,7 +1559,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|CCC",
    "attention": false,
    "tags": [
@@ -1576,7 +1576,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|CCC",
    "attention": false,
    "tags": [
@@ -1593,7 +1593,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|CCC",
    "attention": false,
    "tags": [
@@ -1610,7 +1610,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. ",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|CCC",
    "attention": false,
    "tags": [
@@ -1627,7 +1627,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. Это проверка модели на прошлых данных, не прогноз по людям.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|CCC",
    "attention": false,
    "tags": [
@@ -1644,7 +1644,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|DDD",
    "attention": false,
    "tags": [
@@ -1661,7 +1661,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|DDD",
    "attention": false,
    "tags": [
@@ -1678,7 +1678,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|DDD",
    "attention": false,
    "tags": [
@@ -1695,7 +1695,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|DDD",
    "attention": false,
    "tags": [
@@ -1712,7 +1712,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|DDD",
    "attention": false,
    "tags": [
@@ -1729,7 +1729,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|DDD",
    "attention": false,
    "tags": [
@@ -1746,7 +1746,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. ",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|DDD",
    "attention": false,
    "tags": [
@@ -1763,7 +1763,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. Это проверка модели на прошлых данных, не прогноз по людям.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|DDD",
    "attention": false,
    "tags": [
@@ -1780,7 +1780,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|EEE",
    "attention": false,
    "tags": [
@@ -1797,7 +1797,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|EEE",
    "attention": false,
    "tags": [
@@ -1814,7 +1814,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|EEE",
    "attention": false,
    "tags": [
@@ -1831,7 +1831,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|EEE",
    "attention": false,
    "tags": [
@@ -1848,7 +1848,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|EEE",
    "attention": false,
    "tags": [
@@ -1865,7 +1865,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|EEE",
    "attention": false,
    "tags": [
@@ -1882,7 +1882,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. ",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|EEE",
    "attention": false,
    "tags": [
@@ -1899,7 +1899,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. Это проверка модели на прошлых данных, не прогноз по людям.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|EEE",
    "attention": false,
    "tags": [
@@ -1916,7 +1916,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|FFF",
    "attention": false,
    "tags": [
@@ -1933,7 +1933,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|FFF",
    "attention": false,
    "tags": [
@@ -1950,7 +1950,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|FFF",
    "attention": false,
    "tags": [
@@ -1967,7 +1967,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|FFF",
    "attention": false,
    "tags": [
@@ -1984,7 +1984,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|FFF",
    "attention": false,
    "tags": [
@@ -2001,7 +2001,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|FFF",
    "attention": false,
    "tags": [
@@ -2018,7 +2018,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. ",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|FFF",
    "attention": false,
    "tags": [
@@ -2035,7 +2035,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. Это проверка модели на прошлых данных, не прогноз по людям.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|FFF",
    "attention": false,
    "tags": [
@@ -2052,7 +2052,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|GGG",
    "attention": false,
    "tags": [
@@ -2069,7 +2069,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|GGG",
    "attention": false,
    "tags": [
@@ -2086,7 +2086,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|GGG",
    "attention": false,
    "tags": [
@@ -2103,7 +2103,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|GGG",
    "attention": false,
    "tags": [
@@ -2120,7 +2120,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|GGG",
    "attention": false,
    "tags": [
@@ -2137,7 +2137,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|GGG",
    "attention": false,
    "tags": [
@@ -2154,7 +2154,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. ",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|GGG",
    "attention": false,
    "tags": [
@@ -2171,7 +2171,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. Это проверка модели на прошлых данных, не прогноз по людям.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|GGG",
    "attention": false,
    "tags": [
@@ -2188,7 +2188,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|ALL",
    "attention": false,
    "tags": [
@@ -2205,7 +2205,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|ALL",
    "attention": false,
    "tags": [
@@ -2222,7 +2222,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|ALL",
    "attention": false,
    "tags": [
@@ -2239,7 +2239,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|ALL",
    "attention": false,
    "tags": [
@@ -2256,7 +2256,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|ALL",
    "attention": false,
    "tags": [
@@ -2273,7 +2273,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|ALL",
    "attention": false,
    "tags": [
@@ -2290,7 +2290,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. ",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|ALL",
    "attention": false,
    "tags": [
@@ -2307,7 +2307,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. Это проверка модели на прошлых данных, не прогноз по людям.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|ALL",
    "attention": false,
    "tags": [
@@ -2324,7 +2324,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|AAA",
    "attention": false,
    "tags": [
@@ -2341,7 +2341,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|AAA",
    "attention": false,
    "tags": [
@@ -2358,7 +2358,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|AAA",
    "attention": false,
    "tags": [
@@ -2375,7 +2375,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|AAA",
    "attention": false,
    "tags": [
@@ -2392,7 +2392,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|AAA",
    "attention": false,
    "tags": [
@@ -2409,7 +2409,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|AAA",
    "attention": false,
    "tags": [
@@ -2426,7 +2426,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. ",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|AAA",
    "attention": false,
    "tags": [
@@ -2443,7 +2443,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. Это проверка модели на прошлых данных, не прогноз по людям.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|AAA",
    "attention": false,
    "tags": [
@@ -2460,7 +2460,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|BBB",
    "attention": false,
    "tags": [
@@ -2477,7 +2477,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|BBB",
    "attention": false,
    "tags": [
@@ -2494,7 +2494,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|BBB",
    "attention": false,
    "tags": [
@@ -2511,7 +2511,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|BBB",
    "attention": false,
    "tags": [
@@ -2528,7 +2528,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|BBB",
    "attention": false,
    "tags": [
@@ -2545,7 +2545,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|BBB",
    "attention": false,
    "tags": [
@@ -2562,7 +2562,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. ",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|BBB",
    "attention": false,
    "tags": [
@@ -2579,7 +2579,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. Это проверка модели на прошлых данных, не прогноз по людям.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|BBB",
    "attention": false,
    "tags": [
@@ -2596,7 +2596,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|CCC",
    "attention": false,
    "tags": [
@@ -2613,7 +2613,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|CCC",
    "attention": false,
    "tags": [
@@ -2630,7 +2630,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|CCC",
    "attention": false,
    "tags": [
@@ -2647,7 +2647,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|CCC",
    "attention": false,
    "tags": [
@@ -2664,7 +2664,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|CCC",
    "attention": false,
    "tags": [
@@ -2681,7 +2681,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|CCC",
    "attention": false,
    "tags": [
@@ -2698,7 +2698,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. ",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|CCC",
    "attention": false,
    "tags": [
@@ -2715,7 +2715,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. Это проверка модели на прошлых данных, не прогноз по людям.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|CCC",
    "attention": false,
    "tags": [
@@ -2732,7 +2732,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|DDD",
    "attention": false,
    "tags": [
@@ -2749,7 +2749,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|DDD",
    "attention": false,
    "tags": [
@@ -2766,7 +2766,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|DDD",
    "attention": false,
    "tags": [
@@ -2783,7 +2783,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|DDD",
    "attention": false,
    "tags": [
@@ -2800,7 +2800,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|DDD",
    "attention": false,
    "tags": [
@@ -2817,7 +2817,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|DDD",
    "attention": false,
    "tags": [
@@ -2834,7 +2834,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. ",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|DDD",
    "attention": false,
    "tags": [
@@ -2851,7 +2851,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. Это проверка модели на прошлых данных, не прогноз по людям.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|DDD",
    "attention": false,
    "tags": [
@@ -2868,7 +2868,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|EEE",
    "attention": false,
    "tags": [
@@ -2885,7 +2885,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|EEE",
    "attention": false,
    "tags": [
@@ -2902,7 +2902,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|EEE",
    "attention": false,
    "tags": [
@@ -2919,7 +2919,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|EEE",
    "attention": false,
    "tags": [
@@ -2936,7 +2936,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|EEE",
    "attention": false,
    "tags": [
@@ -2953,7 +2953,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|EEE",
    "attention": false,
    "tags": [
@@ -2970,7 +2970,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. ",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|EEE",
    "attention": false,
    "tags": [
@@ -2987,7 +2987,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. Это проверка модели на прошлых данных, не прогноз по людям.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|EEE",
    "attention": false,
    "tags": [
@@ -3004,7 +3004,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|FFF",
    "attention": false,
    "tags": [
@@ -3021,7 +3021,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|FFF",
    "attention": false,
    "tags": [
@@ -3038,7 +3038,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|FFF",
    "attention": false,
    "tags": [
@@ -3055,7 +3055,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|FFF",
    "attention": false,
    "tags": [
@@ -3072,7 +3072,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|FFF",
    "attention": false,
    "tags": [
@@ -3089,7 +3089,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|FFF",
    "attention": false,
    "tags": [
@@ -3106,7 +3106,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. ",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|FFF",
    "attention": false,
    "tags": [
@@ -3123,7 +3123,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. Это проверка модели на прошлых данных, не прогноз по людям.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|FFF",
    "attention": false,
    "tags": [
@@ -3140,7 +3140,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|GGG",
    "attention": false,
    "tags": [
@@ -3157,7 +3157,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|GGG",
    "attention": false,
    "tags": [
@@ -3174,7 +3174,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|GGG",
    "attention": false,
    "tags": [
@@ -3191,7 +3191,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|GGG",
    "attention": false,
    "tags": [
@@ -3208,7 +3208,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|GGG",
    "attention": false,
    "tags": [
@@ -3225,7 +3225,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|GGG",
    "attention": false,
    "tags": [
@@ -3242,7 +3242,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. ",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|GGG",
    "attention": false,
    "tags": [
@@ -3259,7 +3259,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Демо-данные OULAD (Open University, Великобритания), факультеты условные. Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k, только ещё учащиеся. Это проверка модели на прошлых данных, не прогноз по людям.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|GGG",
    "attention": false,
    "tags": [
@@ -3276,7 +3276,7 @@
    "status": "демо",
    "source": "results/academic_audit/risk_model_eval.csv",
    "caveat": "Завышенная оценка: модель видела весь курс и проверялась на тех же студентах. Заменена в 7af6091.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "",
    "attention": false,
    "tags": []
@@ -3291,7 +3291,7 @@
    "status": "проверено",
    "source": "results/academic_audit/static_auc.csv",
    "caveat": "Набор OULAD (Open University, Великобритания), не данные AITU. Пересчёт аудита Academic.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|all",
    "attention": false,
    "tags": [
@@ -3308,7 +3308,7 @@
    "status": "проверено",
    "source": "results/academic_audit/static_auc.csv",
    "caveat": "Набор OULAD (Open University, Великобритания), не данные AITU. Пересчёт аудита Academic.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|still_enrolled",
    "attention": false,
    "tags": [
@@ -3325,7 +3325,7 @@
    "status": "проверено",
    "source": "results/academic_audit/static_auc.csv",
    "caveat": "Набор OULAD (Open University, Великобритания), не данные AITU. Пересчёт аудита Academic.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|all",
    "attention": false,
    "tags": [
@@ -3342,7 +3342,7 @@
    "status": "проверено",
    "source": "results/academic_audit/static_auc.csv",
    "caveat": "Набор OULAD (Open University, Великобритания), не данные AITU. Пересчёт аудита Academic.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|still_enrolled",
    "attention": false,
    "tags": [
@@ -3359,7 +3359,7 @@
    "status": "проверено",
    "source": "results/academic_audit/static_auc.csv",
    "caveat": "Набор OULAD (Open University, Великобритания), не данные AITU. Пересчёт аудита Academic.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|all",
    "attention": false,
    "tags": [
@@ -3376,7 +3376,7 @@
    "status": "проверено",
    "source": "results/academic_audit/static_auc.csv",
    "caveat": "Набор OULAD (Open University, Великобритания), не данные AITU. Пересчёт аудита Academic.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|still_enrolled",
    "attention": false,
    "tags": [
@@ -3393,7 +3393,7 @@
    "status": "проверено",
    "source": "results/academic_audit/static_auc.csv",
    "caveat": "Набор OULAD (Open University, Великобритания), не данные AITU. Пересчёт аудита Academic.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|all",
    "attention": false,
    "tags": [
@@ -3410,7 +3410,7 @@
    "status": "проверено",
    "source": "results/academic_audit/static_auc.csv",
    "caveat": "Набор OULAD (Open University, Великобритания), не данные AITU. Пересчёт аудита Academic.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=5|still_enrolled",
    "attention": false,
    "tags": [
@@ -3427,7 +3427,7 @@
    "status": "проверено",
    "source": "results/academic_audit/static_auc.csv",
    "caveat": "Набор OULAD (Open University, Великобритания), не данные AITU. Пересчёт аудита Academic.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|all",
    "attention": false,
    "tags": [
@@ -3444,7 +3444,7 @@
    "status": "проверено",
    "source": "results/academic_audit/static_auc.csv",
    "caveat": "Набор OULAD (Open University, Великобритания), не данные AITU. Пересчёт аудита Academic.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=10|still_enrolled",
    "attention": false,
    "tags": [
@@ -3461,7 +3461,7 @@
    "status": "проверено",
    "source": "results/academic_audit/static_auc.csv",
    "caveat": "Набор OULAD (Open University, Великобритания), не данные AITU. Пересчёт аудита Academic.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|all",
    "attention": false,
    "tags": [
@@ -3478,7 +3478,7 @@
    "status": "проверено",
    "source": "results/academic_audit/static_auc.csv",
    "caveat": "Набор OULAD (Open University, Великобритания), не данные AITU. Пересчёт аудита Academic.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "k=20|still_enrolled",
    "attention": false,
    "tags": [
@@ -3495,7 +3495,7 @@
    "status": "проверено",
    "source": "results/research/stage2/summary.csv",
    "caveat": "Панель 13 вузов Казахстана (OpenAlex), rolling origin; выигрыш MAE роста над naive. Критерий зафиксирован до моделей (STAGE2_REPORT.md).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "works_count",
    "attention": false,
    "tags": [
@@ -3513,7 +3513,7 @@
    "status": "проверено",
    "source": "results/research/stage2/summary.csv",
    "caveat": "Панель 13 вузов Казахстана (OpenAlex), rolling origin; выигрыш MAE роста над naive. Критерий зафиксирован до моделей (STAGE2_REPORT.md).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "works_count",
    "attention": false,
    "tags": [
@@ -3531,7 +3531,7 @@
    "status": "проверено",
    "source": "results/research/stage2/summary.csv",
    "caveat": "Панель 13 вузов Казахстана (OpenAlex), rolling origin; выигрыш MAE роста над naive. Критерий зафиксирован до моделей (STAGE2_REPORT.md).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "works_count",
    "attention": false,
    "tags": [
@@ -3549,7 +3549,7 @@
    "status": "проверено",
    "source": "results/research/stage2/summary.csv",
    "caveat": "Панель 13 вузов Казахстана (OpenAlex), rolling origin; выигрыш MAE роста над naive. Критерий зафиксирован до моделей (STAGE2_REPORT.md).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "unique_authors",
    "attention": false,
    "tags": [
@@ -3567,7 +3567,7 @@
    "status": "проверено",
    "source": "results/research/stage2/summary.csv",
    "caveat": "Панель 13 вузов Казахстана (OpenAlex), rolling origin; выигрыш MAE роста над naive. Критерий зафиксирован до моделей (STAGE2_REPORT.md).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "unique_authors",
    "attention": false,
    "tags": [
@@ -3585,7 +3585,7 @@
    "status": "проверено",
    "source": "results/research/stage2/summary.csv",
    "caveat": "Панель 13 вузов Казахстана (OpenAlex), rolling origin; выигрыш MAE роста над naive. Критерий зафиксирован до моделей (STAGE2_REPORT.md).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "unique_authors",
    "attention": false,
    "tags": [
@@ -3603,7 +3603,7 @@
    "status": "проверено",
    "source": "results/research/stage2/summary.csv",
    "caveat": "Панель 13 вузов Казахстана (OpenAlex), rolling origin; выигрыш MAE роста над naive. Критерий зафиксирован до моделей (STAGE2_REPORT.md).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "citations_received_in_year",
    "attention": false,
    "tags": [
@@ -3621,7 +3621,7 @@
    "status": "проверено",
    "source": "results/research/stage2/summary.csv",
    "caveat": "Панель 13 вузов Казахстана (OpenAlex), rolling origin; выигрыш MAE роста над naive. Критерий зафиксирован до моделей (STAGE2_REPORT.md).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "citations_received_in_year",
    "attention": false,
    "tags": [
@@ -3639,7 +3639,7 @@
    "status": "проверено",
    "source": "results/research/stage2/summary.csv",
    "caveat": "Панель 13 вузов Казахстана (OpenAlex), rolling origin; выигрыш MAE роста над naive. Критерий зафиксирован до моделей (STAGE2_REPORT.md).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "citations_received_in_year",
    "attention": false,
    "tags": [
@@ -3657,7 +3657,7 @@
    "status": "проверено",
    "source": "results/research/stage2/summary.csv",
    "caveat": "Панель 13 вузов Казахстана (OpenAlex), rolling origin; выигрыш MAE роста над naive. Критерий зафиксирован до моделей (STAGE2_REPORT.md).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "citations_per_author",
    "attention": false,
    "tags": [
@@ -3675,7 +3675,7 @@
    "status": "проверено",
    "source": "results/research/stage2/summary.csv",
    "caveat": "Панель 13 вузов Казахстана (OpenAlex), rolling origin; выигрыш MAE роста над naive. Критерий зафиксирован до моделей (STAGE2_REPORT.md).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "citations_per_author",
    "attention": false,
    "tags": [
@@ -3693,7 +3693,7 @@
    "status": "проверено",
    "source": "results/research/stage2/summary.csv",
    "caveat": "Панель 13 вузов Казахстана (OpenAlex), rolling origin; выигрыш MAE роста над naive. Критерий зафиксирован до моделей (STAGE2_REPORT.md).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "citations_per_author",
    "attention": false,
    "tags": [
@@ -3711,7 +3711,7 @@
    "status": "проверено",
    "source": "results/research/stage2/summary.csv",
    "caveat": "Панель 13 вузов Казахстана (OpenAlex), rolling origin; выигрыш MAE роста над naive. Критерий зафиксирован до моделей (STAGE2_REPORT.md).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "fwci_median",
    "attention": false,
    "tags": [
@@ -3729,7 +3729,7 @@
    "status": "проверено",
    "source": "results/research/stage2/summary.csv",
    "caveat": "Панель 13 вузов Казахстана (OpenAlex), rolling origin; выигрыш MAE роста над naive. Критерий зафиксирован до моделей (STAGE2_REPORT.md).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "fwci_median",
    "attention": false,
    "tags": [
@@ -3747,7 +3747,7 @@
    "status": "проверено",
    "source": "results/research/stage2/summary.csv",
    "caveat": "Панель 13 вузов Казахстана (OpenAlex), rolling origin; выигрыш MAE роста над naive. Критерий зафиксирован до моделей (STAGE2_REPORT.md).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "fwci_median",
    "attention": false,
    "tags": [
@@ -3765,7 +3765,7 @@
    "status": "проверено",
    "source": "results/research/stage2/summary.csv",
    "caveat": "Панель 13 вузов Казахстана (OpenAlex), rolling origin; выигрыш MAE роста над naive. Критерий зафиксирован до моделей (STAGE2_REPORT.md).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "intl_collab_share",
    "attention": false,
    "tags": [
@@ -3783,7 +3783,7 @@
    "status": "проверено",
    "source": "results/research/stage2/summary.csv",
    "caveat": "Панель 13 вузов Казахстана (OpenAlex), rolling origin; выигрыш MAE роста над naive. Критерий зафиксирован до моделей (STAGE2_REPORT.md).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "intl_collab_share",
    "attention": false,
    "tags": [
@@ -3801,7 +3801,7 @@
    "status": "проверено",
    "source": "results/research/stage2/summary.csv",
    "caveat": "Панель 13 вузов Казахстана (OpenAlex), rolling origin; выигрыш MAE роста над naive. Критерий зафиксирован до моделей (STAGE2_REPORT.md).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "intl_collab_share",
    "attention": false,
    "tags": [
@@ -3819,7 +3819,7 @@
    "status": "проверено",
    "source": "results/research/stage2/summary.csv",
    "caveat": "Панель 13 вузов Казахстана (OpenAlex), rolling origin; выигрыш MAE роста над naive. Критерий зафиксирован до моделей (STAGE2_REPORT.md).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "top10_share",
    "attention": false,
    "tags": [
@@ -3837,7 +3837,7 @@
    "status": "проверено",
    "source": "results/research/stage2/summary.csv",
    "caveat": "Панель 13 вузов Казахстана (OpenAlex), rolling origin; выигрыш MAE роста над naive. Критерий зафиксирован до моделей (STAGE2_REPORT.md).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "top10_share",
    "attention": false,
    "tags": [
@@ -3855,7 +3855,7 @@
    "status": "проверено",
    "source": "results/research/stage2/summary.csv",
    "caveat": "Панель 13 вузов Казахстана (OpenAlex), rolling origin; выигрыш MAE роста над naive. Критерий зафиксирован до моделей (STAGE2_REPORT.md).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "top10_share",
    "attention": false,
    "tags": [
@@ -3873,7 +3873,7 @@
    "status": "проверено",
    "source": "data/research/raw/yearly_work_counts_I4405257690.json",
    "caveat": "Копия ответа OpenAlex в репозитории; учитываются работы с аффилиацией AITU.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "aitu",
    "attention": false,
    "tags": [
@@ -3890,7 +3890,7 @@
    "status": "проверено",
    "source": "data/research/raw/yearly_work_counts_I4405257690.json",
    "caveat": "Копия ответа OpenAlex в репозитории; учитываются работы с аффилиацией AITU.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "aitu",
    "attention": false,
    "tags": [
@@ -3907,7 +3907,7 @@
    "status": "проверено",
    "source": "data/research/raw/yearly_work_counts_I4405257690.json",
    "caveat": "Копия ответа OpenAlex в репозитории; учитываются работы с аффилиацией AITU.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "aitu",
    "attention": false,
    "tags": [
@@ -3924,7 +3924,7 @@
    "status": "проверено",
    "source": "data/research/raw/yearly_work_counts_I4405257690.json",
    "caveat": "Копия ответа OpenAlex в репозитории; учитываются работы с аффилиацией AITU.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "aitu",
    "attention": false,
    "tags": [
@@ -3941,7 +3941,7 @@
    "status": "проверено",
    "source": "data/research/raw/yearly_work_counts_I4405257690.json",
    "caveat": "Копия ответа OpenAlex в репозитории; учитываются работы с аффилиацией AITU.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "aitu",
    "attention": false,
    "tags": [
@@ -3958,7 +3958,7 @@
    "status": "проверено",
    "source": "data/research/raw/yearly_work_counts_I4405257690.json",
    "caveat": "Копия ответа OpenAlex в репозитории; учитываются работы с аффилиацией AITU.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "aitu",
    "attention": false,
    "tags": [
@@ -3975,7 +3975,7 @@
    "status": "проверено",
    "source": "data/research/raw/yearly_work_counts_I4405257690.json",
    "caveat": "Копия ответа OpenAlex в репозитории; учитываются работы с аффилиацией AITU.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "aitu",
    "attention": false,
    "tags": [
@@ -3992,7 +3992,7 @@
    "status": "исследовательское",
    "source": "data/research/raw/yearly_work_counts_I4405257690.json",
    "caveat": "Неполный год: данные на дату выгрузки.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "aitu",
    "attention": false,
    "tags": [
@@ -4009,7 +4009,7 @@
    "status": "исследовательское",
    "source": "results/research/metrics/research_backtest.csv",
    "caveat": "Иллюстрация: proof-of-concept на 5 годовых точках (2020–2024), проверка на одном отложенном годе, не кросс-валидация. Потолок логистической модели — экспертная оценка.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "",
    "attention": false,
    "tags": [
@@ -4026,7 +4026,7 @@
    "status": "исследовательское",
    "source": "results/research/metrics/research_backtest.csv",
    "caveat": "Иллюстрация: proof-of-concept на 5 годовых точках (2020–2024), проверка на одном отложенном годе, не кросс-валидация. Потолок логистической модели — экспертная оценка.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "",
    "attention": false,
    "tags": [
@@ -4043,7 +4043,7 @@
    "status": "исследовательское",
    "source": "results/research/metrics/research_backtest.csv",
    "caveat": "Иллюстрация: proof-of-concept на 5 годовых точках (2020–2024), проверка на одном отложенном годе, не кросс-валидация. Потолок логистической модели — экспертная оценка.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "",
    "attention": false,
    "tags": [
@@ -4060,7 +4060,7 @@
    "status": "исследовательское",
    "source": "results/research/metrics/research_backtest.csv",
    "caveat": "Иллюстрация: proof-of-concept на 5 годовых точках (2020–2024), проверка на одном отложенном годе, не кросс-валидация. Потолок логистической модели — экспертная оценка.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "",
    "attention": false,
    "tags": [
@@ -4077,7 +4077,7 @@
    "status": "исследовательское",
    "source": "results/research/metrics/research_backtest.csv",
    "caveat": "Иллюстрация: proof-of-concept на 5 годовых точках (2020–2024), проверка на одном отложенном годе, не кросс-валидация. Потолок логистической модели — экспертная оценка.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "",
    "attention": false,
    "tags": [
@@ -4094,7 +4094,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Порог 10% и ДИ ниже нуля в обеих оценках.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "retention_rate",
    "attention": false,
    "tags": [
@@ -4111,7 +4111,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "retention_rate",
    "attention": false,
    "tags": [
@@ -4128,7 +4128,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "retention_rate",
    "attention": false,
    "tags": [
@@ -4145,7 +4145,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "retention_rate",
    "attention": false,
    "tags": [
@@ -4162,7 +4162,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "retention_rate",
    "attention": false,
    "tags": [
@@ -4179,7 +4179,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Порог 10% и ДИ ниже нуля в обеих оценках.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "retention_rate",
    "attention": false,
    "tags": [
@@ -4196,7 +4196,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "retention_rate",
    "attention": false,
    "tags": [
@@ -4213,7 +4213,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "retention_rate",
    "attention": false,
    "tags": [
@@ -4230,7 +4230,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "retention_rate",
    "attention": false,
    "tags": [
@@ -4247,7 +4247,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "retention_rate",
    "attention": false,
    "tags": [
@@ -4264,7 +4264,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "retention_rate",
    "attention": true,
    "tags": [
@@ -4281,7 +4281,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Порог 10% и ДИ ниже нуля в обеих оценках.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "grad_rate_150",
    "attention": false,
    "tags": [
@@ -4298,7 +4298,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "grad_rate_150",
    "attention": false,
    "tags": [
@@ -4315,7 +4315,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "grad_rate_150",
    "attention": false,
    "tags": [
@@ -4332,7 +4332,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "grad_rate_150",
    "attention": false,
    "tags": [
@@ -4349,7 +4349,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "grad_rate_150",
    "attention": false,
    "tags": [
@@ -4366,7 +4366,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Порог 10% и ДИ ниже нуля в обеих оценках.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "grad_rate_150",
    "attention": false,
    "tags": [
@@ -4383,7 +4383,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "grad_rate_150",
    "attention": false,
    "tags": [
@@ -4400,7 +4400,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "grad_rate_150",
    "attention": false,
    "tags": [
@@ -4417,7 +4417,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "grad_rate_150",
    "attention": false,
    "tags": [
@@ -4434,7 +4434,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "grad_rate_150",
    "attention": false,
    "tags": [
@@ -4451,7 +4451,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "grad_rate_150",
    "attention": true,
    "tags": [
@@ -4468,7 +4468,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Порог 10% и ДИ ниже нуля в обеих оценках.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "fall_enrollment",
    "attention": false,
    "tags": [
@@ -4485,7 +4485,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "fall_enrollment",
    "attention": false,
    "tags": [
@@ -4502,7 +4502,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "fall_enrollment",
    "attention": false,
    "tags": [
@@ -4519,7 +4519,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "fall_enrollment",
    "attention": false,
    "tags": [
@@ -4536,7 +4536,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "fall_enrollment",
    "attention": false,
    "tags": [
@@ -4553,7 +4553,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Порог 10% и ДИ ниже нуля в обеих оценках.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "fall_enrollment",
    "attention": false,
    "tags": [
@@ -4570,7 +4570,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "fall_enrollment",
    "attention": false,
    "tags": [
@@ -4587,7 +4587,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "fall_enrollment",
    "attention": false,
    "tags": [
@@ -4604,7 +4604,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "fall_enrollment",
    "attention": false,
    "tags": [
@@ -4621,7 +4621,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "fall_enrollment",
    "attention": false,
    "tags": [
@@ -4638,7 +4638,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "fall_enrollment",
    "attention": true,
    "tags": [
@@ -4655,7 +4655,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Порог 10% и ДИ ниже нуля в обеих оценках.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "core_total_per_fte_real",
    "attention": false,
    "tags": [
@@ -4672,7 +4672,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "core_total_per_fte_real",
    "attention": false,
    "tags": [
@@ -4689,7 +4689,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "core_total_per_fte_real",
    "attention": false,
    "tags": [
@@ -4706,7 +4706,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "core_total_per_fte_real",
    "attention": false,
    "tags": [
@@ -4723,7 +4723,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "core_total_per_fte_real",
    "attention": false,
    "tags": [
@@ -4740,7 +4740,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Порог 10% и ДИ ниже нуля в обеих оценках.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "core_total_per_fte_real",
    "attention": false,
    "tags": [
@@ -4757,7 +4757,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "core_total_per_fte_real",
    "attention": false,
    "tags": [
@@ -4774,7 +4774,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "core_total_per_fte_real",
    "attention": false,
    "tags": [
@@ -4791,7 +4791,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "core_total_per_fte_real",
    "attention": false,
    "tags": [
@@ -4808,7 +4808,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py). Вторичная модель (абляция); проход критерия ею — поисковый.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "core_total_per_fte_real",
    "attention": false,
    "tags": [
@@ -4825,7 +4825,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_rolling.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "core_total_per_fte_real",
    "attention": true,
    "tags": [
@@ -4842,7 +4842,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_unseen_summary.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "retention_rate",
    "attention": false,
    "tags": []
@@ -4857,7 +4857,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_unseen_summary.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "retention_rate",
    "attention": false,
    "tags": []
@@ -4872,7 +4872,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_unseen_summary.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "grad_rate_150",
    "attention": false,
    "tags": []
@@ -4887,7 +4887,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_unseen_summary.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "grad_rate_150",
    "attention": false,
    "tags": []
@@ -4902,7 +4902,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_unseen_summary.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "fall_enrollment",
    "attention": false,
    "tags": []
@@ -4917,7 +4917,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_unseen_summary.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "fall_enrollment",
    "attention": false,
    "tags": []
@@ -4932,7 +4932,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_unseen_summary.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "core_total_per_fte_real",
    "attention": false,
    "tags": []
@@ -4947,7 +4947,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/criterion_unseen_summary.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "core_total_per_fte_real",
    "attention": false,
    "tags": []
@@ -4962,7 +4962,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/interval_coverage.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "retention_rate",
    "attention": false,
    "tags": []
@@ -4977,7 +4977,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/interval_coverage.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "grad_rate_150",
    "attention": false,
    "tags": []
@@ -4992,7 +4992,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/interval_coverage.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "fall_enrollment",
    "attention": false,
    "tags": []
@@ -5007,7 +5007,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/interval_coverage.csv",
    "caveat": "Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "core_total_per_fte_real",
    "attention": false,
    "tags": []
@@ -5022,7 +5022,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/hypotheses.csv",
    "caveat": "Связь, не эффект: FE вуза и года на первых разностях, данные США. Гипотезы зафиксированы до расчёта.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "H1",
    "attention": false,
    "tags": [
@@ -5039,7 +5039,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/hypotheses.csv",
    "caveat": "Связь, не эффект: FE вуза и года на первых разностях, данные США. Гипотезы зафиксированы до расчёта.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "H1",
    "attention": false,
    "tags": [
@@ -5056,7 +5056,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/hypotheses.csv",
    "caveat": "Связь, не эффект: FE вуза и года на первых разностях, данные США. Гипотезы зафиксированы до расчёта.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "H1",
    "attention": false,
    "tags": [
@@ -5073,7 +5073,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/hypotheses.csv",
    "caveat": "Связь, не эффект: FE вуза и года на первых разностях, данные США. Гипотезы зафиксированы до расчёта.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "H1",
    "attention": false,
    "tags": [
@@ -5090,7 +5090,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/hypotheses.csv",
    "caveat": "Связь, не эффект: FE вуза и года на первых разностях, данные США. Гипотезы зафиксированы до расчёта.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "H1",
    "attention": false,
    "tags": [
@@ -5107,7 +5107,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/hypotheses.csv",
    "caveat": "Связь, не эффект: FE вуза и года на первых разностях, данные США. Гипотезы зафиксированы до расчёта.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "H1",
    "attention": false,
    "tags": [
@@ -5124,7 +5124,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/hypotheses.csv",
    "caveat": "Связь, не эффект: FE вуза и года на первых разностях, данные США. Гипотезы зафиксированы до расчёта.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "H2",
    "attention": false,
    "tags": [
@@ -5141,7 +5141,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/hypotheses.csv",
    "caveat": "Связь, не эффект: FE вуза и года на первых разностях, данные США. Гипотезы зафиксированы до расчёта.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "H2",
    "attention": false,
    "tags": [
@@ -5158,7 +5158,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/hypotheses.csv",
    "caveat": "Связь, не эффект: FE вуза и года на первых разностях, данные США. Гипотезы зафиксированы до расчёта.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "H2",
    "attention": false,
    "tags": [
@@ -5175,7 +5175,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/hypotheses.csv",
    "caveat": "Связь, не эффект: FE вуза и года на первых разностях, данные США. Гипотезы зафиксированы до расчёта.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "H2",
    "attention": false,
    "tags": [
@@ -5192,7 +5192,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/hypotheses.csv",
    "caveat": "Связь, не эффект: FE вуза и года на первых разностях, данные США. Гипотезы зафиксированы до расчёта.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "H2",
    "attention": false,
    "tags": [
@@ -5209,7 +5209,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/hypotheses.csv",
    "caveat": "Связь, не эффект: FE вуза и года на первых разностях, данные США. Гипотезы зафиксированы до расчёта.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "H2",
    "attention": false,
    "tags": [
@@ -5226,7 +5226,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/hypotheses.csv",
    "caveat": "Связь, не эффект: FE вуза и года на первых разностях, данные США. Гипотезы зафиксированы до расчёта.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "H3",
    "attention": false,
    "tags": [
@@ -5243,7 +5243,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/hypotheses.csv",
    "caveat": "Связь, не эффект: FE вуза и года на первых разностях, данные США. Гипотезы зафиксированы до расчёта.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "H3",
    "attention": false,
    "tags": [
@@ -5260,7 +5260,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/hypotheses.csv",
    "caveat": "Связь, не эффект: FE вуза и года на первых разностях, данные США. Гипотезы зафиксированы до расчёта.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "H3",
    "attention": false,
    "tags": [
@@ -5277,7 +5277,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/hypotheses.csv",
    "caveat": "Связь, не эффект: FE вуза и года на первых разностях, данные США. Гипотезы зафиксированы до расчёта.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "H3",
    "attention": false,
    "tags": [
@@ -5294,7 +5294,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/hypotheses.csv",
    "caveat": "Связь, не эффект: FE вуза и года на первых разностях, данные США. Гипотезы зафиксированы до расчёта.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "H3",
    "attention": false,
    "tags": [
@@ -5311,7 +5311,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/hypotheses.csv",
    "caveat": "Связь, не эффект: FE вуза и года на первых разностях, данные США. Гипотезы зафиксированы до расчёта.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "H3",
    "attention": false,
    "tags": [
@@ -5328,7 +5328,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/hypotheses.csv",
    "caveat": "Связь, не эффект: FE вуза и года на первых разностях, данные США. Гипотезы зафиксированы до расчёта.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "H4",
    "attention": false,
    "tags": [
@@ -5345,7 +5345,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/hypotheses.csv",
    "caveat": "Связь, не эффект: FE вуза и года на первых разностях, данные США. Гипотезы зафиксированы до расчёта.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "H4",
    "attention": false,
    "tags": [
@@ -5362,7 +5362,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/hypotheses.csv",
    "caveat": "Связь, не эффект: FE вуза и года на первых разностях, данные США. Гипотезы зафиксированы до расчёта.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "H4",
    "attention": false,
    "tags": [
@@ -5379,7 +5379,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/hypotheses.csv",
    "caveat": "Связь, не эффект: FE вуза и года на первых разностях, данные США. Гипотезы зафиксированы до расчёта.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "H4",
    "attention": false,
    "tags": [
@@ -5396,7 +5396,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/hypotheses.csv",
    "caveat": "Связь, не эффект: FE вуза и года на первых разностях, данные США. Гипотезы зафиксированы до расчёта.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "H4",
    "attention": false,
    "tags": [
@@ -5413,7 +5413,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/hypotheses.csv",
    "caveat": "Связь, не эффект: FE вуза и года на первых разностях, данные США. Гипотезы зафиксированы до расчёта.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "H4",
    "attention": false,
    "tags": [
@@ -5430,7 +5430,7 @@
    "status": "исследовательское",
    "source": "results/finance/stage2/exploratory_ma3.csv",
    "caveat": "Исследовательское (после основного прогона), в критерий не входит. Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "retention_rate",
    "attention": false,
    "tags": [
@@ -5447,7 +5447,7 @@
    "status": "исследовательское",
    "source": "results/finance/stage2/exploratory_ma3.csv",
    "caveat": "Исследовательское (после основного прогона), в критерий не входит. Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "retention_rate",
    "attention": false,
    "tags": [
@@ -5464,7 +5464,7 @@
    "status": "исследовательское",
    "source": "results/finance/stage2/exploratory_ma3.csv",
    "caveat": "Исследовательское (после основного прогона), в критерий не входит. Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "grad_rate_150",
    "attention": false,
    "tags": [
@@ -5481,7 +5481,7 @@
    "status": "исследовательское",
    "source": "results/finance/stage2/exploratory_ma3.csv",
    "caveat": "Исследовательское (после основного прогона), в критерий не входит. Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "grad_rate_150",
    "attention": false,
    "tags": [
@@ -5498,7 +5498,7 @@
    "status": "исследовательское",
    "source": "results/finance/stage2/exploratory_ma3.csv",
    "caveat": "Исследовательское (после основного прогона), в критерий не входит. Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "fall_enrollment",
    "attention": false,
    "tags": [
@@ -5515,7 +5515,7 @@
    "status": "исследовательское",
    "source": "results/finance/stage2/exploratory_ma3.csv",
    "caveat": "Исследовательское (после основного прогона), в критерий не входит. Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "fall_enrollment",
    "attention": false,
    "tags": [
@@ -5532,7 +5532,7 @@
    "status": "исследовательское",
    "source": "results/finance/stage2/exploratory_ma3.csv",
    "caveat": "Исследовательское (после основного прогона), в критерий не входит. Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "core_total_per_fte_real",
    "attention": false,
    "tags": [
@@ -5549,7 +5549,7 @@
    "status": "исследовательское",
    "source": "results/finance/stage2/exploratory_ma3.csv",
    "caveat": "Исследовательское (после основного прогона), в критерий не входит. Данные США (IPEDS), контекст другой. Критерий зафиксирован до моделей (src/finance/criterion.py).",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "core_total_per_fte_real",
    "attention": false,
    "tags": [
@@ -5566,7 +5566,7 @@
    "status": "исследовательское",
    "source": "data/aitu/financials_2019_2020.csv",
    "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "2019",
    "attention": 1.0,
    "tags": [
@@ -5584,7 +5584,7 @@
    "status": "исследовательское",
    "source": "data/aitu/financials_2019_2020.csv",
    "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "2019",
    "attention": false,
    "tags": [
@@ -5602,7 +5602,7 @@
    "status": "исследовательское",
    "source": "data/aitu/financials_2019_2020.csv",
    "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "2019",
    "attention": false,
    "tags": [
@@ -5620,7 +5620,7 @@
    "status": "исследовательское",
    "source": "data/aitu/financials_2019_2020.csv",
    "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "2019",
    "attention": 1.0,
    "tags": [
@@ -5638,7 +5638,7 @@
    "status": "исследовательское",
    "source": "data/aitu/financials_2019_2020.csv",
    "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "2020",
    "attention": false,
    "tags": [
@@ -5656,7 +5656,7 @@
    "status": "исследовательское",
    "source": "data/aitu/financials_2019_2020.csv",
    "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "2020",
    "attention": false,
    "tags": [
@@ -5674,7 +5674,7 @@
    "status": "исследовательское",
    "source": "data/aitu/financials_2019_2020.csv",
    "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "2020",
    "attention": false,
    "tags": [
@@ -5691,8 +5691,8 @@
    "period": "2020",
    "status": "исследовательское",
    "source": "data/aitu/financials_2019_2020.csv",
-   "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя. Вариант расходов: все расходы.",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "2020",
    "attention": false,
    "tags": [
@@ -5709,8 +5709,8 @@
    "period": "2020",
    "status": "исследовательское",
    "source": "data/aitu/financials_2019_2020.csv",
-   "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя. Вариант расходов: все расходы.",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "2020",
    "attention": false,
    "tags": [
@@ -5727,8 +5727,8 @@
    "period": "2020",
    "status": "исследовательское",
    "source": "data/aitu/financials_2019_2020.csv",
-   "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя. Вариант расходов: все расходы.",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "2020",
    "attention": false,
    "tags": [
@@ -5745,8 +5745,8 @@
    "period": "2020",
    "status": "исследовательское",
    "source": "data/aitu/financials_2019_2020.csv",
-   "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя. Вариант расходов: все расходы.",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "2020",
    "attention": false,
    "tags": [
@@ -5763,8 +5763,8 @@
    "period": "2020",
    "status": "исследовательское",
    "source": "data/aitu/financials_2019_2020.csv",
-   "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя. Вариант расходов: все расходы.",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "2020",
    "attention": false,
    "tags": [
@@ -5782,7 +5782,7 @@
    "status": "исследовательское",
    "source": "data/aitu/financials_2019_2020.csv",
    "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "2020",
    "attention": 1.0,
    "tags": [
@@ -5800,7 +5800,7 @@
    "status": "исследовательское",
    "source": "data/aitu/financials_2019_2020.csv",
    "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "2020",
    "attention": false,
    "tags": [
@@ -5818,7 +5818,7 @@
    "status": "исследовательское",
    "source": "data/aitu/financials_2019_2020.csv",
    "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "2020",
    "attention": false,
    "tags": [
@@ -5836,7 +5836,7 @@
    "status": "исследовательское",
    "source": "data/aitu/financials_2019_2020.csv",
    "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "2020",
    "attention": false,
    "tags": [
@@ -5854,7 +5854,7 @@
    "status": "исследовательское",
    "source": "data/aitu/financials_2019_2020.csv",
    "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "2020",
    "attention": 1.0,
    "tags": [
@@ -5865,14 +5865,14 @@
   {
    "id": "aitu.y2020.share_payroll_with_social_in_expenses.excl_one_off",
    "module": "aitu",
-   "metric": "Оплата труда с соцотчислениями / расходы, без разовой статьи «возмещение коммунальных услуг и налогов за 2019–2020» (397 400)",
+   "metric": "Оплата труда с соцотчислениями / расходы, без разовой статьи 2019–2020",
    "value": 0.5895484009935312,
    "unit": "share",
    "period": "2020",
    "status": "исследовательское",
    "source": "data/aitu/financials_2019_2020.csv",
-   "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя. Вариант расходов: без разовой статьи «возмещение коммунальных услуг и налогов за 2019–2020» (397 400).",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "2020",
    "attention": false,
    "tags": [
@@ -5883,14 +5883,14 @@
   {
    "id": "aitu.y2020.share_depreciation_in_expenses.excl_one_off",
    "module": "aitu",
-   "metric": "Амортизация / расходы, без разовой статьи «возмещение коммунальных услуг и налогов за 2019–2020» (397 400)",
+   "metric": "Амортизация / расходы, без разовой статьи 2019–2020",
    "value": 0.12037008366933448,
    "unit": "share",
    "period": "2020",
    "status": "исследовательское",
    "source": "data/aitu/financials_2019_2020.csv",
-   "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя. Вариант расходов: без разовой статьи «возмещение коммунальных услуг и налогов за 2019–2020» (397 400).",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "2020",
    "attention": false,
    "tags": [
@@ -5901,14 +5901,14 @@
   {
    "id": "aitu.y2020.share_interest_in_expenses.excl_one_off",
    "module": "aitu",
-   "metric": "Проценты / расходы, без разовой статьи «возмещение коммунальных услуг и налогов за 2019–2020» (397 400)",
+   "metric": "Проценты / расходы, без разовой статьи 2019–2020",
    "value": 0.05134725802868855,
    "unit": "share",
    "period": "2020",
    "status": "исследовательское",
    "source": "data/aitu/financials_2019_2020.csv",
-   "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя. Вариант расходов: без разовой статьи «возмещение коммунальных услуг и налогов за 2019–2020» (397 400).",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "2020",
    "attention": false,
    "tags": [
@@ -5919,14 +5919,14 @@
   {
    "id": "aitu.y2020.share_exp_taxes_in_expenses.excl_one_off",
    "module": "aitu",
-   "metric": "Налоги и платежи в бюджет / расходы, без разовой статьи «возмещение коммунальных услуг и налогов за 2019–2020» (397 400)",
+   "metric": "Налоги и платежи в бюджет / расходы, без разовой статьи 2019–2020",
    "value": 0.0802572680582387,
    "unit": "share",
    "period": "2020",
    "status": "исследовательское",
    "source": "data/aitu/financials_2019_2020.csv",
-   "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя. Вариант расходов: без разовой статьи «возмещение коммунальных услуг и налогов за 2019–2020» (397 400).",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "2020",
    "attention": false,
    "tags": [
@@ -5937,14 +5937,14 @@
   {
    "id": "aitu.y2020.share_exp_other_in_expenses.excl_one_off",
    "module": "aitu",
-   "metric": "Прочие расходы / расходы, без разовой статьи «возмещение коммунальных услуг и налогов за 2019–2020» (397 400)",
+   "metric": "Прочие расходы / расходы, без разовой статьи 2019–2020",
    "value": 0.1558511318582939,
    "unit": "share",
    "period": "2020",
    "status": "исследовательское",
    "source": "data/aitu/financials_2019_2020.csv",
-   "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "caveat": "Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя. Вариант расходов: без разовой статьи «возмещение коммунальных услуг и налогов за 2019–2020» (397 400).",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "2020",
    "attention": false,
    "tags": [
@@ -5962,7 +5962,7 @@
    "status": "исследовательское",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Источник порога: Порог предложен в постановке задачи от 2026-10-16 (пример правила). Нормативный акт не указан. (уточнить). Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "",
    "attention": true,
    "tags": [
@@ -5979,7 +5979,7 @@
    "status": "исследовательское",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Источник порога: Порог 70% предложен в постановке задачи от 2026-10-16 (пример правила). Документ не указан. (уточнить). Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "",
    "attention": true,
    "tags": [
@@ -5996,7 +5996,7 @@
    "status": "исследовательское",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Источник порога: Правило предложено в постановке задачи от 2026-10-16 (пример правила). Нормативный акт не указан. (уточнить). Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "",
    "attention": true,
    "tags": [
@@ -6013,7 +6013,7 @@
    "status": "исследовательское",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Источник порога: IPEDS, натуральные статьи расходов (зарплаты + льготы) / все расходы; группа us_peer_group (ориентир США, контекст другой). Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя. У AITU в знаменатель входят налоги и разовое возмещение коммунальных услуг за 2019–2020; у вузов США — вспомогательные службы и пенсионные начисления.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "",
    "attention": true,
    "tags": [
@@ -6030,7 +6030,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Государственные вузы США Carnegie Master's (IPEDS), ориентир США, контекст другой.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "compensation_share_vs_us_peers",
    "attention": false,
    "tags": [
@@ -6047,7 +6047,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Государственные вузы США Carnegie Master's (IPEDS), ориентир США, контекст другой.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "compensation_share_vs_us_peers",
    "attention": false,
    "tags": [
@@ -6064,7 +6064,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Государственные вузы США Carnegie Master's (IPEDS), ориентир США, контекст другой.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "compensation_share_vs_us_peers",
    "attention": false,
    "tags": [
@@ -6081,7 +6081,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Государственные вузы США Carnegie Master's (IPEDS), ориентир США, контекст другой.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "compensation_share_vs_us_peers",
    "attention": false,
    "tags": [
@@ -6098,7 +6098,7 @@
    "status": "исследовательское",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Источник порога: IPEDS, натуральные статьи расходов (зарплаты + льготы) / все расходы; группа us_peer_group (ориентир США, контекст другой). Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя. У AITU в знаменатель входят налоги и разовое возмещение коммунальных услуг за 2019–2020; у вузов США — вспомогательные службы и пенсионные начисления.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "",
    "attention": false,
    "tags": [
@@ -6115,7 +6115,7 @@
    "status": "исследовательское",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Источник порога: IPEDS, натуральная статья «амортизация» / все расходы; группа us_peer_group (ориентир США, контекст другой). Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя. Методы амортизации и учёт основных средств (переданный государством кампус) различаются.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "",
    "attention": false,
    "tags": [
@@ -6132,7 +6132,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Государственные вузы США Carnegie Master's (IPEDS), ориентир США, контекст другой.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "depreciation_share_vs_us_peers",
    "attention": false,
    "tags": [
@@ -6149,7 +6149,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Государственные вузы США Carnegie Master's (IPEDS), ориентир США, контекст другой.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "depreciation_share_vs_us_peers",
    "attention": false,
    "tags": [
@@ -6166,7 +6166,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Государственные вузы США Carnegie Master's (IPEDS), ориентир США, контекст другой.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "depreciation_share_vs_us_peers",
    "attention": false,
    "tags": [
@@ -6183,7 +6183,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Государственные вузы США Carnegie Master's (IPEDS), ориентир США, контекст другой.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "depreciation_share_vs_us_peers",
    "attention": false,
    "tags": [
@@ -6200,7 +6200,7 @@
    "status": "исследовательское",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Источник порога: IPEDS, натуральная статья «амортизация» / все расходы; группа us_peer_group (ориентир США, контекст другой). Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя. Методы амортизации и учёт основных средств (переданный государством кампус) различаются.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "",
    "attention": false,
    "tags": [
@@ -6217,7 +6217,7 @@
    "status": "исследовательское",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Источник порога: IPEDS, натуральная статья «проценты» / все расходы; группа us_peer_group (ориентир США, контекст другой). Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя. У AITU «вознаграждение по договорам» включает дисконтирование беспроцентной помощи; у вузов США — проценты по облигационному долгу.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "",
    "attention": false,
    "tags": [
@@ -6234,7 +6234,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Государственные вузы США Carnegie Master's (IPEDS), ориентир США, контекст другой.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "interest_share_vs_us_peers",
    "attention": false,
    "tags": [
@@ -6251,7 +6251,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Государственные вузы США Carnegie Master's (IPEDS), ориентир США, контекст другой.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "interest_share_vs_us_peers",
    "attention": false,
    "tags": [
@@ -6268,7 +6268,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Государственные вузы США Carnegie Master's (IPEDS), ориентир США, контекст другой.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "interest_share_vs_us_peers",
    "attention": false,
    "tags": [
@@ -6285,7 +6285,7 @@
    "status": "проверено",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Государственные вузы США Carnegie Master's (IPEDS), ориентир США, контекст другой.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "interest_share_vs_us_peers",
    "attention": false,
    "tags": [
@@ -6302,7 +6302,7 @@
    "status": "исследовательское",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Источник порога: IPEDS, натуральная статья «проценты» / все расходы; группа us_peer_group (ориентир США, контекст другой). Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя. У AITU «вознаграждение по договорам» включает дисконтирование беспроцентной помощи; у вузов США — проценты по облигационному долгу.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "",
    "attention": false,
    "tags": [
@@ -6319,7 +6319,7 @@
    "status": "нет данных",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Источник порога: Норма 3% со слов научного руководителя, подтвердить; показатель приближённый. (уточнить). Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "",
    "attention": false,
    "tags": [
@@ -6336,7 +6336,7 @@
    "status": "исследовательское",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Источник порога: IPEDS, натуральные статьи расходов (зарплаты + льготы) / все расходы; группа us_peer_group (ориентир США, контекст другой). Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя. У AITU в знаменатель входят налоги и разовое возмещение коммунальных услуг за 2019–2020; у вузов США — вспомогательные службы и пенсионные начисления.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "",
    "attention": false,
    "tags": [
@@ -6353,7 +6353,7 @@
    "status": "исследовательское",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Источник порога: IPEDS, натуральные статьи расходов (зарплаты + льготы) / все расходы; группа us_peer_group (ориентир США, контекст другой). Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя. У AITU в знаменатель входят налоги и разовое возмещение коммунальных услуг за 2019–2020; у вузов США — вспомогательные службы и пенсионные начисления.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "",
    "attention": false,
    "tags": [
@@ -6370,7 +6370,7 @@
    "status": "исследовательское",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Источник порога: IPEDS, натуральная статья «амортизация» / все расходы; группа us_peer_group (ориентир США, контекст другой). Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя. Методы амортизации и учёт основных средств (переданный государством кампус) различаются.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "",
    "attention": true,
    "tags": [
@@ -6387,7 +6387,7 @@
    "status": "исследовательское",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Источник порога: IPEDS, натуральная статья «амортизация» / все расходы; группа us_peer_group (ориентир США, контекст другой). Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя. Методы амортизации и учёт основных средств (переданный государством кампус) различаются.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "",
    "attention": false,
    "tags": [
@@ -6404,7 +6404,7 @@
    "status": "исследовательское",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Источник порога: IPEDS, натуральная статья «проценты» / все расходы; группа us_peer_group (ориентир США, контекст другой). Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя. У AITU «вознаграждение по договорам» включает дисконтирование беспроцентной помощи; у вузов США — проценты по облигационному долгу.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "",
    "attention": true,
    "tags": [
@@ -6421,7 +6421,7 @@
    "status": "исследовательское",
    "source": "results/finance/stage2/aitu_rules.csv",
    "caveat": "Источник порога: IPEDS, натуральная статья «проценты» / все расходы; группа us_peer_group (ориентир США, контекст другой). Снимок 2020 года, цифры с отсканированного PDF (verified=false). Два года отчётности — тренды оценивать нельзя. У AITU «вознаграждение по договорам» включает дисконтирование беспроцентной помощи; у вузов США — проценты по облигационному долгу.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "",
    "attention": false,
    "tags": [
@@ -6438,7 +6438,7 @@
    "status": "демо",
    "source": "docs/ADVISOR_UI_PLAN.md",
    "caveat": "Матрица возможностей по состоянию кода и сохранённых результатов.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "academic",
    "attention": false,
    "tags": [
@@ -6455,7 +6455,7 @@
    "status": "проверено",
    "source": "docs/ADVISOR_UI_PLAN.md",
    "caveat": "Матрица возможностей по состоянию кода и сохранённых результатов.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "academic",
    "attention": false,
    "tags": [
@@ -6472,7 +6472,7 @@
    "status": "проверено",
    "source": "docs/ADVISOR_UI_PLAN.md",
    "caveat": "Матрица возможностей по состоянию кода и сохранённых результатов.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "academic",
    "attention": false,
    "tags": [
@@ -6489,7 +6489,7 @@
    "status": "проверено",
    "source": "docs/ADVISOR_UI_PLAN.md",
    "caveat": "Матрица возможностей по состоянию кода и сохранённых результатов.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "research",
    "attention": false,
    "tags": [
@@ -6506,7 +6506,7 @@
    "status": "проверено",
    "source": "docs/ADVISOR_UI_PLAN.md",
    "caveat": "Матрица возможностей по состоянию кода и сохранённых результатов.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "research",
    "attention": false,
    "tags": [
@@ -6523,7 +6523,7 @@
    "status": "проверено",
    "source": "docs/ADVISOR_UI_PLAN.md",
    "caveat": "Матрица возможностей по состоянию кода и сохранённых результатов.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "research",
    "attention": false,
    "tags": [
@@ -6540,7 +6540,7 @@
    "status": "проверено",
    "source": "docs/ADVISOR_UI_PLAN.md",
    "caveat": "Матрица возможностей по состоянию кода и сохранённых результатов.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "finance",
    "attention": false,
    "tags": [
@@ -6557,7 +6557,7 @@
    "status": "проверено",
    "source": "docs/ADVISOR_UI_PLAN.md",
    "caveat": "Матрица возможностей по состоянию кода и сохранённых результатов.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "finance",
    "attention": false,
    "tags": [
@@ -6574,7 +6574,7 @@
    "status": "проверено",
    "source": "docs/ADVISOR_UI_PLAN.md",
    "caveat": "Матрица возможностей по состоянию кода и сохранённых результатов.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "finance",
    "attention": false,
    "tags": [
@@ -6591,7 +6591,7 @@
    "status": "нет данных",
    "source": "docs/ADVISOR_UI_PLAN.md",
    "caveat": "Матрица возможностей по состоянию кода и сохранённых результатов.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "international",
    "attention": false,
    "tags": [
@@ -6608,7 +6608,7 @@
    "status": "проверено",
    "source": "docs/ADVISOR_UI_PLAN.md",
    "caveat": "Матрица возможностей по состоянию кода и сохранённых результатов.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "international",
    "attention": false,
    "tags": [
@@ -6625,7 +6625,7 @@
    "status": "проверено",
    "source": "docs/ADVISOR_UI_PLAN.md",
    "caveat": "Матрица возможностей по состоянию кода и сохранённых результатов.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "international",
    "attention": false,
    "tags": [
@@ -6642,7 +6642,7 @@
    "status": "нет данных",
    "source": "docs/ADVISOR_UI_PLAN.md",
    "caveat": "Матрица возможностей по состоянию кода и сохранённых результатов.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "upbringing",
    "attention": false,
    "tags": [
@@ -6659,7 +6659,7 @@
    "status": "проверено",
    "source": "docs/ADVISOR_UI_PLAN.md",
    "caveat": "Матрица возможностей по состоянию кода и сохранённых результатов.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "upbringing",
    "attention": false,
    "tags": [
@@ -6676,7 +6676,7 @@
    "status": "проверено",
    "source": "docs/ADVISOR_UI_PLAN.md",
    "caveat": "Матрица возможностей по состоянию кода и сохранённых результатов.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "upbringing",
    "attention": false,
    "tags": [
@@ -6693,7 +6693,7 @@
    "status": "нет данных",
    "source": "docs/ADVISOR_UI_PLAN.md",
    "caveat": "Матрица возможностей по состоянию кода и сохранённых результатов.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "digital",
    "attention": false,
    "tags": [
@@ -6710,7 +6710,7 @@
    "status": "проверено",
    "source": "docs/ADVISOR_UI_PLAN.md",
    "caveat": "Матрица возможностей по состоянию кода и сохранённых результатов.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "digital",
    "attention": false,
    "tags": [
@@ -6727,7 +6727,7 @@
    "status": "проверено",
    "source": "docs/ADVISOR_UI_PLAN.md",
    "caveat": "Матрица возможностей по состоянию кода и сохранённых результатов.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "digital",
    "attention": false,
    "tags": [
@@ -6744,7 +6744,7 @@
    "status": "нет данных",
    "source": "docs/ADVISOR_UI_PLAN.md",
    "caveat": "Модуль не реализован, данных нет.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "international",
    "attention": false,
    "tags": [
@@ -6761,7 +6761,7 @@
    "status": "нет данных",
    "source": "docs/ADVISOR_UI_PLAN.md",
    "caveat": "Модуль не реализован, данных нет.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "upbringing",
    "attention": false,
    "tags": [
@@ -6778,7 +6778,7 @@
    "status": "нет данных",
    "source": "docs/ADVISOR_UI_PLAN.md",
    "caveat": "Модуль не реализован, данных нет.",
-   "built_at": "2026-10-16T10:44:53+00:00",
+   "built_at": "2026-10-16T10:58:09+00:00",
    "group": "digital",
    "attention": false,
    "tags": [

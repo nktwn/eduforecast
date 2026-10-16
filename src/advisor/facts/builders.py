@@ -311,11 +311,13 @@ def aitu() -> list[Fact]:
                 v = s.at[year, m]
                 if pd.isna(v):
                     continue
-                suffix = f", {vname}" if expense else ""
+                suffix = (", без разовой статьи 2019–2020" if variant == "excl_one_off" else ", все расходы") \
+                    if expense else ""
                 facts.append(_fact(
                     id=f"aitu.y{year}.{m}" + (".excl_one_off" if variant == "excl_one_off" else ""), module="aitu",
                     metric=f"{labels.get(m, m)}{suffix}", value=v, unit=units.get(m, "share"), period=str(year),
-                    status="исследовательское", source=rel(src), caveat=AITU_CAVEAT, group=str(year),
+                    status="исследовательское", source=rel(src),
+                    caveat=AITU_CAVEAT + (f" Вариант расходов: {vname}." if expense else ""), group=str(year),
                     attention=(m == "equity" and v < 0) or (m == "current_ratio" and v < 1),
                     tags=["aitu_profile", variant]))
     rules_src = ROOT / "results/finance/stage2/aitu_rules.csv"

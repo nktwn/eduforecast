@@ -1,6 +1,7 @@
 import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 import os
 import numpy as np
@@ -15,9 +16,12 @@ from components.risk_model import FEATURE_LABELS
 from components.styles import GLASS_CSS, demo_data_banner, require_data, sidebar_logo
 
 load_dotenv(Path(__file__).parent.parent.parent / ".env")
-GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
-GROQ_URL     = "https://api.groq.com/openai/v1/chat/completions"
-GROQ_MODEL   = "llama-3.3-70b-versatile"
+from src.advisor.config import load_settings  # noqa: E402
+
+SETTINGS     = load_settings()  # model and endpoint from ADVISOR_MODEL / ADVISOR_BASE_URL, no hardcoding
+GROQ_API_KEY = SETTINGS.api_key
+GROQ_URL     = f"{SETTINGS.base_url}/chat/completions"
+GROQ_MODEL   = SETTINGS.model
 
 st.set_page_config(
     page_title="AI Советник | EduForecast-SIS",
@@ -90,7 +94,7 @@ faculty_name  = FACULTY_MAP[selected_code]
 st.markdown(
     f'<h1 style="margin:0 0 4px 0; font-size:1.7rem;">ИИ Советник</h1>'
     f'<p style="color:#9ca3af; margin:0 0 18px 0; font-size:0.85rem;">'
-    f'{faculty_name} · Llama 3.3 70B</p>',
+    f'{faculty_name} · {GROQ_MODEL}</p>',
     unsafe_allow_html=True,
 )
 

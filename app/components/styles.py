@@ -211,6 +211,14 @@ h5, h6 { color: #1f2937 !important; font-weight: 600 !important; }
 """
 
 
+def _advisor_model() -> str:
+    try:
+        from src.advisor.config import load_settings
+        return load_settings().model
+    except Exception:
+        return "не настроена"
+
+
 def sidebar_logo(selected_code, faculty_map):
     import streamlit as st
     with st.sidebar:
@@ -239,9 +247,9 @@ def sidebar_logo(selected_code, faculty_map):
             Данные: набор OULAD<br>
             Модель: риск на неделе k по данным недель ≤ k,<br>
             оценка вне обучающей выборки (случайный лес + SHAP)<br>
-            ИИ: Llama 3.3 70B (Groq)
+            ИИ: {model}
         </div>
-        """, unsafe_allow_html=True)
+        """.replace("{model}", _advisor_model()), unsafe_allow_html=True)
 
     return code
 
