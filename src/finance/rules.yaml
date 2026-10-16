@@ -1,0 +1,92 @@
+# Rules for the AITU financial profile (src/finance/rules.py).
+# A threshold exists ONLY if it has a source:
+#   law                 — legal act (none is used yet: no specific act was supplied);
+#   university_document — internal document of the university (none supplied yet);
+#   supervisor          — words of the scientific supervisor or the task author; always status "уточнить";
+#   us_peer_percentile  — percentile of US peers (IPEDS); always "ориентир США, контекст другой".
+# No invented norms. Metrics come from src/finance/aitu_profile.py::structure().
+
+us_peer_group:
+  description: "Государственные вузы США, Carnegie Master's L/M/S, средние доли за 2019–2021 (окно вокруг 2020 — года отчётности AITU)"
+  control: public
+  carnegie: ["Master's L", "Master's M", "Master's S"]
+  years: [2019, 2021]
+
+rules:
+  - id: current_ratio_below_one
+    label: "Коэффициент текущей ликвидности < 1"
+    metric: current_ratio
+    op: "<"
+    threshold: 1.0
+    severity: warning
+    message: "Краткосрочные обязательства больше краткосрочных активов."
+    source:
+      type: supervisor
+      text: "Порог предложен в постановке задачи от 2026-10-16 (пример правила). Нормативный акт не указан."
+      status: "уточнить"
+
+  - id: single_revenue_source_above_70pct
+    label: "Доля одного источника в доходах > 70%"
+    metric: largest_revenue_source_share
+    op: ">"
+    threshold: 0.70
+    severity: warning
+    message: "Высокая зависимость от одного источника дохода."
+    source:
+      type: supervisor
+      text: "Порог 70% предложен в постановке задачи от 2026-10-16 (пример правила). Документ не указан."
+      status: "уточнить"
+
+  - id: negative_equity
+    label: "Отрицательный капитал"
+    metric: equity
+    op: "<"
+    threshold: 0.0
+    severity: warning
+    message: "Обязательства превышают активы."
+    source:
+      type: supervisor
+      text: "Правило предложено в постановке задачи от 2026-10-16 (пример правила). Нормативный акт не указан."
+      status: "уточнить"
+
+  - id: compensation_share_vs_us_peers
+    label: "Доля оплаты труда (с соцотчислениями) относительно аналогов США"
+    metric: share_payroll_with_social_in_expenses
+    op: outside_percentiles
+    benchmark_metric: nat_compensation_share
+    low: 10
+    high: 90
+    severity: info
+    message: "Доля оплаты труда вне диапазона P10–P90 государственных магистерских вузов США."
+    source:
+      type: us_peer_percentile
+      text: "IPEDS, натуральные статьи расходов (зарплаты + льготы) / все расходы; группа us_peer_group"
+      status: "ориентир США, контекст другой"
+    caveat: "У AITU в знаменатель входят налоги и разовое возмещение коммунальных услуг за 2019–2020; у вузов США — вспомогательные службы и пенсионные начисления."
+
+  - id: depreciation_share_vs_us_peers
+    label: "Доля амортизации относительно аналогов США"
+    metric: share_depreciation_in_expenses
+    op: outside_percentiles
+    benchmark_metric: nat_depreciation_share
+    low: 10
+    high: 90
+    severity: info
+    message: "Доля амортизации вне диапазона P10–P90 государственных магистерских вузов США."
+    source:
+      type: us_peer_percentile
+      text: "IPEDS, натуральная статья «амортизация» / все расходы; группа us_peer_group"
+      status: "ориентир США, контекст другой"
+    caveat: "Методы амортизации и учёт основных средств (переданный государством кампус) различаются."
+
+  - id: library_acquisitions_share
+    label: "Поступления учебной литературы / общие расходы ≥ 3%"
+    metric: library_acquisitions_share
+    op: "<"
+    threshold: 0.03
+    severity: info
+    message: "Поступления учебной литературы ниже 3% общих расходов."
+    source:
+      type: supervisor
+      text: "Норма 3% со слов научного руководителя, подтвердить; показатель приближённый."
+      status: "уточнить"
