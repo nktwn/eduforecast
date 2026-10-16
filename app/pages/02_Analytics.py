@@ -8,8 +8,9 @@ import numpy as np
 import requests
 from components.data_loader import (
     DATA_DIR as OULAD_DIR,
-    FACULTY_MAP, train_risk_model, get_all_faculties_summary, get_retention_data,
+    FACULTY_MAP, train_risk_model, get_all_faculties_summary, get_retention_data, get_risk_week,
 )
+from components.risk_model import FEATURE_LABELS
 from components.charts import (
     faculty_comparison_chart, withdrawal_comparison_chart,
     retention_forecast_chart, worldbank_chart, shap_bar_chart,
@@ -48,7 +49,8 @@ st.markdown(
 )
 
 with st.spinner("Вычисление аналитики..."):
-    df_model, _, feature_cols, shap_vals = train_risk_model(selected_code)
+    risk_week = get_risk_week()
+    df_model, _, feature_cols, shap_vals = train_risk_model(selected_code, risk_week)
     summary_df = get_all_faculties_summary()
 
 st.markdown('<div class="section-title">Сравнение факультетов</div>', unsafe_allow_html=True)
@@ -205,7 +207,8 @@ for col, (ind, lbl) in zip([wb1, wb2], INDICATORS):
             st.plotly_chart(worldbank_chart(df_wb, lbl),
                             width="stretch", config={"displayModeBar": False})
 
-st.markdown('<div class="section-title">Факторы риска — SHAP анализ</div>', unsafe_allow_html=True)
+st.markdown(f'<div class="section-title">Факторы риска — SHAP анализ (неделя {risk_week})</div>',
+            unsafe_allow_html=True)
 
 sh1, sh2 = st.columns([3, 1])
 mean_shap = np.abs(shap_vals).mean(axis=0)
@@ -222,19 +225,7 @@ with sh2:
             'margin-bottom:12px;">Топ факторы</div>',
             unsafe_allow_html=True,
         )
-        feat_labels = {
-            "total_clicks": "Активность в LMS",
-            "active_days":  "Активные дни",
-            "assessments_submitted": "Задания",
-            "avg_score":    "Средний балл",
-            "min_score":    "Мин. балл",
-            "num_of_prev_attempts": "Повт. попытки",
-            "studied_credits": "Нагрузка",
-            "unregistered": "Регистрация",
-            "edu_enc":      "Образование",
-            "imd_enc":      "Соц. фактор",
-            "age_enc":      "Возраст",
-        }
+        feat_labels = FEATURE_LABELS
         for rank_i, idx in enumerate(np.argsort(mean_shap)[::-1][:6], 1):
             val  = float(mean_shap[idx])
             lbl  = feat_labels.get(feature_cols[idx], feature_cols[idx])
@@ -255,6 +246,8 @@ with sh2:
             )
         st.markdown(
             '<div style="font-size:0.7rem; color:#9ca3af; margin-top:12px; line-height:1.6;">'
-            'Чем выше |SHAP|, тем сильнее фактор влияет на предсказание риска отчисления.</div>',
+            'Чем выше |SHAP|, тем сильнее фактор влияет на предсказание риска отчисления. '
+            f'Модель видит только данные до конца недели {risk_week}; SHAP посчитан для ещё учащихся '
+            'моделью, которая их не видела.</div>',
             unsafe_allow_html=True,
         )

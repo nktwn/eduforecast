@@ -1,0 +1,57 @@
+variant,module,n,positives,auc,brier,precision_top10,recall_top10,base_rate
+"before: in-sample, all students, full course",AAA,748,126,0.995828,0.024812,1.0,0.595238,0.168449
+"before: same model out-of-fold, full course",AAA,748,126,0.916169,0.07102,0.746667,0.444444,0.168449
+"before: in-sample, all students, full course",BBB,7909,2388,0.946749,0.085027,0.941846,0.311977,0.301935
+"before: same model out-of-fold, full course",BBB,7909,2388,0.917302,0.102447,0.905183,0.299832,0.301935
+"before: in-sample, all students, full course",CCC,4434,1975,0.956647,0.085474,0.97973,0.220253,0.445422
+"before: same model out-of-fold, full course",CCC,4434,1975,0.910389,0.116085,0.934685,0.210127,0.445422
+"before: in-sample, all students, full course",DDD,6272,2250,0.939805,0.099458,0.969745,0.270667,0.358737
+"before: same model out-of-fold, full course",DDD,6272,2250,0.893098,0.125496,0.917197,0.256,0.358737
+"before: in-sample, all students, full course",EEE,2934,722,0.969798,0.062049,0.945578,0.385042,0.24608
+"before: same model out-of-fold, full course",EEE,2934,722,0.917752,0.093146,0.843537,0.34349,0.24608
+"before: in-sample, all students, full course",FFF,7762,2403,0.955354,0.083173,0.967825,0.312942,0.309585
+"before: same model out-of-fold, full course",FFF,7762,2403,0.923493,0.101588,0.92278,0.298377,0.309585
+"before: in-sample, all students, full course",GGG,2534,292,0.982647,0.046454,0.811024,0.705479,0.115233
+"before: same model out-of-fold, full course",GGG,2534,292,0.902687,0.072745,0.519685,0.452055,0.115233
+"before: in-sample, all students, full course",ALL,32593,10156,0.954787,0.080974,0.958896,0.307798,0.311601
+"before: same model out-of-fold, full course",ALL,32593,10156,0.918962,0.104665,0.914724,0.29362,0.311601
+"after: k=5, still enrolled, out-of-fold",AAA,714,92,0.534374,0.114443,0.222222,0.173913,0.128852
+"after: k=5, still enrolled, out-of-fold",BBB,6398,879,0.608385,0.116376,0.259375,0.188851,0.137387
+"after: k=5, still enrolled, out-of-fold",CCC,3397,938,0.729054,0.173308,0.632353,0.229211,0.276126
+"after: k=5, still enrolled, out-of-fold",DDD,5236,1217,0.701625,0.161588,0.519084,0.2235,0.232429
+"after: k=5, still enrolled, out-of-fold",EEE,2527,315,0.723428,0.100006,0.371542,0.298413,0.124654
+"after: k=5, still enrolled, out-of-fold",FFF,6543,1187,0.670944,0.139644,0.401527,0.221567,0.181415
+"after: k=5, still enrolled, out-of-fold",GGG,2429,187,0.559049,0.07084,0.123457,0.160428,0.076986
+"after: k=5, still enrolled, out-of-fold",ALL,27244,4815,0.702799,0.132123,0.446239,0.252544,0.176736
+"after: k=5, still enrolled, out-of-fold, sigmoid",AAA,714,92,0.535597,0.113994,0.222222,0.173913,0.128852
+"after: k=5, still enrolled, out-of-fold, sigmoid",BBB,6398,879,0.610702,0.116157,0.254688,0.185438,0.137387
+"after: k=5, still enrolled, out-of-fold, sigmoid",CCC,3397,938,0.727954,0.173489,0.623529,0.226013,0.276126
+"after: k=5, still enrolled, out-of-fold, sigmoid",DDD,5236,1217,0.703509,0.1611,0.520992,0.224322,0.232429
+"after: k=5, still enrolled, out-of-fold, sigmoid",EEE,2527,315,0.723233,0.099846,0.371542,0.298413,0.124654
+"after: k=5, still enrolled, out-of-fold, sigmoid",FFF,6543,1187,0.672827,0.139874,0.393893,0.217355,0.181415
+"after: k=5, still enrolled, out-of-fold, sigmoid",GGG,2429,187,0.554066,0.071015,0.111111,0.144385,0.076986
+"after: k=5, still enrolled, out-of-fold, sigmoid",ALL,27244,4815,0.703563,0.132045,0.446606,0.252752,0.176736
+"after: k=5, still enrolled, out-of-fold, isotonic",AAA,714,92,0.53523,0.114801,0.222222,0.173913,0.128852
+"after: k=5, still enrolled, out-of-fold, isotonic",BBB,6398,879,0.610525,0.11629,0.253125,0.1843,0.137387
+"after: k=5, still enrolled, out-of-fold, isotonic",CCC,3397,938,0.727973,0.172496,0.623529,0.226013,0.276126
+"after: k=5, still enrolled, out-of-fold, isotonic",DDD,5236,1217,0.702855,0.160919,0.534351,0.230074,0.232429
+"after: k=5, still enrolled, out-of-fold, isotonic",EEE,2527,315,0.723814,0.099763,0.359684,0.288889,0.124654
+"after: k=5, still enrolled, out-of-fold, isotonic",FFF,6543,1187,0.672343,0.139545,0.39542,0.218197,0.181415
+"after: k=5, still enrolled, out-of-fold, isotonic",GGG,2429,187,0.54568,0.07101,0.115226,0.149733,0.076986
+"after: k=5, still enrolled, out-of-fold, isotonic",ALL,27244,4815,0.703116,0.131851,0.444771,0.251713,0.176736
+"after: k=10, still enrolled, out-of-fold",AAA,698,76,0.632912,0.095941,0.228571,0.210526,0.108883
+"after: k=10, still enrolled, out-of-fold",BBB,6182,663,0.633507,0.093855,0.208401,0.19457,0.107247
+"after: k=10, still enrolled, out-of-fold",CCC,3136,677,0.725948,0.150865,0.544586,0.252585,0.21588
+"after: k=10, still enrolled, out-of-fold",DDD,4950,931,0.710402,0.139655,0.434343,0.230934,0.188081
+"after: k=10, still enrolled, out-of-fold",EEE,2456,244,0.757515,0.081645,0.284553,0.286885,0.099349
+"after: k=10, still enrolled, out-of-fold",FFF,6254,898,0.692656,0.11596,0.319489,0.222717,0.143588
+"after: k=10, still enrolled, out-of-fold",GGG,2393,151,0.612615,0.058514,0.129167,0.205298,0.063101
+"after: k=10, still enrolled, out-of-fold",ALL,26069,3640,0.716814,0.110374,0.362102,0.259341,0.139629
+"after: k=20, still enrolled, out-of-fold",AAA,674,52,0.636749,0.069935,0.205882,0.269231,0.077151
+"after: k=20, still enrolled, out-of-fold",BBB,5858,339,0.717466,0.052855,0.12628,0.218289,0.05787
+"after: k=20, still enrolled, out-of-fold",CCC,2808,349,0.752761,0.098588,0.348754,0.280802,0.124288
+"after: k=20, still enrolled, out-of-fold",DDD,4553,534,0.760155,0.094232,0.309211,0.264045,0.117285
+"after: k=20, still enrolled, out-of-fold",EEE,2327,115,0.75912,0.044782,0.154506,0.313043,0.04942
+"after: k=20, still enrolled, out-of-fold",FFF,5756,400,0.783178,0.059995,0.223958,0.3225,0.069493
+"after: k=20, still enrolled, out-of-fold",GGG,2314,72,0.587307,0.030349,0.056034,0.180556,0.031115
+"after: k=20, still enrolled, out-of-fold",ALL,24290,1861,0.769401,0.065146,0.260601,0.34014,0.076616

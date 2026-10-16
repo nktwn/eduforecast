@@ -6,7 +6,7 @@ import streamlit as st
 from components.data_loader import (
     DATA_DIR as OULAD_DIR,
     FACULTY_MAP, get_faculty_data, get_weekly_activity,
-    train_risk_model, compute_health_index, get_alerts, RESULT_RU,
+    train_risk_model, compute_health_index, get_alerts, get_risk_week, RESULT_RU,
 )
 from components.charts import activity_line_chart, risk_donut_chart, score_histogram
 from components.styles import GLASS_CSS, demo_data_banner, require_data, sidebar_logo
@@ -28,14 +28,16 @@ faculty_name  = FACULTY_MAP[selected_code]
 
 with st.spinner("Анализ данных факультета..."):
     df_raw              = get_faculty_data(selected_code)
-    df_model, _, _, _   = train_risk_model(selected_code)
+    risk_week           = get_risk_week()
+    df_model, quality, _, _ = train_risk_model(selected_code, risk_week)
     weekly              = get_weekly_activity(selected_code)
 
-total       = len(df_model)
+total       = len(df_raw)
+enrolled    = len(df_model)
 high_risk   = int((df_model["risk_level"] == "HIGH").sum())
 medium_risk = int((df_model["risk_level"] == "MEDIUM").sum())
 low_risk    = int((df_model["risk_level"] == "LOW").sum())
-high_pct    = high_risk / total * 100 if total else 0
+high_left   = df_model.loc[df_model["risk_level"] == "HIGH", "is_withdrawn"].mean() * 100 if high_risk else 0
 avg_score   = df_raw["avg_score"].mean()
 health      = compute_health_index(df_raw)
 alerts      = get_alerts(df_raw)
@@ -77,13 +79,11 @@ with k1:
     )
 
 with k2:
-    accent = "accent-red" if high_pct > 30 else "accent-amber" if high_pct > 15 else "accent-green"
-    val_color = "#dc2626" if high_pct > 30 else "#d97706" if high_pct > 15 else "#059669"
     st.markdown(
-        f'<div class="metric-card {accent}">'
-        f'<div class="metric-value" style="color:{val_color};">{high_pct:.1f}%</div>'
-        f'<div class="metric-label">Высокий риск</div>'
-        f'<div class="metric-delta">{high_risk} студентов требуют внимания</div>'
+        f'<div class="metric-card accent-amber">'
+        f'<div class="metric-value" style="color:#d97706;">{high_risk:,}</div>'
+        f'<div class="metric-label">Высокий риск (топ-10%), неделя {risk_week}</div>'
+        f'<div class="metric-delta">из {enrolled:,} ещё учащихся; фактически ушли {high_left:.0f}%</div>'
         f'</div>',
         unsafe_allow_html=True,
     )
@@ -129,7 +129,8 @@ with col_l:
 with col_r:
     with st.container(border=True):
         st.plotly_chart(
-            risk_donut_chart({"HIGH": high_risk, "MEDIUM": medium_risk, "LOW": low_risk}),
+            risk_donut_chart({"HIGH": high_risk, "MEDIUM": medium_risk, "LOW": low_risk},
+                             f"Группы риска на неделе {risk_week} (перцентили)"),
             width="stretch",
             config={"displayModeBar": False},
         )

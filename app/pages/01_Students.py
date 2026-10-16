@@ -4,8 +4,14 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import io
 import streamlit as st
-from components.data_loader import DATA_DIR as OULAD_DIR, FACULTY_MAP, train_risk_model, RISK_COLORS, RISK_LABELS_RU, RESULT_RU
+from components.charts import reliability_chart
+from components.data_loader import (
+    DATA_DIR as OULAD_DIR, FACULTY_MAP, K_OPTIONS, RISK_LABELS_RU, RESULT_RU,
+    get_risk_week, train_risk_model,
+)
 from components.styles import GLASS_CSS, demo_data_banner, require_data, sidebar_logo
+
+RISK_GROUP_RU = {"HIGH": "Высокий (топ-10%)", "MEDIUM": "Средний (следующие 20%)", "LOW": "Низкий"}
 
 st.set_page_config(
     page_title="Студенты | EduForecast-SIS",
@@ -44,10 +50,65 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+k = st.radio(
+    "Неделя прогноза k",
+    options=list(K_OPTIONS),
+    index=list(K_OPTIONS).index(get_risk_week()),
+    format_func=lambda w: f"Неделя {w}",
+    horizontal=True,
+    help="Модель видит только данные до конца недели k (клики и сданные задания) "
+         "и демографию при регистрации. Выбор действует на всех страницах Academic.",
+)
+st.session_state["risk_week"] = k
+
 with st.spinner("Анализ рисков студентов..."):
-    df, _, _, _ = train_risk_model(selected_code)
+    df, quality, _, _ = train_risk_model(selected_code, k)
 
 total = len(df)
+qf, qa = quality["faculty"], quality["overall"]
+
+st.markdown(
+    f'<div style="font-size:0.82rem; color:#6b7280; margin:4px 0 14px 0;">'
+    f'Риск показан для {total:,} студентов, ещё не отчисленных к концу недели {k}. '
+    f'Ещё {quality["n_left_by_k"]:,} из {quality["n_registered"]:,} регистраций '
+    f'к этому моменту уже ушли и в прогноз не входят. Каждый риск предсказан моделью, '
+    f'которая этого студента не видела (GroupKFold по студенту).</div>',
+    unsafe_allow_html=True,
+)
+
+st.markdown(
+    f'<div class="section-title">Качество модели на неделе {k}</div>',
+    unsafe_allow_html=True,
+)
+m1, m2, m3, m4 = st.columns(4)
+m1.metric("AUC", f'{qf["auc"]:.2f}', help="Площадь под ROC-кривой среди ещё учащихся; 0.5 — случайное угадывание.")
+m2.metric("Precision в топ-10%", f'{qf["precision_top10"]:.0%}',
+          help="Доля реально ушедших среди 10% студентов с наибольшим риском.")
+m3.metric("Охват в топ-10%", f'{qf["recall_top10"]:.0%}',
+          help="Какая доля всех ушедших попала в топ-10% по риску.")
+m4.metric("Brier score", f'{qf["brier"]:.3f}', help="Средний квадрат ошибки вероятности; меньше — лучше.")
+st.caption(
+    f'Оценка на данных OULAD (демо), вне обучающей выборки, среди ещё учащихся на неделе {k}: '
+    f'{qf["n"]:,} студентов, из них ушли позже {qf["positives"]:,} ({qf["base_rate"]:.0%}). '
+    f'По всем факультетам: AUC {qa["auc"]:.2f}, precision в топ-10% {qa["precision_top10"]:.0%}, '
+    f'охват {qa["recall_top10"]:.0%}, Brier {qa["brier"]:.3f}. '
+    f'Группы риска заданы по перцентилям внутри факультета: высокий — топ-10%, средний — следующие 20%, '
+    f'низкий — остальные. AUC умеренный, поэтому «высокий» значит «выше, чем у остальных», '
+    f'а не «скорее всего уйдёт».'
+)
+with st.expander("Калибровка вероятностей"):
+    st.plotly_chart(
+        reliability_chart(quality["reliability"], f"График надёжности, все факультеты, неделя {k}"),
+        width="stretch", config={"displayModeBar": False},
+    )
+    st.caption(
+        "Точки — децили прогноза: средний предсказанный риск и доля реально ушедших. "
+        "Близость к диагонали значит, что «20%» действительно соответствует примерно 20% ушедших. "
+        "Модель без дополнительной калибровки: калибровка Платта и изотоническая на отдельном фолде "
+        "Brier не улучшали (audit/academic/risk_model_eval.py)."
+    )
+
+st.markdown("<br>", unsafe_allow_html=True)
 
 st.markdown(
     '<div class="section-title">Топ-5 — немедленное внимание</div>',
@@ -94,12 +155,12 @@ with fc1:
         "Уровень риска",
         options=["HIGH", "MEDIUM", "LOW"],
         default=["HIGH", "MEDIUM", "LOW"],
-        format_func=lambda x: RISK_LABELS_RU.get(x, x),
+        format_func=lambda x: RISK_GROUP_RU.get(x, x),
     )
 with fc2:
     result_options = sorted(df["final_result"].unique().tolist())
     result_filter = st.multiselect(
-        "Статус",
+        "Итог курса (факт)",
         options=result_options,
         default=result_options,
         format_func=lambda x: RESULT_RU.get(x, x),
@@ -124,6 +185,7 @@ st.markdown(
 
 col_map = {
     "id_student": "ID студента",
+    "code_presentation": "Поток",
     "risk_level": "Риск",
     "risk_score_pct": "Скор (%)",
     "top_risk_reason": "Главная причина",
@@ -133,6 +195,8 @@ col_map = {
     "final_result": "Статус",
 }
 table = filtered[list(col_map)].rename(columns=col_map).copy()
+st.caption(f"Балл, активность (клики) и задания — только до конца недели {k}. "
+           "Статус — фактический итог курса, показан для проверки прогноза на демо-данных.")
 table["Риск"]   = table["Риск"].map(RISK_LABELS_RU)
 table["Статус"] = table["Статус"].map(lambda x: RESULT_RU.get(x, x))
 table["Балл"]   = table["Балл"].round(1)
@@ -174,20 +238,22 @@ st.markdown('<div class="section-title">Сводка по уровням рис�
 
 s1, s2, s3 = st.columns(3)
 for col, level, border, label in [
-    (s1, "HIGH",   "#dc2626", "Высокий риск"),
-    (s2, "MEDIUM", "#d97706", "Средний риск"),
-    (s3, "LOW",    "#059669", "Низкий риск"),
+    (s1, "HIGH",   "#dc2626", "Высокий риск (топ-10%)"),
+    (s2, "MEDIUM", "#d97706", "Средний риск (следующие 20%)"),
+    (s3, "LOW",    "#059669", "Низкий риск (остальные 70%)"),
 ]:
     cnt   = int((df["risk_level"] == level).sum())
     pct   = cnt / total * 100 if total else 0
     avg_s = df[df["risk_level"] == level]["avg_score"].mean()
     avg_c = df[df["risk_level"] == level]["total_clicks"].mean()
+    left  = df.loc[df["risk_level"] == level, "is_withdrawn"].mean()
     with col:
         st.markdown(
             f'<div class="risk-summary-card" style="border-left:3px solid {border};">'
             f'  <div style="font-size:0.8rem; color:#6b7280; margin-bottom:2px;">{label}</div>'
             f'  <div style="font-size:1.8rem; font-weight:700; color:#0f172a;">{cnt}</div>'
-            f'  <div style="font-size:0.8rem; color:#9ca3af; margin-top:2px;">{pct:.1f}% студентов</div>'
+            f'  <div style="font-size:0.8rem; color:#9ca3af; margin-top:2px;">{pct:.1f}% студентов · '
+            f'фактически ушли {left:.0%}</div>'
             f'  <div style="margin-top:10px; display:grid; grid-template-columns:1fr 1fr; gap:8px;">'
             f'    <div style="background:#f5f6f8; border-radius:6px; padding:8px; text-align:center;">'
             f'      <div style="font-size:1.05rem; font-weight:700; color:#0f172a;">{avg_s:.1f}</div>'

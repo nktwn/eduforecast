@@ -9,8 +9,9 @@ import streamlit as st
 from dotenv import load_dotenv
 from components.data_loader import (
     DATA_DIR as OULAD_DIR,
-    FACULTY_MAP, train_risk_model, compute_health_index, get_faculty_data,
+    FACULTY_MAP, train_risk_model, compute_health_index, get_faculty_data, get_risk_week,
 )
+from components.risk_model import FEATURE_LABELS
 from components.styles import GLASS_CSS, demo_data_banner, require_data, sidebar_logo
 
 load_dotenv(Path(__file__).parent.parent.parent / ".env")
@@ -95,9 +96,12 @@ st.markdown(
 
 with st.spinner("Подготовка контекста..."):
     df_raw              = get_faculty_data(selected_code)
-    df_model, _, fc, sv = train_risk_model(selected_code)
+    risk_week           = get_risk_week()
+    df_model, quality, fc, sv = train_risk_model(selected_code, risk_week)
 
-total       = len(df_model)
+total       = len(df_raw)
+enrolled    = len(df_model)
+qf          = quality["faculty"]
 high        = int((df_model["risk_level"] == "HIGH").sum())
 medium      = int((df_model["risk_level"] == "MEDIUM").sum())
 low         = int((df_model["risk_level"] == "LOW").sum())
@@ -106,21 +110,14 @@ avg_clicks  = df_raw["total_clicks"].mean()
 health      = compute_health_index(df_raw)
 w_pct       = (df_raw["final_result"] == "Withdrawn").mean() * 100
 
-feat_labels = {
-    "total_clicks":"Активность в LMS", "active_days":"Активные дни",
-    "assessments_submitted":"Задания", "avg_score":"Средний балл",
-    "min_score":"Мин. балл", "num_of_prev_attempts":"Повт. попытки",
-    "studied_credits":"Нагрузка", "unregistered":"Регистрация",
-    "edu_enc":"Образование", "imd_enc":"Соц. фактор", "age_enc":"Возраст",
-}
 mean_shap = np.abs(sv).mean(axis=0)
-top3 = [feat_labels.get(fc[i], fc[i]) for i in np.argsort(mean_shap)[::-1][:3]]
+top3 = [FEATURE_LABELS.get(fc[i], fc[i]) for i in np.argsort(mean_shap)[::-1][:3]]
 
 st.markdown(
     f'<div class="context-ribbon">'
     f'  <span style="font-weight:600; color:#6b7280;">Контекст:</span>'
     f'  <span class="ctx-chip">{total} студентов</span>'
-    f'  <span class="ctx-chip" style="color:#dc2626;">Высокий риск: {high} ({high/total*100:.1f}%)</span>'
+    f'  <span class="ctx-chip" style="color:#dc2626;">Высокий риск (топ-10%, неделя {risk_week}): {high}</span>'
     f'  <span class="ctx-chip">Балл: {avg_score:.1f}</span>'
     f'  <span class="ctx-chip">Здоровье: {health:.0f}/100</span>'
     f'  <span class="ctx-chip">{", ".join(top3[:2])}</span>'
@@ -132,11 +129,16 @@ SYSTEM_PROMPT = f"""Ты — AI советник декана {faculty_name} в 
 У тебя есть доступ к актуальным аналитическим данным факультета из LMS.
 
 ДАННЫЕ ФАКУЛЬТЕТА:
-- Всего студентов: {total}
-- Высокий риск отчисления: {high} ({high/total*100:.1f}%)
-- Средний риск: {medium} ({medium/total*100:.1f}%)
-- Низкий риск (стабильные): {low} ({low/total*100:.1f}%)
-- Отчислено/отказались: {w_pct:.1f}%
+- Всего студентов (регистраций): {total}
+- Прогноз риска на неделе {risk_week} для {enrolled} ещё не отчисленных студентов
+  (модель видит только данные до конца недели {risk_week}; группы — перцентили, а не пороги):
+  - высокий риск, топ-10%: {high}
+  - средний риск, следующие 20%: {medium}
+  - низкий риск, остальные: {low}
+- Качество прогноза на этом факультете (оценка на демо-данных вне обучающей выборки):
+  AUC {qf["auc"]:.2f}; среди топ-10% реально ушли {qf["precision_top10"]:.0%},
+  в топ-10% попали {qf["recall_top10"]:.0%} всех ушедших. Прогноз умеренно точный — не выдавай его за диагноз.
+- Отчислено/отказались за весь курс: {w_pct:.1f}%
 - Средний балл: {avg_score:.1f}/100
 - Средняя активность (кликов/студент): {avg_clicks:.0f}
 - Индекс здоровья факультета: {health:.0f}/100

@@ -24,6 +24,7 @@ $P step2_nets.py train              # обучение сетей, CPU, сиды
 $P step2_nets.py rescore            # пересчёт AUC сетей по сохранённым предсказаниям, ~10 с
 $P step3_bootstrap.py               # ~2 мин: bootstrap по студентам, 2000 ресэмплов
 $P compare_paper.py                 # ~1 с: таблица «статья / пересчитано / совпало»
+$P risk_model_eval.py               # ~30 с: модель риска страницы «Студенты» до/после, калибровка
 ```
 
 **Время обучения сетей** (Apple M2, 8 ядер, CPU, по 2 потока torch на процесс):
@@ -51,6 +52,8 @@ for m in lstm_full lstm_trunc tft; do $P step2_nets.py train --models $m --threa
 | `nets_auc_{lstm_full,lstm_trunc,tft}.csv` | переобученные сети: AUC по сидам, эпоха, время |
 | `bootstrap.csv` | TFT-inspired (сид 42) минус каждый baseline, 95% ДИ по студентам |
 | `paper_vs_recomputed.{csv,md}` | сравнение с числами статьи до 3 знаков |
+| `risk_model_eval.csv` | модель риска в приложении: прежняя (весь курс, оценка на обучающих данных) и новая (недели ≤ k, вне обучающей выборки), по факультетам и в целом |
+| `risk_model_reliability_k5.csv` | график надёжности на k = 5: без калибровки, Платт, изотоническая |
 
 ## Не перенесено
 
