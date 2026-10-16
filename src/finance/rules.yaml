@@ -79,6 +79,21 @@ rules:
       status: "ориентир США, контекст другой"
     caveat: "Методы амортизации и учёт основных средств (переданный государством кампус) различаются."
 
+  - id: interest_share_vs_us_peers
+    label: "Доля процентов относительно аналогов США"
+    metric: share_interest_in_expenses
+    op: outside_percentiles
+    benchmark_metric: nat_interest_share
+    low: 10
+    high: 90
+    severity: info
+    message: "Доля процентов вне диапазона P10–P90 государственных магистерских вузов США."
+    source:
+      type: us_peer_percentile
+      text: "IPEDS, натуральная статья «проценты» / все расходы; группа us_peer_group"
+      status: "ориентир США, контекст другой"
+    caveat: "У AITU «вознаграждение по договорам» включает дисконтирование беспроцентной помощи; у вузов США — проценты по облигационному долгу."
+
   - id: library_acquisitions_share
     label: "Поступления учебной литературы / общие расходы ≥ 3%"
     metric: library_acquisitions_share

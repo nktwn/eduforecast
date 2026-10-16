@@ -57,7 +57,8 @@ def aitu() -> dict:
     panel = pd.read_parquet(PANEL2_PATH) if PANEL2_PATH.exists() else None
     structure = aitu_profile.structure(df)
     return {"raw": df, "checks": aitu_profile.sum_checks(df), "structure": structure,
-            "rules": rules.evaluate(structure, panel), "us_data": panel is not None}
+            "structure_excl": aitu_profile.structure(df, exclude_one_off=True),
+            "rules": rules.evaluate_variants(df, panel), "us_data": panel is not None}
 
 
 __all__ = ["CONTRACT_VERSION", "PROVIDERS", "aitu", "forecast", "get_provider", "missing", "search", "stage2_table"]

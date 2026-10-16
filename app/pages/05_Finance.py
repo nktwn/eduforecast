@@ -301,6 +301,24 @@ def quality_tab():
         st.dataframe(cov.pivot_table(index=["breakdown", "group"], columns="Показатель", values="coverage")
                      .map(lambda v: f"{v:.0%}"), width="stretch")
 
+    ma3 = stage2_table("exploratory_ma3.csv")
+    if ma3 is not None:
+        st.markdown("**Сравнение со скользящим средним за 3 года** — *исследовательские (после основного прогона)*, "
+                    "в критерий не входят. MA3: для retention и выпускаемости — среднее значение за 3 года, для "
+                    "приёма и расходов — последний уровень плюс средний рост за 3 года. Та же выборка, ошибки и "
+                    "bootstrap, что в критерии.")
+        rows = []
+        for t in TARGET_META:
+            g = ma3[ma3["target"] == t]
+            for comp in ["MA3 vs naive", "lgbm_S3 vs MA3", "ridge_S1 vs MA3", "ridge_S3 vs MA3"]:
+                c = g[g["comparison"] == comp].set_index("scope")
+                rows.append({"Показатель": TARGET_META[t]["label"],
+                             "Сравнение": comp.replace("lgbm_S3", "LightGBM S3").replace("ridge_", "Ridge "),
+                             "Выигрыш, все годы": pct(c.at["all_years", "gain_vs_reference"]),
+                             "Выигрыш, без помеченных": pct(c.at["excluding_flagged", "gain_vs_reference"]),
+                             "95% ДИ < 0 в обеих": "да" if (c["diff_ci_hi"] < 0).all() else "нет"})
+        st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")
+
     imp = stage2_table("shap_importance.csv")
     if imp is not None:
         st.markdown("**Главные признаки основной модели** (средний |SHAP|, модель на origin 2022)")
@@ -313,24 +331,37 @@ def quality_tab():
                     columns={"feature": "признак", "mean_abs_shap": "|SHAP|"}).round(4), hide_index=True)
 
 
+def _fmt_metric(k, v):
+    if pd.isna(v):
+        return "—"
+    if k in ("revenue_per_employee_thousand_kzt", "equity"):
+        return f"{v:,.0f}"
+    if k in ("current_ratio", "liabilities_to_assets"):
+        return f"{v:.3f}"
+    return f"{v:.1%}"
+
+
 def aitu_tab():
     data = aitu()
-    st.markdown('<div class="beta-banner"><b>Профиль AITU по отчётности за 2020 год.</b> '
+    st.markdown(f'<div class="beta-banner"><b>{aitu_profile.SNAPSHOT_NOTE}.</b> '
                 + " ".join(aitu_profile.CAVEATS) + '</div>', unsafe_allow_html=True)
-    s = data["structure"]
-    money = {"revenue_per_employee_thousand_kzt", "equity"}
-    table = pd.DataFrame({str(y): [(f"{v:,.0f}" if k in money else f"{v:.3f}" if k in ("current_ratio", "liabilities_to_assets")
-                                    else f"{v:.1%}") if pd.notna(v) else "—" for k, v in s.loc[y].items()]
-                          for y in s.index}, index=[aitu_profile.LABELS[k] for k in s.columns])
-    st.markdown("**Структурные показатели** (доли — от итога доходов или расходов)")
+    s, sx = data["structure"], data["structure_excl"]
+    table = pd.DataFrame({str(y): [_fmt_metric(k, v) for k, v in s.loc[y].items()] for y in s.index},
+                         index=s.columns)
+    table["2020, без разовой статьи"] = [_fmt_metric(k, v) if k.endswith("_in_expenses") else ""
+                                         for k, v in sx.loc[2020].items()]
+    table.index = [aitu_profile.LABELS.get(k, k) for k in table.index]
+    st.markdown(f"**Структурные показатели** ({aitu_profile.SNAPSHOT_NOTE.lower()}). Доли расходов даны в двух "
+                "вариантах: от всех расходов и без разовой статьи «возмещение коммунальных услуг и налогов за "
+                "2019–2020» (397 400 тыс. тенге, 21% расходов 2020 года).")
     st.dataframe(table, width="stretch")
 
     st.markdown("**Флаги правил** (порог допускается только с источником; `src/finance/rules.yaml`)")
     r = data["rules"]
-    show = r[r["year"] == r["year"].max()][["label", "value", "threshold", "triggered", "message", "source", "status",
-                                             "caveat"]]
+    show = r[r["year"] == r["year"].max()][["variant_label", "label", "value", "threshold", "triggered", "message",
+                                             "source", "status", "caveat"]]
     show = show.assign(triggered=show["triggered"].map({True: "сработал", False: "нет", None: "не рассчитан"}))
-    st.dataframe(show.rename(columns={"label": "правило", "value": "значение", "threshold": "порог",
+    st.dataframe(show.rename(columns={"variant_label": "вариант расходов", "label": "правило", "value": "значение", "threshold": "порог",
                                       "triggered": "флаг", "message": "сообщение", "source": "источник",
                                       "status": "статус", "caveat": "оговорка"}), hide_index=True, width="stretch")
     if not data["us_data"]:

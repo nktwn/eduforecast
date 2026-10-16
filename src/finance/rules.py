@@ -66,13 +66,25 @@ def evaluate(profile: pd.DataFrame, panel: pd.DataFrame | None = None, cfg: dict
     return pd.DataFrame(rows)
 
 
+def evaluate_variants(df: pd.DataFrame, panel: pd.DataFrame | None = None, cfg: dict | None = None) -> pd.DataFrame:
+    """All rules on all expenses, plus expense-share rules without the one-off 2019-2020 item."""
+    cfg = cfg or load_rules()
+    full = evaluate(aitu_profile.structure(df), panel, cfg).assign(variant="all")
+    shares = [r["id"] for r in cfg["rules"] if r["metric"].endswith("_in_expenses")]
+    excl = evaluate(aitu_profile.structure(df, exclude_one_off=True), panel, cfg)
+    excl = excl[excl["rule"].isin(shares)].assign(variant="excl_one_off")
+    out = pd.concat([full, excl], ignore_index=True)
+    out["variant_label"] = out["variant"].map(aitu_profile.VARIANTS)
+    return out
+
+
 def main():
     from src.finance.panel_stage2 import PANEL2_PATH
 
     panel = pd.read_parquet(PANEL2_PATH) if PANEL2_PATH.exists() else None
-    res = evaluate(aitu_profile.structure(aitu_profile.load()), panel)
+    res = evaluate_variants(aitu_profile.load(), panel)
     pd.set_option("display.width", 250, "display.max_colwidth", 70)
-    print(res[["rule", "year", "value", "threshold", "triggered", "message", "status"]].to_string(index=False))
+    print(res[["variant", "rule", "year", "value", "threshold", "triggered", "message"]].to_string(index=False))
 
 
 if __name__ == "__main__":

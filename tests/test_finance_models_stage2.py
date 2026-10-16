@@ -71,3 +71,21 @@ def test_criterion_table_reproduces(panel2):
             n_points, n_inst, mae = CRITERION_TABLE[(target, scope)]
             assert (len(q), len(per)) == (n_points, n_inst)
             assert round(per.mean(), 5 if mae < 1 else 3) == pytest.approx(mae, abs=1e-5 if mae < 1 else 1e-3)
+
+
+def test_moving_average_baseline_definition():
+    from src.finance.baseline import _series
+    from src.finance.exploratory import ma3_forecasts
+
+    panel = pd.read_parquet(PANEL_PATH)
+    for target in ("retention_rate", "fall_enrollment"):
+        s = _series(panel, target).set_index(["series_id", "year"])
+        ma = ma3_forecasts(panel, target).set_index(["series_id", "target_year"])
+        sid = s.index.get_level_values(0)[1000]
+        full = ma.loc[sid]
+        y = 2018
+        if target == "retention_rate":
+            expected = np.mean([s.at[(sid, y - k), "z"] for k in range(3)])
+        else:
+            expected = s.at[(sid, y), "z"] + np.mean([s.at[(sid, y - k), "change"] for k in range(3)])
+        assert full.at[y + 1, "forecast_ma3"] == pytest.approx(expected)

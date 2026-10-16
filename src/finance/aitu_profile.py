@@ -70,9 +70,23 @@ def sum_checks(df: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def structure(df: pd.DataFrame) -> pd.DataFrame:
-    """Structural ratios per year (only where the inputs exist)."""
-    w = _wide(df)
+ONE_OFF_ITEM = "exp_utilities_property_tax_2019_2020"
+EXPENSE_ITEMS = ["exp_payroll", "exp_social_contrib", "exp_taxes", "exp_travel", "exp_depreciation", "exp_interest",
+                 ONE_OFF_ITEM, "exp_other"]
+VARIANTS = {"all": "все расходы", "excl_one_off": "без разовой статьи «возмещение коммунальных услуг и налогов "
+                                                    "за 2019–2020» (397 400)"}
+
+
+def structure(df: pd.DataFrame, exclude_one_off: bool = False) -> pd.DataFrame:
+    """Structural ratios per year (only where the inputs exist).
+
+    With exclude_one_off the one-off item (utilities and property tax reimbursed for 2019 and 2020
+    at once) is removed from total expenses; expense shares are then of the remaining expenses.
+    """
+    w = _wide(df).copy()
+    if exclude_one_off and ONE_OFF_ITEM in w and "exp_total" in w:
+        w["exp_total"] = w["exp_total"] - w[ONE_OFF_ITEM].fillna(0)
+        w[ONE_OFF_ITEM] = float("nan")
     out = pd.DataFrame(index=w.index)
 
     def col(name):
@@ -88,6 +102,8 @@ def structure(df: pd.DataFrame) -> pd.DataFrame:
     out["share_payroll_with_social_in_expenses"] = (col("exp_payroll") + col("exp_social_contrib")) / col("exp_total")
     out["share_depreciation_in_expenses"] = col("exp_depreciation") / col("exp_total")
     out["share_interest_in_expenses"] = col("exp_interest") / col("exp_total")
+    for item in EXPENSE_ITEMS:
+        out[f"share_{item}_in_expenses"] = col(item) / col("exp_total")
     out["current_ratio"] = col("bs_current_assets") / col("bs_current_liabilities")
     out["liabilities_to_assets"] = (col("bs_current_liabilities") + col("bs_noncurrent_liabilities")) / col(
         "bs_total_assets")
@@ -116,7 +132,16 @@ LABELS = {
     "revenue_per_employee_thousand_kzt": "Доходы на одного работника, тыс. тенге",
     "largest_revenue_source_share": "Доля крупнейшего источника дохода (2019: без разбивки услуг)",
     "equity": "Капитал, тыс. тенге",
+    "share_exp_payroll_in_expenses": "Оплата труда / расходы",
+    "share_exp_social_contrib_in_expenses": "Социальные отчисления / расходы",
+    "share_exp_taxes_in_expenses": "Налоги и платежи в бюджет / расходы",
+    "share_exp_travel_in_expenses": "Командировки / расходы",
+    "share_exp_depreciation_in_expenses": "Амортизация / расходы (статья)",
+    "share_exp_interest_in_expenses": "Проценты / расходы (статья)",
+    f"share_{ONE_OFF_ITEM}_in_expenses": "Возмещение коммунальных услуг и налогов за 2019–2020 / расходы",
+    "share_exp_other_in_expenses": "Прочие расходы / расходы",
 }
+SNAPSHOT_NOTE = "Снимок 2020 года, цифры с отсканированного PDF"
 
 CAVEATS = [
     "Цифры прочитаны с отсканированного PDF финансовой отчётности за 2020 год (тыс. тенге) и не сверены "

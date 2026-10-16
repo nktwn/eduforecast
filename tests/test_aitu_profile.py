@@ -1,4 +1,5 @@
 """AITU profile (data/aitu): sum checks and structural ratios."""
+import pandas as pd
 import pytest
 
 from src.finance.aitu_profile import CHECK_TOLERANCE, load, structure, sum_checks
@@ -58,3 +59,23 @@ def test_rules_on_profile_without_us_data(df):
     assert res.at[("negative_equity", 2020), "triggered"] is True
     assert res.at[("library_acquisitions_share", 2020), "triggered"] is None
     assert res.at[("compensation_share_vs_us_peers", 2020), "triggered"] is None
+
+
+def test_expense_shares_without_one_off_item(df):
+    total = 1883010 - 397400
+    s = structure(df, exclude_one_off=True).loc[2020]
+    assert s["share_payroll_with_social_in_expenses"] == pytest.approx((849098 + 26741) / total)
+    assert s["share_depreciation_in_expenses"] == pytest.approx(178823 / total)
+    assert pd.isna(s["share_exp_utilities_property_tax_2019_2020_in_expenses"])
+    items = [c for c in s.index if c.startswith("share_exp_") and pd.notna(s[c])]
+    assert s[items].sum() == pytest.approx(1.0)
+
+
+def test_rule_variants(df):
+    from src.finance.rules import evaluate_variants
+
+    r = evaluate_variants(df, panel=None)
+    assert set(r["variant"]) == {"all", "excl_one_off"}
+    excl = r[r["variant"] == "excl_one_off"]
+    assert set(excl["rule"]) == {"compensation_share_vs_us_peers", "depreciation_share_vs_us_peers",
+                                 "interest_share_vs_us_peers"}
