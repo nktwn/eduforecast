@@ -25,7 +25,9 @@ data/raw/
 data/processed/
 data/research/
 data/finance/
-results/
+results/*
+!results/academic_audit/
+results/academic_audit/predictions/
 
 # Environment
 .env

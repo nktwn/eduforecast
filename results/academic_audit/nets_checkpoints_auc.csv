@@ -1,0 +1,27 @@
+model,method,k,population,auc
+LSTM published,"weeks<=k, step k",5,all,0.644837
+LSTM published,"weeks<=k, step k",5,still_enrolled,0.492658
+LSTM published,"weeks<=k, step k",10,all,0.791114
+LSTM published,"weeks<=k, step k",10,still_enrolled,0.553526
+LSTM published,"weeks<=k, step k",20,all,0.882215
+LSTM published,"weeks<=k, step k",20,still_enrolled,0.628722
+LSTM published,"weeks<=k, step k",39,all,0.9049
+LSTM published,"weeks<=k, step k",39,still_enrolled,0.941656
+LSTM published,"weeks<=k, step k",full,all,0.9049
+TFT published,"weeks<=k, step k",5,all,0.772355
+TFT published,"weeks<=k, step k",5,still_enrolled,0.585759
+TFT published,"weeks<=k, step k",10,all,0.853121
+TFT published,"weeks<=k, step k",10,still_enrolled,0.664277
+TFT published,"weeks<=k, step k",20,all,0.904752
+TFT published,"weeks<=k, step k",20,still_enrolled,0.715954
+TFT published,"weeks<=k, step k",39,all,0.915047
+TFT published,"weeks<=k, step k",39,still_enrolled,0.948584
+TFT published,"weeks<=k, step k",full,all,0.915047
+LSTM published,"notebook: weeks<k zero-pad, step 39",5,all,0.429386
+TFT published,notebook: weeks<k,5,all,0.758983
+LSTM published,"notebook: weeks<k zero-pad, step 39",10,all,0.287041
+TFT published,notebook: weeks<k,10,all,0.83824
+LSTM published,"notebook: weeks<k zero-pad, step 39",20,all,0.355697
+TFT published,notebook: weeks<k,20,all,0.901205
+LSTM published,"notebook: weeks<k zero-pad, step 39",39,all,0.902074
+TFT published,notebook: weeks<k,39,all,0.915663
