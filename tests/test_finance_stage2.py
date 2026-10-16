@@ -47,3 +47,27 @@ def test_schema_flags_out_of_range_and_duplicates():
     r = check_schema(p)
     assert ((r["column"] == "admit_rate") & (r["rule"] == "above_max")).any()
     assert (r["rule"] == "duplicate_key").any()
+
+
+def test_two_way_fe_matches_dummy_regression():
+    from src.finance.budget_outcomes import fe_ols, holm
+
+    rng = np.random.default_rng(0)
+    rows = [(i, t) for i in range(40) for t in range(2012, 2020) if rng.random() > 0.2]
+    d = pd.DataFrame(rows, columns=["series_id", "year"])
+    a = rng.normal(size=40)[d["series_id"]]
+    g = rng.normal(size=8)[d["year"] - 2012]
+    d["x"] = rng.normal(size=len(d)) + 0.5 * a
+    d["y"] = 0.7 * d["x"] + a + g + rng.normal(size=len(d))
+    res = fe_ols(d, "y", ["x"])
+
+    dummies = pd.get_dummies(d[["series_id", "year"]].astype(str), drop_first=False, dtype=float)
+    X = np.column_stack([d["x"], dummies.drop(columns=["year_2012"])])
+    coef, *_ = np.linalg.lstsq(X, d["y"], rcond=None)
+    assert abs(coef[0] - res["beta"]) < 1e-8
+    u = d["y"].to_numpy() - X @ coef
+    xt = X[:, 0] - X[:, 1:] @ np.linalg.lstsq(X[:, 1:], X[:, 0], rcond=None)[0]
+    meat = sum((xt[d["series_id"] == s] @ u[d["series_id"] == s]) ** 2 for s in d["series_id"].unique())
+    assert abs(meat / (xt @ xt) ** 2 - res["unscaled_vcov"][0, 0]) < 1e-10
+
+    assert holm([0.01, 0.04, 0.03, 0.5]) == [0.04, 0.09, 0.09, 0.5]
