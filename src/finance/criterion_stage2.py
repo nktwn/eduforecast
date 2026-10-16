@@ -29,9 +29,10 @@ PREDICTION = (
 EVALUATION_SET = (
     "Exactly the prediction points of the F1 baseline (src/finance/baseline.py::predictions): same series, "
     "target years 2015-2023 (origins 2014-2022), same eligibility, splice and flag rules. Naive MAE is "
-    "therefore identical to the F1 criterion table. A model must predict every point; missing feature "
-    "values are imputed (Ridge: training medians plus missing-indicators are NOT used, only medians) or "
-    "left to the model (LightGBM native missing handling)."
+    "therefore identical to the F1 criterion table. A model must predict every point: Ridge imputes missing "
+    "feature values with training medians (no missing-indicators), LightGBM uses native missing-value "
+    "handling. 'Series beating naive' = series whose mean absolute error over its evaluation points is "
+    "strictly below naive's."
 )
 TRAINING_RULE = (
     "For origin o the model is fitted on all rows whose target year is <= o (features of year <= o-1) and "
