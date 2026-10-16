@@ -49,7 +49,7 @@ st.markdown(
     </div>
     <h1 style="margin:0 0 4px 0; font-size:1.7rem;">{faculty_name}</h1>
     <p style="color:#9ca3af; margin:0 0 20px 0; font-size:0.85rem;">
-        Astana IT University · EduForecast-SIS
+        Демо-данные Open University (Великобритания), факультеты условные · EduForecast-SIS
     </p>
     """,
     unsafe_allow_html=True,

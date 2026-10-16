@@ -218,7 +218,7 @@ def sidebar_logo(selected_code, faculty_map):
         <div style="padding:18px 0 16px 0; border-bottom:1px solid #1c2c4d; margin-bottom:14px;">
             <div style="font-size:1.05rem; font-weight:700; color:#f1f5f9;">EduForecast-SIS</div>
             <div style="font-size:0.68rem; color:#7d8db0; font-weight:500; margin-top:2px;">
-                Astana IT University
+                Демо-данные Open University (Великобритания), факультеты условные
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -237,7 +237,8 @@ def sidebar_logo(selected_code, faculty_map):
                     border-top:1px solid #1c2c4d;
                     font-size:0.68rem; color:#5b6b8c; line-height:1.9;">
             Данные: набор OULAD<br>
-            Модель: Случайный лес + SHAP<br>
+            Модель: риск на неделе k по данным недель ≤ k,<br>
+            оценка вне обучающей выборки (случайный лес + SHAP)<br>
             ИИ: Llama 3.3 70B (Groq)
         </div>
         """, unsafe_allow_html=True)

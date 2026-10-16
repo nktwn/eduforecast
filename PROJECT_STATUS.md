@@ -1,3 +1,11 @@
+> **⚠️ УСТАРЕЛО, см. [ACADEMIC_AUDIT.md](ACADEMIC_AUDIT.md) и [docs/PROJECT_STATUS.md](docs/PROJECT_STATUS.md).**
+>
+> Этот статус от 2026-10-01 больше не актуален:
+> - сведения о git неверны (в репозитории больше одного коммита, `app/` закоммичен), модулей Research и Finance здесь нет;
+> - AUC 0.9436 / 0.9433 и «лучшая модель раннего предупреждения — TFT-Inspired 0.759 против LSTM 0.429» не подтверждены аудитом от 2026-10-09.
+>
+> Текст ниже оставлен без изменений.
+
 # PROJECT_STATUS.md — EduForecast-SIS
 
 Аудит проведён: 2026-10-01. Репозиторий: `eduforecast` (ветка `main`, 1 коммит, git user `NurkhatSergaziyev`).

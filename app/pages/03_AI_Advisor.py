@@ -125,8 +125,9 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-SYSTEM_PROMPT = f"""Ты — AI советник декана {faculty_name} в Astana IT University.
-У тебя есть доступ к актуальным аналитическим данным факультета из LMS.
+SYSTEM_PROMPT = f"""Ты — AI советник декана условного факультета «{faculty_name}».
+Данные — демонстрационные: открытый набор OULAD (Open University, Великобритания),
+названия факультетов условные. Не выдавай их за данные реального казахстанского вуза.
 
 ДАННЫЕ ФАКУЛЬТЕТА:
 - Всего студентов (регистраций): {total}
@@ -205,7 +206,7 @@ with st.container(border=True, height=460):
             '<div class="empty-chat">'
             ''
             '  <div style="font-weight:600; font-size:0.95rem;">Задайте вопрос декана</div>'
-            '  <div style="font-size:0.82rem; margin-top:4px;">Советник ответит на основе реальных данных факультета</div>'
+            '  <div style="font-size:0.82rem; margin-top:4px;">Советник ответит на основе демо-данных Open University (Великобритания), факультеты условные</div>'
             '</div>',
             unsafe_allow_html=True,
         )
