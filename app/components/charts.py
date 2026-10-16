@@ -2,6 +2,7 @@ import plotly.graph_objects as go
 import pandas as pd
 import numpy as np
 
+from components import theme
 from components.risk_model import FEATURE_LABELS
 
 C_VIOLET  = "#2563eb"
@@ -17,40 +18,35 @@ LINE_COLOR  = "#e3e6eb"
 
 FONT_STACK = "-apple-system, Helvetica, Arial, sans-serif"
 
+LIGHT_TO_TOKEN = {"#0f172a": "text", "#374151": "text_2", "#6b7280": "muted", "#64748b": "muted",
+                  "#94a3b8": "muted", "#2563eb": "primary", "#ffffff": "surface", "#e3e6eb": "border",
+                  "#eef0f3": "grid"}
+
+
+def _retheme_color(c, p):
+    if isinstance(c, str) and c.lower() in LIGHT_TO_TOKEN:
+        return p[LIGHT_TO_TOKEN[c.lower()]]
+    if isinstance(c, (list, tuple)):
+        return [_retheme_color(x, p) for x in c]
+    return c
+
+
 def _base(fig: go.Figure, title: str = "", height: int = 350) -> go.Figure:
-    fig.update_layout(
-        title=dict(
-            text=title,
-            font=dict(size=13, color=C_DARK, family=FONT_STACK),
-            x=0, xanchor="left",
-        ),
-        height=height,
-        plot_bgcolor=TRANSPARENT,
-        paper_bgcolor=TRANSPARENT,
-        font=dict(family=FONT_STACK, color=C_DARK, size=12),
-        margin=dict(l=8, r=8, t=40, b=8),
-        legend=dict(
-            bgcolor="rgba(255,255,255,0)",
-            bordercolor=LINE_COLOR,
-            borderwidth=0,
-            font=dict(size=11),
-        ),
-        hoverlabel=dict(
-            bgcolor="#ffffff",
-            bordercolor=LINE_COLOR,
-            font=dict(color=C_DARK, family=FONT_STACK, size=12),
-        ),
-    )
-    fig.update_xaxes(
-        showgrid=True, gridcolor=GRID_COLOR, gridwidth=1,
-        linecolor=LINE_COLOR, zerolinecolor=LINE_COLOR,
-        tickfont=dict(color=C_MUTED, size=11),
-    )
-    fig.update_yaxes(
-        showgrid=True, gridcolor=GRID_COLOR, gridwidth=1,
-        linecolor=LINE_COLOR, zerolinecolor=GRID_COLOR,
-        tickfont=dict(color=C_MUTED, size=11),
-    )
+    """Common chart layout from the design system (light/dark palette, Russian number separators)."""
+    p = theme.palette()
+    fig.update_layout(template=theme.plotly_template(), title=dict(text=title, x=0, xanchor="left"),
+                      height=height, margin=dict(l=8, r=8, t=44, b=8))
+    fig.update_xaxes(showgrid=True, gridcolor=p["grid"], linecolor=p["border"], zerolinecolor=p["border"])
+    fig.update_yaxes(showgrid=True, gridcolor=p["grid"], linecolor=p["border"], zerolinecolor=p["grid"])
+    if theme.mode() == "dark":  # charts were drawn with light-theme literals; map them to the dark tokens
+        for tr in fig.data:
+            for attr in ("marker", "line", "textfont"):
+                obj = getattr(tr, attr, None)
+                if obj is not None and getattr(obj, "color", None) is not None:
+                    obj.color = _retheme_color(obj.color, p)
+        for ann in fig.layout.annotations or []:
+            if ann.font and ann.font.color:
+                ann.font.color = _retheme_color(ann.font.color, p)
     return fig
 
 def activity_line_chart(weekly_df: pd.DataFrame) -> go.Figure:
