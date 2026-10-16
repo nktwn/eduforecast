@@ -83,6 +83,8 @@ def main():
 
     panel = pd.read_parquet(PANEL2_PATH) if PANEL2_PATH.exists() else None
     res = evaluate_variants(aitu_profile.load(), panel)
+    from src.finance.models_stage2 import OUT_DIR
+    res.to_csv(OUT_DIR / "aitu_rules.csv", index=False)
     pd.set_option("display.width", 250, "display.max_colwidth", 70)
     print(res[["variant", "rule", "year", "value", "threshold", "triggered", "message"]].to_string(index=False))
 
