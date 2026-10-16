@@ -24,7 +24,8 @@ ENV/
 data/raw/
 data/processed/
 data/research/
-data/finance/
+data/finance/*
+!data/finance/DATA_DICTIONARY.md
 results/*
 !results/academic_audit/
 results/academic_audit/predictions/

@@ -52,4 +52,21 @@ def files_for_year(year: int) -> dict[str, str]:
         "f_fasb": finance_name(year, "F2"),
     }
     files["eap"] = f"EAP{year}"
+    files.update(extra_files_for_year(year))
     return files
+
+
+ADM_FIRST_YEAR = 2014
+SAL_IS_FIRST_YEAR = 2012
+
+
+def extra_files_for_year(year: int) -> dict[str, str]:
+    """Stage-2 components; names checked on the IPEDS Data Center pages for 2010-2023."""
+    return {
+        "ic": f"IC{year}",
+        "ic_ay": f"IC{year}_AY",
+        "adm": f"ADM{year}" if year >= ADM_FIRST_YEAR else None,
+        "sfa": f"SFA{(year - 1) % 100:02d}{year % 100:02d}",
+        "sal": f"SAL{year}_IS" if year >= SAL_IS_FIRST_YEAR else f"SAL{year}_A",
+        "c_a": f"C{year}_A",
+    }

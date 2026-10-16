@@ -87,6 +87,8 @@ def main():
     rows = []
     for year in args.years:
         for component, name in files_for_year(year).items():
+            if name is None:
+                continue
             row = {"year": year, "component": component, **download(name)}
             print(row["name"], row["status"], flush=True)
             rows.append(row)
