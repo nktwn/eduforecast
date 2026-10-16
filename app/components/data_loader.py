@@ -2,7 +2,7 @@ import pandas as pd
 from pathlib import Path
 import streamlit as st
 
-from components import risk_model
+from components import app_cache, risk_model
 from components.risk_model import DEFAULT_K, K_OPTIONS  # noqa: F401  (re-exported for pages)
 
 DATA_DIR = Path(__file__).parent.parent.parent / "data" / "raw"
@@ -28,6 +28,13 @@ RESULT_RU      = {
 
 @st.cache_data(show_spinner="Загрузка данных OULAD...")
 def load_raw_data():
+    cached = app_cache.load("oulad_raw", app_cache.oulad_signature())
+    if cached is not None:
+        return cached
+    return _read_raw_csv()
+
+
+def _read_raw_csv():
     na = {"na_values": ["?"]}
     info = pd.read_csv(DATA_DIR / "studentInfo.csv", **na)
     vle = pd.read_csv(
@@ -157,6 +164,14 @@ def _pooled_risk(k: int) -> dict:
 
 @st.cache_data(show_spinner="Оценка риска студентов...")
 def train_risk_model(module_code: str, k: int = DEFAULT_K):
+    """Precomputed by scripts/prepare_app.py when available (same computation, persisted)."""
+    cached = app_cache.load(f"risk_{module_code}_k{k}", app_cache.oulad_signature())
+    if cached is not None:
+        return cached
+    return compute_risk_model(module_code, k)
+
+
+def compute_risk_model(module_code: str, k: int = DEFAULT_K):
     """Risk at week k for the module's registrations still enrolled at week k.
 
     Returns (df, quality, feature_cols, shap_vals):

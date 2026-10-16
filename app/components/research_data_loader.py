@@ -21,6 +21,15 @@ def load_yearly_counts():
 
 @st.cache_data(show_spinner="Построение прогноза (Prophet)...")
 def get_forecast_comparison() -> ForecastComparison:
+    from components import app_cache
+
+    cached = app_cache.load("research_forecast", app_cache.research_signature())
+    if cached is not None:
+        return cached
+    return compute_forecast_comparison()
+
+
+def compute_forecast_comparison() -> ForecastComparison:
     full, training = load_yearly_counts()
     return run_forecast_comparison(training, partial=partial_years(full))
 

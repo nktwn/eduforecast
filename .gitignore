@@ -50,3 +50,4 @@ Thumbs.db
 # Advisor query log and Streamlit secrets
 logs/
 .streamlit/secrets.toml
+data/app_cache/

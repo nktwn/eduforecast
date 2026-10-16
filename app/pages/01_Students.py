@@ -4,6 +4,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import io
 import streamlit as st
+from components import ui
 from components.charts import reliability_chart
 from components.data_loader import (
     DATA_DIR as OULAD_DIR, FACULTY_MAP, K_OPTIONS, RISK_LABELS_RU, RESULT_RU,
@@ -13,28 +14,21 @@ from components.styles import GLASS_CSS, demo_data_banner, require_data, sidebar
 
 RISK_GROUP_RU = {"HIGH": "Высокий (топ-10%)", "MEDIUM": "Средний (следующие 20%)", "LOW": "Низкий"}
 
-st.set_page_config(
-    page_title="Студенты | EduForecast-SIS",
-    page_icon="А",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
-st.markdown(GLASS_CSS, unsafe_allow_html=True)
 require_data([OULAD_DIR / f for f in ("studentInfo.csv", "studentVle.csv", "studentAssessment.csv", "assessments.csv", "studentRegistration.csv")], "Подготовка данных → Academic (OULAD)")
 demo_data_banner()
 st.markdown("""
 <style>
 .top-student-card {
-    background: #ffffff;
+    background: var(--ef-surface);
     border-radius: 8px;
-    border: 1px solid #e3e6eb;
-    border-top: 3px solid #dc2626;
+    border: 1px solid var(--ef-border);
+    border-top: 3px solid var(--ef-danger);
     padding: 16px 14px;
     text-align: center;
 }
 .risk-summary-card {
     border-radius: 8px;
-    border: 1px solid #e3e6eb;
+    border: 1px solid var(--ef-border);
     padding: 16px 18px;
 }
 </style>
@@ -44,11 +38,16 @@ selected_code = st.session_state.get("selected_faculty", "AAA")
 selected_code = sidebar_logo(selected_code, FACULTY_MAP)
 faculty_name  = FACULTY_MAP[selected_code]
 
-st.markdown(
-    f'<h1 style="margin:0 0 4px 0;">Студенты</h1>'
-    f'<p style="color:#6d7280; margin:0 0 22px 0; font-size:0.88rem;">{faculty_name}</p>',
-    unsafe_allow_html=True,
-)
+ui.page_header("Академический: студенты", f"{faculty_name} · риск отчисления на неделе k", status="демо")
+ui.how_to_read([
+    ("Что показывает", "Риск отчисления студентов, ещё не ушедших к неделе k, качество модели и главную причину по "
+                       f"{ui.term('SHAP')}."),
+    ("Как читать", f"{ui.term('k')}: модель видит только данные до конца недели k. {ui.term('precision', 'Precision')} и "
+                   f"{ui.term('охват')} в топ-10% — насколько полезен список для приоритизации."),
+    ("Результат", "AUC умеренный: используйте список для внимания кураторов, а не для решений о людях."),
+    ("Проверка", "Каждый риск предсказан моделью, которая этого студента не видела; калибровка — в разделе ниже."),
+    ("Оговорки", "Демо-данные OULAD, факультеты условные. Советник не видит этот список: только агрегаты."),
+])
 
 k = st.radio(
     "Неделя прогноза k",
@@ -68,7 +67,7 @@ total = len(df)
 qf, qa = quality["faculty"], quality["overall"]
 
 st.markdown(
-    f'<div style="font-size:0.82rem; color:#6b7280; margin:4px 0 14px 0;">'
+    f'<div style="font-size:0.82rem; color:var(--ef-muted); margin:4px 0 14px 0;">'
     f'Риск показан для {total:,} студентов, ещё не отчисленных к концу недели {k}. '
     f'Ещё {quality["n_left_by_k"]:,} из {quality["n_registered"]:,} регистраций '
     f'к этому моменту уже ушли и в прогноз не входят. Каждый риск предсказан моделью, '
@@ -119,7 +118,7 @@ top5 = df[df["risk_level"] == "HIGH"].nlargest(5, "risk_score")
 
 if len(top5) == 0:
     st.markdown(
-        '<div class="glass-card" style="text-align:center; color:#059669; padding:24px;">'
+        '<div class="glass-card" style="text-align:center; color:var(--ef-ok); padding:24px;">'
         '<div style="font-weight:600;">Нет студентов с высоким риском</div>'
         '</div>',
         unsafe_allow_html=True,
@@ -131,15 +130,15 @@ else:
             with cols[i]:
                 st.markdown(
                     f'<div class="top-student-card">'
-                    f'  <div style="font-weight:700; color:#0f172a; font-size:0.88rem;">'
+                    f'  <div style="font-weight:700; color:var(--ef-text); font-size:0.88rem;">'
                     f'    ID {row["id_student"]}</div>'
-                    f'  <div style="font-size:1.7rem; font-weight:800; color:#dc2626;'
+                    f'  <div style="font-size:1.7rem; font-weight:800; color:var(--ef-danger);'
                     f'    line-height:1; margin:8px 0;">{row["risk_score_pct"]:.0f}%</div>'
-                    f'  <div style="font-size:0.68rem; color:#9ca3af; margin-bottom:8px;">'
+                    f'  <div style="font-size:0.68rem; color:var(--ef-muted); margin-bottom:8px;">'
                     f'    риск отчисления</div>'
-                    f'  <div style="font-size:0.72rem; color:#374151; font-weight:500;'
-                    f'    background:#f5f6f8; border-radius:6px;'
-                    f'    padding:5px 8px; border:1px solid #e3e6eb;">'
+                    f'  <div style="font-size:0.72rem; color:var(--ef-text-2); font-weight:500;'
+                    f'    background:var(--ef-surface-2); border-radius:6px;'
+                    f'    padding:5px 8px; border:1px solid var(--ef-border);">'
                     f'    {row["top_risk_reason"]}</div>'
                     f'</div>',
                     unsafe_allow_html=True,
@@ -178,7 +177,7 @@ if search_id.strip():
 filtered = df[mask].copy()
 
 st.markdown(
-    f'<div style="font-size:0.82rem; color:#6b7280; margin-bottom:10px;">'
+    f'<div style="font-size:0.82rem; color:var(--ef-muted); margin-bottom:10px;">'
     f'Показано {len(filtered):,} из {total:,} студентов</div>',
     unsafe_allow_html=True,
 )
@@ -238,9 +237,9 @@ st.markdown('<div class="section-title">Сводка по уровням рис�
 
 s1, s2, s3 = st.columns(3)
 for col, level, border, label in [
-    (s1, "HIGH",   "#dc2626", "Высокий риск (топ-10%)"),
-    (s2, "MEDIUM", "#d97706", "Средний риск (следующие 20%)"),
-    (s3, "LOW",    "#059669", "Низкий риск (остальные 70%)"),
+    (s1, "HIGH",   "var(--ef-danger)", "Высокий риск (топ-10%)"),
+    (s2, "MEDIUM", "var(--ef-warn)", "Средний риск (следующие 20%)"),
+    (s3, "LOW",    "var(--ef-ok)", "Низкий риск (остальные 70%)"),
 ]:
     cnt   = int((df["risk_level"] == level).sum())
     pct   = cnt / total * 100 if total else 0
@@ -250,18 +249,18 @@ for col, level, border, label in [
     with col:
         st.markdown(
             f'<div class="risk-summary-card" style="border-left:3px solid {border};">'
-            f'  <div style="font-size:0.8rem; color:#6b7280; margin-bottom:2px;">{label}</div>'
-            f'  <div style="font-size:1.8rem; font-weight:700; color:#0f172a;">{cnt}</div>'
-            f'  <div style="font-size:0.8rem; color:#9ca3af; margin-top:2px;">{pct:.1f}% студентов · '
+            f'  <div style="font-size:0.8rem; color:var(--ef-muted); margin-bottom:2px;">{label}</div>'
+            f'  <div style="font-size:1.8rem; font-weight:700; color:var(--ef-text);">{cnt}</div>'
+            f'  <div style="font-size:0.8rem; color:var(--ef-muted); margin-top:2px;">{pct:.1f}% студентов · '
             f'фактически ушли {left:.0%}</div>'
             f'  <div style="margin-top:10px; display:grid; grid-template-columns:1fr 1fr; gap:8px;">'
-            f'    <div style="background:#f5f6f8; border-radius:6px; padding:8px; text-align:center;">'
-            f'      <div style="font-size:1.05rem; font-weight:700; color:#0f172a;">{avg_s:.1f}</div>'
-            f'      <div style="font-size:0.68rem; color:#9ca3af;">ср. балл</div>'
+            f'    <div style="background:var(--ef-surface-2); border-radius:6px; padding:8px; text-align:center;">'
+            f'      <div style="font-size:1.05rem; font-weight:700; color:var(--ef-text);">{avg_s:.1f}</div>'
+            f'      <div style="font-size:0.68rem; color:var(--ef-muted);">ср. балл</div>'
             f'    </div>'
-            f'    <div style="background:#f5f6f8; border-radius:6px; padding:8px; text-align:center;">'
-            f'      <div style="font-size:1.05rem; font-weight:700; color:#0f172a;">{avg_c:,.0f}</div>'
-            f'      <div style="font-size:0.68rem; color:#9ca3af;">ср. клики</div>'
+            f'    <div style="background:var(--ef-surface-2); border-radius:6px; padding:8px; text-align:center;">'
+            f'      <div style="font-size:1.05rem; font-weight:700; color:var(--ef-text);">{avg_c:,.0f}</div>'
+            f'      <div style="font-size:0.68rem; color:var(--ef-muted);">ср. клики</div>'
             f'    </div>'
             f'  </div>'
             f'</div>',

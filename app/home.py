@@ -3,6 +3,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 import streamlit as st
+from components import ui
 from components.data_loader import (
     DATA_DIR as OULAD_DIR,
     FACULTY_MAP, get_faculty_data, get_weekly_activity,
@@ -11,14 +12,7 @@ from components.data_loader import (
 from components.charts import activity_line_chart, risk_donut_chart, score_histogram
 from components.styles import GLASS_CSS, demo_data_banner, require_data, sidebar_logo
 
-st.set_page_config(
-    page_title="EduForecast-SIS | AIU",
-    page_icon="А",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
 
-st.markdown(GLASS_CSS, unsafe_allow_html=True)
 require_data([OULAD_DIR / f for f in ("studentInfo.csv", "studentVle.csv", "studentAssessment.csv", "assessments.csv", "studentRegistration.csv")], "Подготовка данных → Academic (OULAD)")
 demo_data_banner()
 
@@ -42,24 +36,23 @@ avg_score   = df_raw["avg_score"].mean()
 health      = compute_health_index(df_raw)
 alerts      = get_alerts(df_raw)
 
-st.markdown(
-    f"""
-    <div style="font-size:0.78rem; color:#6b7280; margin-bottom:2px;">
-        Стратегический дашборд
-    </div>
-    <h1 style="margin:0 0 4px 0; font-size:1.7rem;">{faculty_name}</h1>
-    <p style="color:#9ca3af; margin:0 0 20px 0; font-size:0.85rem;">
-        Демо-данные Open University (Великобритания), факультеты условные · EduForecast-SIS
-    </p>
-    """,
-    unsafe_allow_html=True,
-)
+ui.page_header(f"Академический: {faculty_name}", "Обзор условного факультета на демо-данных Open University "
+               "(Великобритания).", status="демо")
+ui.how_to_read([
+    ("Что показывает", "Ключевые показатели факультета, сигналы, активность в LMS по неделям, группы риска и итоги."),
+    ("Как читать", f"Группы риска — перцентили на неделе k (выбирается на странице «Студенты»): топ-10%, следующие "
+                   f"20%, остальные. {ui.term('AUC')} и качество модели — на странице «Студенты»."),
+    ("Результат", "Модель различает будущих ушедших умеренно: группа высокого риска значит «выше среднего»."),
+    ("Проверка", "Риск оценён вне обучающей выборки (GroupKFold по студенту) по данным недель ≤ k."),
+    ("Оговорки", "Демо-данные OULAD, факультеты условные; на данных AITU модель не проверялась. «Индекс "
+                 "здоровья» — составной индекс с весами, заданными вручную."),
+])
 
 for a in alerts:
     st.markdown(
         f'<div class="glass-alert" style="border-left-color:{a["color"]};">'
         f'<span><b style="color:{a["color"]};">{a["level"]}</b>'
-        f'<span style="color:#374151;"> — {a["msg"]}</span></span>'
+        f'<span style="color:var(--ef-text-2);"> — {a["msg"]}</span></span>'
         f'</div>',
         unsafe_allow_html=True,
     )
@@ -81,7 +74,7 @@ with k1:
 with k2:
     st.markdown(
         f'<div class="metric-card accent-amber">'
-        f'<div class="metric-value" style="color:#d97706;">{high_risk:,}</div>'
+        f'<div class="metric-value" style="color:var(--ef-warn);">{high_risk:,}</div>'
         f'<div class="metric-label">Высокий риск (топ-10%), неделя {risk_week}</div>'
         f'<div class="metric-delta">из {enrolled:,} ещё учащихся; фактически ушли {high_left:.0f}%</div>'
         f'</div>',
@@ -89,7 +82,7 @@ with k2:
     )
 
 with k3:
-    sc = "#dc2626" if avg_score < 40 else "#d97706" if avg_score < 60 else "#059669"
+    sc = "var(--ef-danger)" if avg_score < 40 else "var(--ef-warn)" if avg_score < 60 else "var(--ef-ok)"
     st.markdown(
         f'<div class="metric-card">'
         f'<div class="metric-value" style="color:{sc};">{avg_score:.1f}</div>'
@@ -100,7 +93,7 @@ with k3:
     )
 
 with k4:
-    hc = "#dc2626" if health < 40 else "#d97706" if health < 60 else "#2563eb" if health < 80 else "#059669"
+    hc = "var(--ef-danger)" if health < 40 else "var(--ef-warn)" if health < 60 else "var(--ef-primary)" if health < 80 else "var(--ef-ok)"
     hl = "Критично" if health < 40 else "Внимание" if health < 60 else "Хорошо" if health < 80 else "Отлично"
     st.markdown(
         f'<div class="metric-card">'
@@ -150,29 +143,29 @@ with col_a:
 with col_b:
     with st.container(border=True):
         st.markdown(
-            '<div style="font-size:0.8rem; font-weight:600; color:#374151;'
+            '<div style="font-size:0.8rem; font-weight:600; color:var(--ef-text-2);'
             'margin-bottom:14px;">Итоги по статусам</div>',
             unsafe_allow_html=True,
         )
 
         result_colors = {
-            "Distinction": "#059669", "Pass": "#2563eb",
-            "Fail": "#d97706", "Withdrawn": "#dc2626",
+            "Distinction": "var(--ef-ok)", "Pass": "var(--ef-primary)",
+            "Fail": "var(--ef-warn)", "Withdrawn": "var(--ef-danger)",
         }
 
         for result, count in df_raw["final_result"].value_counts().items():
             pct   = count / total * 100
-            color = result_colors.get(result, "#6b7280")
+            color = result_colors.get(result, "var(--ef-muted)")
             label = RESULT_RU.get(result, result)
             st.markdown(
                 f'<div style="margin-bottom:12px;">'
                 f'  <div style="display:flex; justify-content:space-between; margin-bottom:4px;">'
-                f'    <span style="color:#374151; font-weight:500; font-size:0.86rem;">'
+                f'    <span style="color:var(--ef-text-2); font-weight:500; font-size:0.86rem;">'
                 f'      {label}</span>'
-                f'    <span style="color:#0f172a; font-weight:600; font-size:0.86rem;">'
-                f'      {count:,} <span style="color:#9ca3af; font-weight:400;">({pct:.1f}%)</span></span>'
+                f'    <span style="color:var(--ef-text); font-weight:600; font-size:0.86rem;">'
+                f'      {count:,} <span style="color:var(--ef-muted); font-weight:400;">({pct:.1f}%)</span></span>'
                 f'  </div>'
-                f'  <div style="height:4px; border-radius:2px; background:#eef0f3;">'
+                f'  <div style="height:4px; border-radius:2px; background:var(--ef-surface-2);">'
                 f'    <div style="height:4px; border-radius:2px; width:{pct:.1f}%;'
                 f'    background:{color};"></div>'
                 f'  </div>'

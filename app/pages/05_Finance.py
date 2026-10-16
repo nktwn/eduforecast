@@ -6,6 +6,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import pandas as pd
 import streamlit as st
+from components import ui
 
 from components.finance_charts import change_text, fmt_value, history_chart, peer_bar, shap_waterfall
 from components.finance_data_loader import CONTRACT_VERSION, PROVIDERS, aitu, forecast, missing, search, stage2_table
@@ -16,32 +17,31 @@ from src.finance.api.contract import TARGET_META
 
 st.set_page_config(page_title="Финансы вузов (бета) | EduForecast-SIS", page_icon="Ф", layout="wide",
                    initial_sidebar_state="expanded")
-st.markdown(GLASS_CSS, unsafe_allow_html=True)
 st.markdown("""
 <style>
-.beta-pill { display:inline-block; background:#d97706; color:#fff; font-size:0.68rem; font-weight:700;
+.beta-pill { display:inline-block; background:var(--ef-warn); color:#fff; font-size:0.68rem; font-weight:700;
              letter-spacing:0.08em; padding:3px 9px; border-radius:999px; vertical-align:middle; margin-left:10px; }
-.beta-banner { background:#fffbeb; border:1px solid #fde68a; border-left:4px solid #d97706; border-radius:6px;
-               padding:10px 14px; font-size:0.83rem; color:#78350f; margin:4px 0 18px 0; line-height:1.5; }
-.mock-banner { background:#fef2f2; border:1px solid #fecaca; border-left:4px solid #dc2626; border-radius:6px;
-               padding:10px 14px; font-size:0.83rem; color:#7f1d1d; margin:4px 0 18px 0; }
-.inst-meta { font-size:0.82rem; color:#6b7280; margin-top:2px; }
-.tag { display:inline-block; background:#eef2f7; color:#334155; font-size:0.72rem; padding:2px 8px;
+.beta-banner { background:var(--ef-warn-bg); border:1px solid var(--ef-border); border-left:4px solid var(--ef-warn); border-radius:6px;
+               padding:10px 14px; font-size:0.83rem; color:var(--ef-text); margin:4px 0 18px 0; line-height:1.5; }
+.mock-banner { background:var(--ef-danger-bg); border:1px solid var(--ef-border); border-left:4px solid var(--ef-danger); border-radius:6px;
+               padding:10px 14px; font-size:0.83rem; color:var(--ef-text); margin:4px 0 18px 0; }
+.inst-meta { font-size:0.82rem; color:var(--ef-muted); margin-top:2px; }
+.tag { display:inline-block; background:var(--ef-surface-2); color:var(--ef-text-2); font-size:0.72rem; padding:2px 8px;
        border-radius:4px; margin-right:6px; }
-.flag-row { font-size:0.8rem; padding:6px 10px; border-radius:6px; margin-bottom:5px; border:1px solid #e3e6eb;
+.flag-row { font-size:0.8rem; padding:6px 10px; border-radius:6px; margin-bottom:5px; border:1px solid var(--ef-border);
             background:#fff; }
-.flag-info { border-left:3px solid #64748b; } .flag-warning { border-left:3px solid #d97706; }
-.flag-critical { border-left:3px solid #dc2626; }
+.flag-info { border-left:3px solid var(--ef-muted); } .flag-warning { border-left:3px solid var(--ef-warn); }
+.flag-critical { border-left:3px solid var(--ef-danger); }
 .sev { font-weight:700; font-size:0.66rem; letter-spacing:0.05em; margin-right:6px; }
-.howto { background:#ffffff; border:1px solid #e3e6eb; border-radius:6px; padding:10px 16px; margin:0 0 16px 0;
-         font-size:0.8rem; color:#334155; line-height:1.55; }
-.howto b { color:#0f172a; }
-.iv-note { font-size:0.74rem; color:#6b7280; margin:-6px 0 14px 0; }
-.eval-banner { background:#eff6ff; border:1px solid #bfdbfe; border-left:4px solid #2563eb; border-radius:6px;
-               padding:10px 14px; font-size:0.83rem; color:#1e3a8a; margin:4px 0 18px 0; line-height:1.5; }
-.us-note { display:inline-block; background:#f1f5f9; color:#334155; font-size:0.74rem; font-weight:600;
+.howto { background:var(--ef-surface); border:1px solid var(--ef-border); border-radius:6px; padding:10px 16px; margin:0 0 16px 0;
+         font-size:0.8rem; color:var(--ef-text-2); line-height:1.55; }
+.howto b { color:var(--ef-text); }
+.iv-note { font-size:0.74rem; color:var(--ef-muted); margin:-6px 0 14px 0; }
+.eval-banner { background:var(--ef-concept-bg); border:1px solid var(--ef-border); border-left:4px solid var(--ef-primary); border-radius:6px;
+               padding:10px 14px; font-size:0.83rem; color:var(--ef-text); margin:4px 0 18px 0; line-height:1.5; }
+.us-note { display:inline-block; background:var(--ef-surface-2); color:var(--ef-text-2); font-size:0.74rem; font-weight:600;
            padding:3px 10px; border-radius:4px; margin:0 0 12px 0; }
-.status-ok { color:#047857; font-weight:700; } .status-fail { color:#b91c1c; font-weight:700; }
+.status-ok { color:var(--ef-ok); font-weight:700; } .status-fail { color:var(--ef-danger); font-weight:700; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -49,11 +49,6 @@ SEVERITY_LABEL = {"critical": "КРИТИЧНО", "warning": "ВНИМАНИЕ",
 CONTROL_LABEL = {"public": "государственный", "private_nonprofit": "частный некоммерческий"}
 
 with st.sidebar:
-    st.markdown("""
-    <div style="padding:18px 0 16px 0; border-bottom:1px solid #1c2c4d; margin-bottom:14px;">
-        <div style="font-size:1.05rem; font-weight:700; color:#f1f5f9;">EduForecast-SIS</div>
-        <div style="font-size:0.68rem; color:#7d8db0; font-weight:500; margin-top:2px;">Модуль Finance · бета</div>
-    </div>""", unsafe_allow_html=True)
     provider = st.radio("Источник прогноза", list(PROVIDERS), format_func=PROVIDERS.get, key="fin_provider")
     absent = missing(provider)
     choice = None
@@ -76,11 +71,7 @@ with st.sidebar:
                                       f"{by_id[i]['last_year']})",
                 key=f"fin_choice_{provider}")
             choice = by_id[choice_id]
-    st.markdown(f"""
-    <div style="margin-top:22px; padding-top:14px; border-top:1px solid #1c2c4d; font-size:0.68rem;
-                color:#5b6b8c; line-height:1.9;">
-        Данные: IPEDS 2010–2023<br>Деньги: CPI-U, $ FY2023<br>Контракт: {CONTRACT_VERSION}
-    </div>""", unsafe_allow_html=True)
+    st.caption(f"Данные: IPEDS 2010–2023 · деньги: CPI-U, $ FY2023 · контракт: {CONTRACT_VERSION}")
 
 def forecast_tab():
     if choice is None:
@@ -125,7 +116,7 @@ def forecast_tab():
 
     st.markdown(f"""
     <div class="glass-card" style="padding:16px 20px;">
-      <div style="font-size:1.25rem; font-weight:700; color:#0f172a;">{inst['name']}</div>
+      <div style="font-size:1.25rem; font-weight:700; color:var(--ef-text);">{inst['name']}</div>
       <div class="inst-meta">
         <span class="tag">{inst['state']}</span><span class="tag">{CONTROL_LABEL.get(inst['control'], inst['control'])}</span>
         <span class="tag">Carnegie: {inst['carnegie_group']}</span><span class="tag">UNITID {inst['unitid']}</span>
@@ -155,7 +146,7 @@ def forecast_tab():
             <div class="metric-card{accent}">
               <div class="metric-label">{t['label']}{f" · {last['year']}" if last else ""}</div>
               <div class="metric-value" style="font-size:1.55rem;">{fmt_value(last['value'] if last else None, t['unit'])}</div>
-              <div class="metric-delta" style="color:#475569; line-height:1.5;">{delta}</div>
+              <div class="metric-delta" style="color:var(--ef-muted); line-height:1.5;">{delta}</div>
             </div>""", unsafe_allow_html=True)
 
     st.markdown(f'<div class="iv-note" style="margin-top:8px;">{IV_NOTE}</div>', unsafe_allow_html=True)
@@ -400,8 +391,19 @@ def link_tab():
             hide_index=True, width="stretch")
 
 
-pill = '<span class="beta-pill">БЕТА</span>' if provider != "stage2" else ""
-st.markdown(f'<h1 style="margin:0; font-size:1.7rem;">Финансы и результаты вузов{pill}</h1>', unsafe_allow_html=True)
+ui.page_header("Финансы", "Вузы США (IPEDS) и профиль AITU: прогноз, проверка моделей, связь бюджета и "
+               "результатов. Данные США, контекст другой.",
+               status="проверено" if provider == "stage2" else "демо")
+ui.how_to_read([
+    ("Что показывает", "Прогноз четырёх показателей вуза США, проверку моделей по критерию, профиль AITU 2019–2020, "
+                       "связь структуры бюджета и результатов."),
+    ("Как читать", f"Модель полезна, если её {ui.term('MAE')} хотя бы на 10% ниже, чем у {ui.term('naive')}, в обеих "
+                   f"оценках. Аналоги — по {ui.term('перцентиль', 'перцентилям')}."),
+    ("Результат", "Основная модель не прошла критерий ни по одной цели; гипотезы о связи бюджета и результатов не "
+                  "подтвердились."),
+    ("Проверка", "Критерий и гипотезы зафиксированы до моделей (FINANCE_STAGE2_REPORT.md)."),
+    ("Оговорки", "Данные США; связь — не эффект; профиль AITU — снимок 2020 года с отсканированного PDF."),
+])
 tab_fc, tab_q, tab_aitu, tab_link = st.tabs(["Прогноз вуза", "Качество моделей", "Профиль AITU",
                                              "Связь бюджета и результатов (связь, не причина)"])
 with tab_fc:
