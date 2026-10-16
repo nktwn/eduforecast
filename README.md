@@ -4,7 +4,7 @@
 
 - **Academic** — риск отчисления студентов. Демо на открытом наборе OULAD.
 - **Research** — научная продуктивность Astana IT University по данным OpenAlex.
-- **Finance (бета)** — финансы и результаты вузов США (IPEDS): расходы на студента, приём, выпускаемость, retention.
+- **Finance (бета)** — финансы и результаты вузов США (IPEDS): прогноз расходов на студента, приёма, выпускаемости и retention со статусом критерия успеха; связь структуры бюджета и результатов; финансовый профиль AITU с правилами.
 
 ---
 
@@ -51,10 +51,16 @@ unzip -o -j /tmp/oulad.zip "*.csv" -d data/raw
 Данные NCES IPEDS 2010–2023 и индекс цен CPI-U (FRED) скачиваются автоматически:
 
 ```bash
-python -m src.finance.download         # ~1.1 ГБ, 127 файлов, 8–15 минут (зависит от сети)
+python -m src.finance.download         # ~2.3 ГБ, 207 файлов (с этапом 2), 15–30 минут (зависит от сети)
 python -m src.finance.panel            # панель вуз × год → data/finance/panel.parquet, ~1 минута
 python -m src.finance.api.demo_model   # демо-модели LightGBM → data/finance/models/, ~1 минута
+python -m src.finance.panel_stage2     # + приём, помощь, цены, кадры, программы, натуральные статьи, ~40 с
+python -m src.finance.models_stage2 rolling && python -m src.finance.models_stage2 unseen   # ~10–20 минут
+python -m src.finance.models_stage2 report && python -m src.finance.models_stage2 deploy
+python -m src.finance.budget_outcomes  # связь структуры бюджета и результатов (H1–H4)
 ```
+
+Полный список команд этапа 2 и время — [FINANCE_STAGE2_REPORT.md](FINANCE_STAGE2_REPORT.md), §10. Профиль AITU (`data/aitu/`) лежит в репозитории и показывается без данных IPEDS.
 
 Загрузка кэширует файлы на диск: при обрыве повторный запуск докачает только недостающее. Проверить, что прогноз собирается по контракту API:
 
@@ -96,12 +102,15 @@ OPENALEX_MAILTO=you@example.com   # только для пересборки д�
 - **Аналитика.** Бенчмарки («Мировой топ-100», «Цель AIU» и др.) заданы вручную для иллюстрации. «Удержание студентов» — линейная экстраполяция, а не модель. Если API Всемирного банка недоступен, показываются справочные значения с пометкой.
 - **Научная продуктивность** — proof-of-concept на 6 годовых точках. Потолок логистической модели — экспертная оценка.
 - **Финансы.**
-  - Прогнозы делает **демо-модель**: обучена на годах до 2019 и по критерию успеха не оценивалась.
-  - Интервал одной ширины для всех вузов.
+  - Данные США (IPEDS), контекст другой.
+  - Модель этапа 2 (LightGBM S3) оценена по зафиксированному критерию и **не прошла его ни по одной из четырёх целей**: лучше naive на 2–10%, а нужно не меньше 10% в обеих оценках. Страница показывает статус по каждой цели.
+  - Демо-модель оставлена как отдельный режим и по критерию не оценивалась.
+  - Связь структуры бюджета и результатов — описательная, не причинная. Гипотезы H1–H4 не подтвердились.
+  - Профиль AITU — два года (2019–2020) из отсканированной отчётности, `verified=false`.
   - Режим «Мок» полностью синтетический.
-  - HTTP API нет: контракт `finance-forecast/0.1.0` описан, но страница вызывает провайдер напрямую.
+  - HTTP API нет: контракт `finance-forecast/0.2.0` описан, но страница вызывает провайдер напрямую.
 
-  Полный список — [FINANCE_BETA.md](FINANCE_BETA.md), §4.
+  Подробно — [FINANCE_STAGE2_REPORT.md](FINANCE_STAGE2_REPORT.md) и [FINANCE_BETA.md](FINANCE_BETA.md), §4.
 
 ---
 
@@ -113,6 +122,8 @@ OPENALEX_MAILTO=you@example.com   # только для пересборки д�
 | [DATA_AUDIT.md](DATA_AUDIT.md), [STAGE2_REPORT.md](STAGE2_REPORT.md) | Research: панель OpenAlex по 14 вузам, модели роста против naive |
 | [FINANCE_DATA_AUDIT.md](FINANCE_DATA_AUDIT.md) | Finance: данные IPEDS, гармонизация GASB / FASB, разрывы, baseline |
 | [FINANCE_BETA.md](FINANCE_BETA.md) | Finance: контракт API, провайдеры, экраны, что в бете мок |
+| [FINANCE_STAGE2_REPORT.md](FINANCE_STAGE2_REPORT.md) | Finance, этап 2: расширенные данные, модели против критерия, связь бюджета и результатов, профиль AITU |
+| [data/finance/DATA_DICTIONARY.md](data/finance/DATA_DICTIONARY.md) | словарь данных панели Finance |
 
 Ноутбуки `notebooks/01–06` воспроизводят исследование Academic (EDA, признаки, LR / RF, LSTM, TFT-inspired, SHAP); запускаются по порядку после подготовки OULAD.
 

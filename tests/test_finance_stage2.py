@@ -71,3 +71,18 @@ def test_two_way_fe_matches_dummy_regression():
     assert abs(meat / (xt @ xt) ** 2 - res["unscaled_vcov"][0, 0]) < 1e-10
 
     assert holm([0.01, 0.04, 0.03, 0.5]) == [0.04, 0.09, 0.09, 0.5]
+
+
+def test_contract_0_2_accepts_0_1_responses_and_new_provider():
+    from src.finance.api.contract import validate
+    from src.finance.api.providers import MockProvider
+
+    r = MockProvider().forecast(900001)
+    assert validate(r) == []
+    old = {**r, "contract_version": "finance-forecast/0.1.0"}
+    assert validate(old) == []
+    new = {**r, "provider": {**r["provider"], "name": "stage2-lightgbm", "is_mock": False, "is_demo": False,
+                             "evaluated_against_criterion": True}}
+    new["data_quality"] = {"flags": [{"code": "CRITERION_NOT_MET", "severity": "warning", "message": "x",
+                                      "year": None, "target": "retention_rate"}]}
+    assert validate(new) == []

@@ -1,20 +1,20 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://eduforecast.local/contracts/finance-forecast/0.1.0",
+  "$id": "https://eduforecast.local/contracts/finance-forecast/0.2.0",
   "title": "FinanceForecastResponse",
   "description": "Response of GET /finance/v0/institutions/{unitid}/forecast. One institution, all targets, next-year horizon.",
   "type": "object",
   "required": ["contract_version", "generated_at", "provider", "institution", "data_vintage", "horizon_year", "targets", "peers", "data_quality"],
   "additionalProperties": false,
   "properties": {
-    "contract_version": {"const": "finance-forecast/0.1.0"},
+    "contract_version": {"enum": ["finance-forecast/0.1.0", "finance-forecast/0.2.0"]},
     "generated_at": {"type": "string", "format": "date-time"},
     "provider": {
       "type": "object",
       "required": ["name", "is_mock", "is_demo", "model_version", "trained_through_year", "evaluated_against_criterion"],
       "additionalProperties": false,
       "properties": {
-        "name": {"enum": ["mock", "demo-lightgbm"]},
+        "name": {"enum": ["mock", "demo-lightgbm", "stage2-lightgbm"]},
         "is_mock": {"type": "boolean"},
         "is_demo": {"type": "boolean"},
         "model_version": {"type": "string"},
@@ -71,7 +71,7 @@
     "flag_code": {
       "enum": ["MOCK_DATA", "DEMO_MODEL", "COVID_YEAR", "GASB75_2018", "ID_TRANSITION", "MERGER_ABSORPTION",
                "NOT_ELIGIBLE", "SMALL_COHORT", "FINANCE_PARENT_CHILD", "FINANCE_PARTIAL", "MISSING_VALUE",
-               "OUTLIER_CHANGE", "SHORT_HISTORY"]
+               "OUTLIER_CHANGE", "SHORT_HISTORY", "CRITERION_NOT_MET"]
     },
     "flag": {
       "type": "object",

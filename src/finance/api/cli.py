@@ -4,15 +4,16 @@ import sys
 
 from src.finance.api.contract import validate
 from src.finance.api.providers import DemoProvider, MockProvider
+from src.finance.api.stage2_provider import Stage2Provider
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Print a finance forecast response (contract finance-forecast/0.1.0)")
+    parser = argparse.ArgumentParser(description="Print a finance forecast response (contract finance-forecast/0.2.0)")
     parser.add_argument("query", help="series_id, UNITID or part of the institution name")
-    parser.add_argument("--provider", choices=["demo", "mock"], default="demo")
+    parser.add_argument("--provider", choices=["stage2", "demo", "mock"], default="stage2")
     args = parser.parse_args()
 
-    provider = DemoProvider() if args.provider == "demo" else MockProvider()
+    provider = {"stage2": Stage2Provider, "demo": DemoProvider, "mock": MockProvider}[args.provider]()
     hits = provider.search(args.query, limit=1)
     if not hits:
         print(f"No institution matches {args.query!r}", file=sys.stderr)

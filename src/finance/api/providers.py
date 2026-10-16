@@ -187,7 +187,8 @@ class DemoProvider:
     def search(self, query: str, limit: int = 20) -> list[dict]:
         return self.repo.search(query, limit)
 
-    def _target_block(self, series_id: int, target: str, peer_ids: list[int]) -> dict:
+    def _base_block(self, series_id: int, target: str, peer_ids: list[int]) -> dict:
+        """History, eligibility and baselines; the model part is added by the provider."""
         meta = TARGET_META[target]
         scale = meta["change_scale"]
         tf = self.repo.targets[target]
@@ -208,7 +209,22 @@ class DemoProvider:
         if reason:
             block.update({"eligible": False, "ineligible_reason": reason})
             return block
+        group_change = _num(self.repo.group_changes[target].get((last["peer_group"], int(last["year"]))))
+        block["baselines"] = [
+            {"name": "naive", "value": last_value},
+            {"name": "peer_group_mean_growth",
+             "value": _to_level(last_value, group_change, scale) if group_change is not None else None},
+        ]
+        return block
 
+    def _target_block(self, series_id: int, target: str, peer_ids: list[int]) -> dict:
+        block = self._base_block(series_id, target, peer_ids)
+        if not block["eligible"]:
+            return block
+        scale = block["change_scale"]
+        last_value = block["baselines"][0]["value"]
+        tf = self.repo.targets[target]
+        rows = tf[tf["series_id"] == series_id].sort_values("year")
         x = rows[FEATURES].iloc[[-1]]
         booster = self.boosters[target]
         change = float(booster.predict(x)[0])
@@ -220,12 +236,6 @@ class DemoProvider:
                          "upper": _to_level(last_value, change + q, scale),
                          "method": "split conformal (|остаток| на 2018 году)"},
         }
-        group_change = _num(self.repo.group_changes[target].get((last["peer_group"], int(last["year"]))))
-        block["baselines"] = [
-            {"name": "naive", "value": last_value},
-            {"name": "peer_group_mean_growth",
-             "value": _to_level(last_value, group_change, scale) if group_change is not None else None},
-        ]
         block["explanation"] = {
             "method": "TreeSHAP (LightGBM pred_contrib)", "scale": scale, "base_value": float(contrib[-1]),
             "prediction": change,
