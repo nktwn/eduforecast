@@ -19,7 +19,7 @@ st.set_page_config(page_title="Финансы вузов (бета) | EduForecas
                    initial_sidebar_state="expanded")
 st.markdown("""
 <style>
-.beta-pill { display:inline-block; background:var(--ef-warn); color:#fff; font-size:0.68rem; font-weight:700;
+.beta-pill { display:inline-block; background:var(--ef-warn-bg); color:var(--ef-warn); border:1px solid var(--ef-warn); font-size:0.68rem; font-weight:700;
              letter-spacing:0.08em; padding:3px 9px; border-radius:999px; vertical-align:middle; margin-left:10px; }
 .beta-banner { background:var(--ef-warn-bg); border:1px solid var(--ef-border); border-left:4px solid var(--ef-warn); border-radius:6px;
                padding:10px 14px; font-size:0.83rem; color:var(--ef-text); margin:4px 0 18px 0; line-height:1.5; }
@@ -29,7 +29,7 @@ st.markdown("""
 .tag { display:inline-block; background:var(--ef-surface-2); color:var(--ef-text-2); font-size:0.72rem; padding:2px 8px;
        border-radius:4px; margin-right:6px; }
 .flag-row { font-size:0.8rem; padding:6px 10px; border-radius:6px; margin-bottom:5px; border:1px solid var(--ef-border);
-            background:#fff; }
+            background:var(--ef-surface); color:var(--ef-text); }
 .flag-info { border-left:3px solid var(--ef-muted); } .flag-warning { border-left:3px solid var(--ef-warn); }
 .flag-critical { border-left:3px solid var(--ef-danger); }
 .sev { font-weight:700; font-size:0.66rem; letter-spacing:0.05em; margin-right:6px; }
@@ -225,7 +225,7 @@ def forecast_tab():
                    f"проверка схемы: {'OK' if not contract_errors else 'ошибки'}")
         payload = json.dumps(response, ensure_ascii=False, indent=2)
         st.download_button("Скачать JSON", payload, file_name=f"forecast_{inst['unitid']}.json", mime="application/json")
-        st.code(payload[:6000] + ("\n..." if len(payload) > 6000 else ""), language="json")
+        st.code(payload[:6000] + ("\n..." if len(payload) > 6000 else ""), language=None)
 
 
 PRIMARY = f"{C.PRIMARY[0]}_{C.PRIMARY[1]}"

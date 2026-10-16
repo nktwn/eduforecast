@@ -9,7 +9,7 @@ for p in (APP, APP.parent):
 import streamlit as st  # noqa: E402
 
 st.set_page_config(page_title="EduForecast-SIS", page_icon=":material/school:", layout="wide",
-                   initial_sidebar_state="expanded")
+                   initial_sidebar_state="auto")
 
 from components import shell, ui  # noqa: E402
 

@@ -13,7 +13,7 @@ PALETTES = {
         "text": "#111827", "text_2": "#374151", "muted": "#4b5563", "primary": "#1d4ed8",
         "ok": "#047857", "ok_bg": "#e7f6ef", "research": "#92400e", "research_bg": "#fdf3e1",
         "demo": "#6d28d9", "demo_bg": "#f1ebfd", "nodata": "#4b5563", "nodata_bg": "#eceef1",
-        "concept": "#1e40af", "concept_bg": "#e8eefc", "danger": "#b91c1c", "danger_bg": "#fdecec",
+        "concept": "#1e40af", "concept_bg": "#e8eefc", "danger": "#b91c1c", "danger_bg": "#fdecec", "accent": "#1d4ed8",
         "warn": "#92400e", "warn_bg": "#fdf3e1", "grid": "#e5e8ec",
         "series": ["#1d4ed8", "#b45309", "#047857", "#7c3aed", "#be123c", "#0e7490", "#4d7c0f", "#57534e"],
     },
@@ -22,7 +22,7 @@ PALETTES = {
         "text": "#e6e9ee", "text_2": "#c9ced6", "muted": "#a3abb7", "primary": "#7aa7ff",
         "ok": "#4ade80", "ok_bg": "#13291d", "research": "#fbbf24", "research_bg": "#2e2410",
         "demo": "#c4b5fd", "demo_bg": "#251d3b", "nodata": "#a3abb7", "nodata_bg": "#232931",
-        "concept": "#93c5fd", "concept_bg": "#16233a", "danger": "#f87171", "danger_bg": "#3a1a1a",
+        "concept": "#93c5fd", "concept_bg": "#16233a", "danger": "#f87171", "danger_bg": "#3a1a1a", "accent": "#2f6bdc",
         "warn": "#fbbf24", "warn_bg": "#2e2410", "grid": "#262d36",
         "series": ["#7aa7ff", "#f59e0b", "#34d399", "#a78bfa", "#fb7185", "#22d3ee", "#a3e635", "#d6d3d1"],
     },
@@ -91,6 +91,9 @@ h1, h2, h3 {{ letter-spacing: -0.01em; }}
 .metric-delta {{ font-size: 0.8rem; color: var(--ef-muted); margin-top: 4px; }}
 .glass-alert {{ background: var(--ef-surface); border: 1px solid var(--ef-border); border-left: 3px solid var(--ef-muted);
                border-radius: 6px; padding: 10px 14px; margin-bottom: 6px; font-size: 0.88rem; color: var(--ef-text); }}
+/* selected tab / segment: text uses the readable text-primary, not the widget accent (dark theme contrast) */
+button[role="tab"][aria-selected="true"] p, [data-testid="stBaseButton-segmented_controlActive"] p,
+[data-testid="stBaseButton-segmented_controlActive"] span {{ color: var(--ef-primary) !important; }}
 @media (max-width: 640px) {{
   .block-container {{ padding-left: 1rem; padding-right: 1rem; }}
   .ef-kpi-value {{ font-size: 1.5rem; }}

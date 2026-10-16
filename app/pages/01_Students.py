@@ -12,7 +12,7 @@ from components.data_loader import (
 )
 from components.styles import GLASS_CSS, demo_data_banner, require_data, sidebar_logo
 
-RISK_GROUP_RU = {"HIGH": "Высокий (топ-10%)", "MEDIUM": "Средний (следующие 20%)", "LOW": "Низкий"}
+RISK_GROUP_RU = {"HIGH": "Высокий", "MEDIUM": "Средний", "LOW": "Низкий"}
 
 require_data([OULAD_DIR / f for f in ("studentInfo.csv", "studentVle.csv", "studentAssessment.csv", "assessments.csv", "studentRegistration.csv")], "Подготовка данных → Academic (OULAD)")
 demo_data_banner()
@@ -155,6 +155,8 @@ with fc1:
         options=["HIGH", "MEDIUM", "LOW"],
         default=["HIGH", "MEDIUM", "LOW"],
         format_func=lambda x: RISK_GROUP_RU.get(x, x),
+        help="Группы — перцентили внутри факультета: высокий — топ-10% по риску, средний — следующие 20%, "
+             "низкий — остальные.",
     )
 with fc2:
     result_options = sorted(df["final_result"].unique().tolist())

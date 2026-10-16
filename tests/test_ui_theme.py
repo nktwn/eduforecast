@@ -23,8 +23,10 @@ def test_streamlit_config_matches_palette():
     cfg = tomllib.loads((ROOT / ".streamlit" / "config.toml").read_text(encoding="utf-8"))
     for mode in ("light", "dark"):
         t, p = cfg["theme"][mode], PALETTES[mode]
-        assert t["backgroundColor"] == p["bg"] and t["textColor"] == p["text"] and t["primaryColor"] == p["primary"]
+        assert t["backgroundColor"] == p["bg"] and t["textColor"] == p["text"] and t["primaryColor"] == p["accent"]
         assert contrast(t["textColor"], t["backgroundColor"]) >= 4.5
+        assert contrast(t["primaryColor"], "#ffffff") >= 4.5  # white text on buttons and chips
+        assert contrast(t["linkColor"], t["backgroundColor"]) >= 4.5
 
 
 def test_russian_format():

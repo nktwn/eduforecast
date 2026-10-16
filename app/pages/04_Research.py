@@ -36,14 +36,15 @@ if not comparison.partial.empty:
         "отдельной точкой и не используется ни в обучении, ни в оценке."
     )
 
-st.warning(
-    "**Proof-of-concept, не высокоточный прогноз.** Модель обучена всего на "
+ui.caveat(
+
+    " Модель обучена всего на "
     f"{TRAINING_WINDOW[1] - TRAINING_WINDOW[0] + 1} полных годовых точках "
     f"({TRAINING_WINDOW[0]}–{TRAINING_WINDOW[1]}; 2019 исключён — всего 1 публикация, "
     "дорегистрационный период вуза). При таком малом N доверительные интервалы "
     "прогноза широкие, а бэктест ниже — это проверка на одном отложенном годе, "
-    f"**не** кросс-валидация.{partial_note}",
-    icon="⚠️",
+    f"<b>не</b> кросс-валидация.{partial_note}",
+    title="Proof-of-concept, не высокоточный прогноз",
 )
 
 st.markdown('<div class="section-title">Факт и прогноз (linear vs logistic)</div>', unsafe_allow_html=True)

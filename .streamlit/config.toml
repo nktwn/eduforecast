@@ -29,7 +29,8 @@ backgroundColor = "#eef1f5"
 textColor = "#111827"
 
 [theme.dark]
-primaryColor = "#7aa7ff"
+# widget accent (white text on it: 4.93:1); text links use linkColor
+primaryColor = "#2f6bdc"
 backgroundColor = "#0f1318"
 secondaryBackgroundColor = "#171c23"
 textColor = "#e6e9ee"

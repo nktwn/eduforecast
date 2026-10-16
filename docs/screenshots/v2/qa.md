@@ -1,0 +1,47 @@
+| страница | ширина | тема | гориз. прокрутка | обрезанный текст | низкий контраст | ошибки консоли |
+|---|---|---|---|---|---|---|
+| command-center | desktop | light | нет | 0 | 0 | 0 |
+| academic | desktop | light | нет | 0 | 0 | 4 |
+| students | desktop | light | нет | 0 | 0 | 4 |
+| analytics | desktop | light | нет | 0 | 0 | 4 |
+| research | desktop | light | нет | 0 | 0 | 4 |
+| finance | desktop | light | нет | 0 | 0 | 4 |
+| international | desktop | light | нет | 0 | 0 | 4 |
+| upbringing | desktop | light | нет | 0 | 0 | 4 |
+| advisor | desktop | light | нет | 0 | 0 | 4 |
+| verified | desktop | light | нет | 0 | 0 | 4 |
+| settings | desktop | light | нет | 0 | 0 | 4 |
+| command-center | mobile | light | нет | 0 | 0 | 0 |
+| academic | mobile | light | нет | 0 | 0 | 4 |
+| students | mobile | light | нет | 0 | 0 | 4 |
+| analytics | mobile | light | нет | 0 | 0 | 4 |
+| research | mobile | light | нет | 0 | 0 | 4 |
+| finance | mobile | light | нет | 0 | 0 | 4 |
+| international | mobile | light | нет | 0 | 0 | 4 |
+| upbringing | mobile | light | нет | 0 | 0 | 4 |
+| advisor | mobile | light | нет | 0 | 0 | 4 |
+| verified | mobile | light | нет | 0 | 0 | 4 |
+| settings | mobile | light | нет | 0 | 0 | 4 |
+| command-center | desktop | dark | нет | 0 | 0 | 0 |
+| academic | desktop | dark | нет | 0 | 0 | 4 |
+| students | desktop | dark | нет | 0 | 0 | 4 |
+| analytics | desktop | dark | нет | 0 | 0 | 4 |
+| research | desktop | dark | нет | 0 | 0 | 4 |
+| finance | desktop | dark | нет | 0 | 0 | 4 |
+| international | desktop | dark | нет | 0 | 0 | 4 |
+| upbringing | desktop | dark | нет | 0 | 0 | 4 |
+| advisor | desktop | dark | нет | 0 | 0 | 4 |
+| verified | desktop | dark | нет | 0 | 0 | 4 |
+| settings | desktop | dark | нет | 0 | 0 | 4 |
+| command-center | mobile | dark | нет | 0 | 0 | 0 |
+| academic | mobile | dark | нет | 0 | 0 | 4 |
+| students | mobile | dark | нет | 0 | 0 | 4 |
+| analytics | mobile | dark | нет | 0 | 0 | 4 |
+| research | mobile | dark | нет | 0 | 0 | 4 |
+| finance | mobile | dark | нет | 0 | 0 | 4 |
+| international | mobile | dark | нет | 0 | 0 | 4 |
+| upbringing | mobile | dark | нет | 0 | 0 | 4 |
+| advisor | mobile | dark | нет | 0 | 0 | 4 |
+| verified | mobile | dark | нет | 0 | 0 | 4 |
+| settings | mobile | dark | нет | 0 | 0 | 4 |
+| in-app navigation | desktop | light | нет | 0 | 0 | 0 |

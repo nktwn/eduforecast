@@ -219,25 +219,25 @@ def get_alerts(df: pd.DataFrame) -> list:
     inactive_pct = (df["total_clicks"] == 0).sum() / total * 100
 
     if withdrawal_pct > 30:
-        alerts.append({"level": "КРИТИЧНО", "color": "#dc2626",
+        alerts.append({"level": "КРИТИЧНО", "color": "var(--ef-danger)",
                         "msg": f"{withdrawal_pct:.1f}% студентов отчислились — срочное вмешательство необходимо"})
     elif withdrawal_pct > 20:
-        alerts.append({"level": "ВНИМАНИЕ", "color": "#d97706",
+        alerts.append({"level": "ВНИМАНИЕ", "color": "var(--ef-warn)",
                         "msg": f"{withdrawal_pct:.1f}% студентов в зоне отчисления — требуется мониторинг"})
 
     if avg_score < 40:
-        alerts.append({"level": "КРИТИЧНО", "color": "#dc2626",
+        alerts.append({"level": "КРИТИЧНО", "color": "var(--ef-danger)",
                         "msg": f"Средний балл крайне низкий: {avg_score:.1f}/100"})
     elif avg_score < 55:
-        alerts.append({"level": "ВНИМАНИЕ", "color": "#d97706",
+        alerts.append({"level": "ВНИМАНИЕ", "color": "var(--ef-warn)",
                         "msg": f"Средний балл ниже нормы: {avg_score:.1f}/100"})
 
     if inactive_pct > 15:
-        alerts.append({"level": "ПРЕДУПРЕЖДЕНИЕ", "color": "#d97706",
+        alerts.append({"level": "ПРЕДУПРЕЖДЕНИЕ", "color": "var(--ef-warn)",
                         "msg": f"{inactive_pct:.1f}% студентов ни разу не открывали материалы курса"})
 
     if not alerts:
-        alerts.append({"level": "НОРМА", "color": "#059669",
+        alerts.append({"level": "НОРМА", "color": "var(--ef-ok)",
                         "msg": "Все ключевые показатели в пределах нормы"})
     return alerts
 

@@ -53,7 +53,7 @@ for col, fid in zip(cols, ROLE_KPIS[role]):
         if f is None:
             ui.kpi_card(fid, "нет данных", "нет данных")
             continue
-        hint = f"{ui.esc(f['period'])}. {ui.esc(f['caveat'].split('. ')[0])}."
+        hint = f"{ui.esc(f['period'])}. {ui.esc(f['caveat'].split('. ')[0].rstrip('.'))}."
         ui.kpi_card(f["metric"], REG.display(fid), f["status"], hint=hint, help_text=f["caveat"])
 
 left, right = st.columns([1, 1.25], gap="large")
@@ -67,7 +67,8 @@ with left:
 with right:
     st.markdown('<div class="section-title">Что требует внимания</div>', unsafe_allow_html=True)
     mods = set(ROLES[role].modules)
-    items = [f for f in REG.attention() if f["module"] in mods or role == "rector"]
+    items = sorted((f for f in REG.attention() if f["module"] in mods or role == "rector"),
+                   key=lambda f: f["period"], reverse=True)  # latest period first, older duplicates dropped
     if not items:
         ui.empty_state("Нет отмеченных фактов для этой роли", " Сигналы появляются из реестра фактов.")
     seen = set()

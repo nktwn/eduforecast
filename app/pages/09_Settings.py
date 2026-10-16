@@ -42,9 +42,12 @@ st.markdown("""
 """)
 
 st.markdown('<div class="section-title">Данные</div>', unsafe_allow_html=True)
-rows = [{"Набор": name, "Файл": str(p.relative_to(ROOT)), "Есть": "да" if p.exists() else "нет"}
-        for name, p in DATA_CHECKS.items()]
-rows.append({"Набор": "Предрасчёт для быстрых страниц", "Файл": str(CACHE_DIR.relative_to(ROOT)),
+def shown(path: Path) -> str:
+    return str(path.relative_to(ROOT)) if path.is_relative_to(ROOT) else str(path)
+
+
+rows = [{"Набор": name, "Файл": shown(p), "Есть": "да" if p.exists() else "нет"} for name, p in DATA_CHECKS.items()]
+rows.append({"Набор": "Предрасчёт для быстрых страниц", "Файл": shown(CACHE_DIR),
              "Есть": "да" if (CACHE_DIR / "meta.json").exists() else "нет (python scripts/prepare_app.py)"})
 st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")
 
