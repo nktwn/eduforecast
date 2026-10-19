@@ -26,16 +26,64 @@ class BudgetExhausted(RuntimeError):
 class _State:
     last_call = 0.0
     remaining_usd: float | None = None
+    remaining_credits: int | None = None
+    limit_credits: int | None = None
     calls = 0
+    cache_hits = 0
+    credits = 0
     cost_usd = 0.0
 
 
+def key_present() -> bool:
+    return bool(_API_KEY)
+
+
 def budget() -> dict:
+    """Spend in this process (network calls only; cache hits are free). Never contains the key."""
     return {
+        "key": "present" if _API_KEY else "absent",
         "calls": _State.calls,
+        "cache_hits": _State.cache_hits,
+        "credits_used": _State.credits,
         "cost_usd": round(_State.cost_usd, 4),
+        "remaining_credits": _State.remaining_credits,
+        "daily_limit_credits": _State.limit_credits,
         "remaining_usd": _State.remaining_usd,
     }
+
+
+def rate_limit_status() -> dict:
+    """Remaining daily budget. With a key: GET /rate-limit (docs: rate-limits-and-authentication);
+    without a key that endpoint refuses, so the last response headers are reported instead."""
+    if _API_KEY:
+        try:
+            r = requests.get(f"{OPENALEX_API_BASE}/rate-limit", params={"api_key": _API_KEY}, timeout=30)
+            if r.status_code == 200:
+                return {"source": "/rate-limit", **r.json()}
+            return {"source": "/rate-limit", "error": f"HTTP {r.status_code}"}
+        except requests.RequestException as exc:
+            return {"source": "/rate-limit", "error": type(exc).__name__}
+    return {"source": "response headers (no key)", "remaining_credits": _State.remaining_credits,
+            "daily_limit_credits": _State.limit_credits, "remaining_usd": _State.remaining_usd}
+
+
+def log_usage(stage: str, path=None) -> dict:
+    """Append this process's spend for a stage to the usage CSV (no secrets)."""
+    import csv
+    from datetime import datetime, timezone
+
+    from src.research.config import RESEARCH_RESULTS_DIR
+
+    path = path or (RESEARCH_RESULTS_DIR / "api_usage.csv")
+    row = {"ts": datetime.now(timezone.utc).isoformat(timespec="seconds"), "stage": stage, **budget()}
+    new = not path.exists()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "a", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=list(row))
+        if new:
+            w.writeheader()
+        w.writerow(row)
+    return row
 
 
 def _cache_path(url: str, params: dict) -> Path:
@@ -65,11 +113,18 @@ def _request(url: str, params: dict) -> dict:
             time.sleep(2 ** attempt)
             continue
 
-        remaining = resp.headers.get("X-RateLimit-Remaining-USD")
-        if remaining is not None:
-            _State.remaining_usd = float(remaining)
-        _State.cost_usd += float(resp.headers.get("X-RateLimit-Cost-USD") or 0)
+        h = resp.headers
+        if h.get("X-RateLimit-Remaining-USD") is not None:
+            _State.remaining_usd = float(h["X-RateLimit-Remaining-USD"])
+        if h.get("X-RateLimit-Remaining") is not None:
+            _State.remaining_credits = int(float(h["X-RateLimit-Remaining"]))
+        if h.get("X-RateLimit-Limit") is not None:
+            _State.limit_credits = int(float(h["X-RateLimit-Limit"]))
+        _State.credits += int(float(h.get("X-RateLimit-Credits-Used") or 0))
+        _State.cost_usd += float(h.get("X-RateLimit-Cost-USD") or 0)
         _State.calls += 1
+        if resp.status_code == 403 and "key_not_activated" in resp.text:
+            raise RuntimeError("OpenAlex API key is not activated yet (403 key_not_activated)")
 
         if resp.status_code == 429:
             if _State.remaining_usd is not None and _State.remaining_usd < BUDGET_RESERVE_USD:
@@ -79,7 +134,9 @@ def _request(url: str, params: dict) -> dict:
         if resp.status_code >= 500:
             time.sleep(2 ** (attempt + 1))
             continue
-        resp.raise_for_status()
+        if resp.status_code >= 400:
+            # the URL carries api_key: report only the path, never the query string
+            raise RuntimeError(f"OpenAlex HTTP {resp.status_code} for {url.split('?')[0]} (filter={params.get('filter')})")
         return resp.json()
 
     raise RuntimeError(f"OpenAlex request failed after {MAX_RETRIES} attempts: {url} {params}")
@@ -90,6 +147,7 @@ def get(path: str, params: dict | None = None, use_cache: bool = True, transform
     params = params or {}
     cache_path = _cache_path(url, params)
     if use_cache and cache_path.exists():
+        _State.cache_hits += 1
         with open(cache_path, "r", encoding="utf-8") as f:
             return json.load(f)
 
