@@ -181,6 +181,93 @@ def research() -> list[Fact]:
                            metric=f"Ошибка прогноза на 2025 ({name}), иллюстрация",
                            value=None if row is None else row["pct_error"] / 100, unit="share", period="2025",
                            status="исследовательское", source=rel(bt_src), caveat=cav, tags=["illustration"]))
+    return facts + research_stage3()
+
+
+STAGE3_TARGETS = {
+    "works_count": "публикации", "unique_authors": "уникальные авторы",
+    "citations_received_in_year": "цитирования за год", "intl_collab_share": "доля международных соавторств",
+    "top10_share": "доля работ в топ-10%", "n_partner_countries": "число стран-партнёров",
+    "n_intl_works": "международные работы", "n_partner_institutions": "организации-партнёры",
+}
+STAGE3_CAVEAT = ("Панель 50 вузов (Казахстан 35, Турция 7, Россия 4 и др.), OpenAlex на 2026-10-19, rolling origin и "
+                 "leave-one-university-out 2019–2025. Критерии C1 и C2 и основная модель зафиксированы до запуска "
+                 "(src/research/criterion_stage3.py, STAGE3_REPORT.md).")
+AITU_BENCH_CAVEAT = ("Описательный бенчмарк, не причинность: положение AITU среди 50 вузов панели в 2025. "
+                     "Не говорит, почему так и что изменится от каких-либо действий.")
+
+
+def research_stage3() -> list[Fact]:
+    facts = []
+    d = ROOT / "results/research/stage3"
+    v_src, c_src, cov_src = d / "verdicts.csv", d / "criteria_all_models.csv", d / "conformal_coverage.csv"
+    v, cr, cov = _read(v_src), _read(c_src), _read(cov_src)
+    period, tags = "прогноз на год, 2019–2025", ["research_stage3"]
+    for target, label in STAGE3_TARGETS.items():
+        row = None if v is None else v[(v["panel"] == "extended") & (v["target"] == target)]
+        row = None if row is None or row.empty else row.iloc[0]
+        g = dict(module="research", period=period, tags=tags, group=target, source=rel(v_src),
+                 caveat=STAGE3_CAVEAT, status="проверено")
+        for scheme, sname in (("rolling", "rolling origin"), ("louo", "leave-one-university-out")):
+            facts.append(_fact(id=f"research.stage3.{target}.c1_gain_{scheme}",
+                               metric=f"Выигрыш основной модели над naive, {label}, {sname}", unit="gain",
+                               value=None if row is None else row[f"C1_gain_{scheme}"], **g))
+        facts.append(_fact(id=f"research.stage3.{target}.c1_passed", metric=f"Критерий C1 (лучше naive) пройден: {label}",
+                           unit="bool", value=None if row is None else bool(row["C1"]), **g))
+        facts.append(_fact(id=f"research.stage3.{target}.c2_passed",
+                           metric=f"Критерий C2 (лучше среднего роста панели и возрастной группы) пройден: {label}",
+                           unit="bool", value=None if row is None else bool(row["C2"]), **g))
+        o13 = None if v is None else v[(v["panel"] == "orig13") & (v["target"] == target)]
+        facts.append(_fact(id=f"research.stage3.{target}.c1_passed_orig13", module="research", period=period,
+                           metric=f"C1 на исходных 13 вузах (сравнение): {label}", unit="bool",
+                           value=None if o13 is None or o13.empty else bool(o13.iloc[0]["C1"]),
+                           status="исследовательское", source=rel(v_src), group=target, tags=tags,
+                           caveat="Сравнение на 13 вузах этапа 2; мощность мала, результат зависит от даты выгрузки."))
+        cv = None if cov is None else cov[cov["target"] == target]
+        facts.append(_fact(id=f"research.stage3.{target}.conformal_coverage", module="research", period=period,
+                           metric=f"Покрытие 80% конформного интервала: {label}", unit="share",
+                           value=None if cv is None or cv.empty else cv.iloc[0]["all"], status="проверено",
+                           source=rel(cov_src), group=target, tags=tags,
+                           caveat="Номинал 80%; выше номинала — интервалы шире нужного."))
+    ex = None if cr is None else cr[(cr["panel"] == "extended") & (cr["target"] == "n_partner_countries")
+                                    & (cr["model"] == "ridge") & (cr["baseline"] != "naive")]
+    facts.append(_fact(id="research.stage3.exploratory.ridge_partner_countries_c2", module="research",
+                       metric="Ridge (не основная модель) лучше обоих средних ростов: число стран-партнёров",
+                       value=None if ex is None or ex.empty else bool(ex["passes"].all()), unit="bool",
+                       period=period, status="исследовательское", source=rel(c_src), tags=tags,
+                       caveat="Неосновная модель: результат исследовательский, нужна отдельная предрегистрация."))
+    f_src = d / "aitu_forecast.csv"
+    fc = _read(f_src)
+    cav = ("Модель обучена на 50 вузах панели; C2 не пройден — прогноз не доказанно лучше среднего роста. "
+           "Интервал — конформный 80%. Данные OpenAlex на 2026-10-19.")
+    for target, label in STAGE3_TARGETS.items():
+        row = None if fc is None else fc[fc["target"] == target]
+        row = None if row is None or row.empty else row.iloc[0]
+        if row is not None and row["status"] != "прогноз":
+            facts.append(_fact(id=f"research.aitu.stage3.{target}.forecast_2026", module="research",
+                               metric=f"Прогноз AITU на 2026: {label}", value=str(row["status"]), unit="text",
+                               period="2026", status="исследовательское", source=rel(f_src), group=target,
+                               caveat="Критерий C1 для этой цели не пройден.", tags=["aitu_stage3"]))
+            continue
+        unit = "share" if target.endswith("_share") else "count"
+        for part, pname in (("forecast", "прогноз"), ("lower80", "нижняя граница 80%"),
+                            ("upper80", "верхняя граница 80%")):
+            facts.append(_fact(id=f"research.aitu.stage3.{target}.{part}_2026", module="research",
+                               metric=f"AITU 2026, {label}: {pname}", value=None if row is None else row[part],
+                               unit=unit, period="2026", status="исследовательское", source=rel(f_src),
+                               group=target, caveat=cav, tags=["aitu_stage3"]))
+    p_src = d / "aitu_percentiles.csv"
+    pc = _read(p_src)
+    for metric, label in (("works_count", "публикации"), ("citations_per_author", "цитирования на автора"),
+                          ("intl_collab_share", "доля международных соавторств"),
+                          ("n_partner_countries", "число стран-партнёров")):
+        row = None if pc is None else pc[pc["metric"] == metric]
+        row = None if row is None or row.empty else row.iloc[0]
+        facts.append(_fact(id=f"research.aitu.stage3.percentile.{metric}", module="research",
+                           metric=f"Процентиль AITU среди 50 вузов панели: {label}",
+                           value=None if row is None else row["percentile"] / 100, unit="share", period="2025",
+                           status="исследовательское", source=rel(p_src), group=metric, caveat=AITU_BENCH_CAVEAT,
+                           tags=["aitu_stage3", "benchmark"]))
     return facts
 
 

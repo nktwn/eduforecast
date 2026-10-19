@@ -106,3 +106,15 @@ def test_advisor_briefing_without_key(no_key):
     assert not at.exception
     text = " ".join(m.value for m in at.markdown)
     assert "Наблюдение" in text and "Надёжность" in text
+
+
+def test_research_page_shows_stage3_panel():
+    at = run("pages/04_Research.py")
+    assert not at.exception
+    texts = " ".join(m.value for m in at.markdown)
+    assert "Панель 50 вузов" in texts and "процентиль" in texts and "не причинность" in texts
+    tables = [df.value for df in at.dataframe]
+    assert any("C2" in t.columns for t in tables)
+    forecast = next(t for t in tables if "Прогноз 2026" in t.columns)
+    shares = forecast[forecast["Показатель"].str.startswith("доля")]
+    assert shares["Прогноз 2026"].str.startswith("не строится").all()

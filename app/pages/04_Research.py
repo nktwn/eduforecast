@@ -3,7 +3,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import streamlit as st
-from components import ui
+from components import research_stage3, ui
 
 from components.research_data_loader import INSTITUTION_NAME, TRAINING_WINDOW, get_forecast_comparison
 from components.research_charts import forecast_comparison_chart
@@ -11,19 +11,31 @@ from components.styles import GLASS_CSS, require_data, sidebar_brand
 from src.research.config import OPENALEX_INSTITUTION_ID, RAW_DIR as RESEARCH_RAW_DIR
 
 
-sidebar_brand("Модуль Research", "Данные: OpenAlex (копия в репозитории)<br>Модель: Prophet linear / logistic")
-require_data([RESEARCH_RAW_DIR / f"yearly_work_counts_{OPENALEX_INSTITUTION_ID}.json"], "Подготовка данных → Research (OpenAlex)")
+sidebar_brand("Модуль Research", "Данные: OpenAlex, панель 50 вузов<br>Модели: LightGBM, Ridge; иллюстрация Prophet")
 
-ui.page_header("Научный", f"{INSTITUTION_NAME} · данные OpenAlex · весь вуз, без разбивки по факультетам",
-               status="исследовательское")
+ui.page_header("Научный", f"{INSTITUTION_NAME} и панель 50 вузов · данные OpenAlex · весь вуз, без разбивки "
+               "по факультетам")
 ui.how_to_read([
-    ("Что показывает", "Публикации AITU по годам и прогноз Prophet (линейный и логистический рост) с бэктестом."),
-    ("Как читать", f"Сравнивайте прогноз с {ui.term('naive')} и фактом отложенного года."),
-    ("Результат", "Прогноз AITU — иллюстрация на нескольких годовых точках. На панели 13 вузов Казахстана модели "
-                  "лучше naive для счётчиков (публикации, авторы, цитирования), но не для долей."),
-    ("Проверка", "Бэктест на одном отложенном году; панельная проверка — STAGE2_REPORT.md."),
-    ("Оговорки", "Потолок логистической модели — экспертная оценка; OpenAlex учитывает не все публикации."),
+    ("Что показывает", "Проверку прогноза на панели 50 вузов, прогноз AITU на 2026 и положение AITU среди вузов "
+                       "панели; ниже — прежняя иллюстрация Prophet."),
+    ("Как читать", f"Выигрыш — насколько ошибка модели меньше ошибки {ui.term('naive')}. C1 — лучше naive, "
+                   "C2 — лучше среднего роста панели и возрастной группы."),
+    ("Результат", "Модели лучше naive для счётчиков (публикации, авторы, цитирования, международные связи), "
+                  "но не для долей; лучше среднего роста — ни для одного показателя."),
+    ("Проверка", "Критерии зафиксированы до запуска; rolling origin и leave-one-university-out 2019–2025; "
+                 "STAGE3_REPORT.md."),
+    ("Оговорки", "OpenAlex учитывает не все публикации и меняет данные задним числом; процентили — описательный "
+                 "бенчмарк, не причинность."),
 ])
+
+research_stage3.render()
+
+st.markdown('<div class="section-title">Иллюстрация: Prophet по ряду AITU</div>', unsafe_allow_html=True)
+ui.status_badge("исследовательское")
+st.caption("Ряд для этой иллюстрации — сохранённая ранее копия годовых счётчиков OpenAlex без исключения отозванных "
+           "работ и paratext. Поэтому число публикаций за год здесь может отличаться от панели выше "
+           "(выгрузка 2026-10-19, правила этапа 3).")
+require_data([RESEARCH_RAW_DIR / f"yearly_work_counts_{OPENALEX_INSTITUTION_ID}.json"], "Подготовка данных → Research (OpenAlex)")
 
 with st.spinner("Загрузка данных и построение прогноза..."):
     comparison = get_forecast_comparison()
