@@ -56,7 +56,17 @@
 
 Внешние для модели вузы (не проходят правило ряда, используются только в этапе 5): AITU (6 лет подряд), MBZUAI (6 лет подряд).
 
-Ожидает этапа 3: список 50 вузов по странам и группам.
+Основная панель (50 вузов):
+
+| страна | вузы (работ за 2010–2025) |
+|---|---|
+| KZ (35) | Al-Farabi Kazakh National University (23 241); Nazarbayev University (13 396); L. N. Gumilyov Eurasian National University (13 300); Satbayev University (5 871); Abai Kazakh National Pedagogical University (5 149); Karaganda Buketov University (3 800); S.Seifullin Kazakh Agro Technical University (3 461); Kazakh National Medical University (3 203); Ahmet Yesevi University (3 024); M.Auezov South Kazakhstan State University (2 871); Kazakh National Agrarian Research University (2 564); Astana Medical University (2 512); Abylkas Saginov Karaganda Technical University (2 236); Kazakh-British Technical University (2 108); Toraighyrov University (1 912); D. Serikbayev East Kazakhstan State Technical University (1 844); Turan University (1 745); Almaty Technological University (1 735); Aktobe Regional State University named after K.Zhubanov (1 728); Almaty University of Power Engineering and Telecommunications (1 681); Karaganda Medical University (1 619); Kazakh National Women's Teacher Training University (1 562); Semey Medical University (1 556); Shakarim University (1 463); International Information Technologies University (1 395); Zhangir Khan West Kazakhstan Agrarian Technical University (1 286); Narxoz University (1 261); West Kazakhstan Marat Ospanov State Medical University (1 176); Kokshetau State University (1 173); Manash Kozybayev North Kazakhstan University (1 145); Zhetysu University named after Ilyas Zhansugurov (1 115); KIMEP University (1 085); Sarsen Amanzholov East Kazakhstan University (1 042); Khalel Dosmukhamedov Atyrau University (914); Kazakh Ablai Khan University of International Relations and World Languages (892) |
+| KR (1) | Ulsan National Institute of Science and Technology (21 036) |
+| PL (1) | West Pomeranian University of Technology in Szczecin (14 132) |
+| RU (4) | Skolkovo Institute of Science and Technology (11 551); Voronezh State Technical University (4 962); Innopolis University (2 522); Angarsk State Technical Academy (1 025) |
+| TR (7) | TOBB University of Economics and Technology (5 782); Eskisehir Technical University (4 992); Bursa Technical University (4 229); Konya Technical University (3 603); Erzurum Technical University (3 495); Adana Science and Technology University (3 407); İskenderun Technical University (3 325) |
+| UZ (1) | Turin Polytechnic University (835) |
+| AZ (1) | Baku Engineering University (653) |
 
 ## 4. Мощность (до моделей)
 
@@ -85,11 +95,118 @@
 
 ## 6. Критерии C1 и C2 по целям
 
-Ожидает этапа 4.
+Протокол этапа 2: точки прогноза 2018–2024, горизонт 1 год, rolling origin и leave-one-university-out (LOUO). Бутстреп — 10 000 выборок вузов. Ошибка — MAE годового изменения: для счётчиков |log(ŷ/y)|, для долей |ŷ − y|.
+
+Основные модели объявлены заранее: LightGBM для счётчиков, Ridge для долей. Таблицы по вузам — `results/research/stage3/metrics_per_uni.csv`, все модели и базовые модели — `criteria_all_models.csv`.
+
+### 6.1 C1 против naive, расширенная панель (50 вузов)
+
+| цель | схема | MAE модели | MAE naive | выигрыш | 95% CI выигрыша | 95% CI разности MAE | MASE (геом.) | вузов, где модель лучше | C1 |
+|---|---|---|---|---|---|---|---|---|---|
+| works_count | rolling | 0.188 | 0.248 | 24.0% | [16.2; 31.1] | [−0.080; −0.038] | 0.87 | 37/50 | **да** |
+| | LOUO | 0.188 | 0.248 | 24.0% | [16.2; 31.2] | [−0.080; −0.038] | 0.88 | 36/50 | |
+| unique_authors | rolling | 0.184 | 0.222 | 17.3% | [8.3; 25.1] | [−0.058; −0.017] | 0.95 | 37/50 | **да** |
+| | LOUO | 0.183 | 0.222 | 17.6% | [8.4; 25.3] | [−0.059; −0.018] | 0.95 | 37/50 | |
+| citations_received_in_year | rolling | 0.214 | 0.354 | 39.5% | [32.2; 46.2] | [−0.169; −0.110] | 0.74 | 46/50 | **да** |
+| | LOUO | 0.217 | 0.354 | 38.8% | [31.4; 45.6] | [−0.166; −0.107] | 0.75 | 45/50 | |
+| intl_collab_share | rolling | 0.0467 | 0.0490 | 4.6% | [−1.1; 9.9] | [−0.0051; 0.0005] | 0.97 | 29/50 | нет |
+| | LOUO | 0.0467 | 0.0490 | 4.6% | [−1.3; 10.0] | [−0.0052; 0.0006] | 0.97 | 28/50 | |
+| top10_share | rolling | 0.0305 | 0.0311 | 1.8% | [−3.2; 6.7] | [−0.0021; 0.0010] | 1.00 | 27/50 | нет |
+| | LOUO | 0.0298 | 0.0311 | 4.1% | [−1.9; 9.2] | [−0.0031; 0.0005] | 1.00 | 29/50 | |
+| n_partner_countries | rolling | 0.255 | 0.292 | 12.6% | [8.0; 17.3] | [−0.051; −0.023] | 0.94 | 37/50 | **да** |
+| | LOUO | 0.254 | 0.292 | 13.0% | [8.1; 18.0] | [−0.052; −0.023] | 0.93 | 41/50 | |
+| n_intl_works | rolling | 0.247 | 0.287 | 13.9% | [6.7; 20.9] | [−0.060; −0.019] | 0.92 | 36/50 | **да** |
+| | LOUO | 0.243 | 0.287 | 15.3% | [8.5; 21.7] | [−0.063; −0.024] | 0.92 | 38/50 | |
+| n_partner_institutions | rolling | 0.230 | 0.273 | 15.9% | [8.3; 22.9] | [−0.064; −0.022] | 0.93 | 35/50 | **да** |
+| | LOUO | 0.227 | 0.273 | 17.0% | [9.1; 24.2] | [−0.068; −0.024] | 0.91 | 35/50 | |
+
+Итог: **C1 пройден для 6 целей из 8**, включая все три международных счётчика. Гипотеза H-intl подтверждена для n_partner_countries, n_intl_works и n_partner_institutions.
+
+**Не пройден для двух долей.** Выигрыш intl_collab_share и top10_share — 2–5%, ниже порога 10%. Доверительный интервал разности заходит за 0 в обеих схемах. По расчёту мощности на 50 вузах обнаружим выигрыш около 7–9%, так что это не нехватка мощности: доли на горизонте года предсказываются не лучше, чем «без изменения».
+
+**Оговорка про n_partner_countries.** Нижняя граница CI выигрыша — 8%. Правило требует ≥ 10% по точечной оценке и CI разности ниже 0, оба условия выполнены. Но выигрыш на уровне ровно 10% интервалом не исключён.
+
+### 6.2 C1 на исходных 13 вузах (для сравнения)
+
+| цель | выигрыш rolling / LOUO | CI разности rolling / LOUO | C1 |
+|---|---|---|---|
+| works_count | 31.1% / 30.7% | [−0.133; −0.014] / [−0.132; −0.011] | да |
+| unique_authors | 33.0% / 33.3% | [−0.129; −0.019] / [−0.131; −0.016] | да |
+| citations_received_in_year | 53.7% / 53.5% | [−0.267; −0.116] / [−0.267; −0.114] | да |
+| intl_collab_share | −2.0% / −4.5% | [−0.003; 0.005] / [−0.003; 0.007] | нет |
+| top10_share (11 вузов) | −6.3% / −6.1% | [−0.001; 0.004] / [−0.002; 0.005] | нет |
+| n_partner_countries | 13.0% / 11.9% | [−0.045; −0.013] / [−0.043; −0.009] | да |
+| n_intl_works | 16.8% / 18.5% | [−0.097; 0.009] / [−0.102; 0.006] | **нет** (CI заходит за 0) |
+| n_partner_institutions | 16.6% / 18.1% | [−0.070; −0.013] / [−0.076; −0.014] | да |
+
+**Расхождение со smoke-тестом.** В smoke-тесте works_count на 13 вузах не проходил LOUO (CI до +0.0011), здесь проходит (CI до −0.011). Код тот же; различаются данные. Панель этапа 2 выгружена 2026-10-09, панель этапа 3 — 2026-10-19, и за 10 дней OpenAlex задним числом изменил данные (раздел 6.5). Вывод: на 13 вузах результат C1 для works_count пограничный и зависит от даты выгрузки. На 50 вузах интервалы далеко от нуля.
+
+### 6.3 C2 против среднего роста (панель и возрастная группа)
+
+C2 **не пройден ни для одной цели**. Основная модель обходит средний рост на 1–17%, но порог 10% против **обеих** базовых моделей в **обеих** схемах не достигнут нигде. Расширенная панель, выигрыш rolling / LOUO и CI разности:
+
+| цель | против среднего по панели | против среднего возрастной группы | C2 |
+|---|---|---|---|
+| works_count | 9.5% / 9.7%; CI < 0 | 6.8% / 7.0%; CI < 0 | нет (ниже 10%) |
+| unique_authors | 9.0% / 9.3%; CI < 0 | 3.9% / 4.2%; CI до +0.0008 | нет |
+| citations_received_in_year | **16.6% / 15.7%**; CI < 0 | 9.9% / 8.7%; CI < 0 | нет (возрастная группа ниже 10%) |
+| intl_collab_share | 5.3% / 5.3%; CI до +0.0002 | 7.0% / 7.0%; CI < 0 | нет |
+| top10_share | 2.7% / 4.8%; CI до +0.0007 | 3.1% / 5.1%; CI до +0.0005 | нет |
+| n_partner_countries | 8.7% / 9.1%; CI < 0 | 9.4% / 9.7%; CI < 0 | нет (ниже 10%) |
+| n_intl_works | 1.2% / 2.7%; CI до +0.009 | 0.6% / 2.0%; CI до +0.009 | нет |
+| n_partner_institutions | 5.1% / 6.2%; CI < 0 | 4.2% / 5.3%; CI до +0.0002 (rolling) | нет (ниже 10%) |
+
+**Как понимать.** Почти весь выигрыш модели над naive дают простые факты: средний вуз панели растёт, и молодые растут быстрее. Сама модель добавляет к этому меньше 10%. Исключение — цитирования против среднего по панели.
+
+На 13 вузах C2 тоже не пройден; против возрастной группы выигрыш местами отрицательный (unique_authors −10.4%, n_intl_works −10.0% rolling).
+
+### 6.4 Неосновные модели (исследовательские, не результат)
+
+- **Ridge** проходит C1 для works_count, unique_authors, citations_received_in_year и всех трёх международных счётчиков.
+- Для n_partner_countries Ridge обходит **обе** базовые модели C2 в обеих схемах. Это неосновная модель, поэтому результат исследовательский и требует отдельной предрегистрации.
+- **drift3** (средний рост за 3 года) проходит C1 только для цитирований. Для долей он хуже naive на 23–31%.
+- Анализ чувствительности с SDU (51 вуз) даёт те же решения C1 и C2 по всем 8 целям.
+
+### 6.5 OpenAlex меняет данные задним числом
+
+Для 14 вузов этапа 2 сравнены выгрузки 2026-10-09 и 2026-10-19 за 2010–2025:
+- работ стало меньше на 1.7% в сумме, по вузам от −0.2% (Narxoz) до −12.3% (MBZUAI);
+- уникальных авторов — на 1.8–10.5% меньше;
+- цитирований в год — от −0.5% до +2.9%.
+
+Проверка живым запросом подтвердила, что новые числа совпадают с текущим состоянием OpenAlex (MBZUAI 2024: 905 работ против 1 078 в прошлой выгрузке). Это не ошибка загрузки.
+
+Для статьи: числа воспроизводимы только вместе с датой выгрузки и сохранённой копией данных.
 
 ## 7. Конформные интервалы и SHAP
 
-Ожидает этапа 4.
+**Интервалы.** Нормированные сплит-конформные интервалы 80%:
+- невязка делится на волатильность вуза — sd его роста по годам до точки прогноза, минимум 3 значения, снизу ограничена 5-м процентилем;
+- калибровка — на всех более ранних прогнозах.
+
+Эмпирическое покрытие на 2019–2025 (`conformal_coverage.csv`):
+
+| цель | все | малые | средние | крупные |
+|---|---|---|---|---|
+| works_count | 91.0% | 90.7% | 92.5% | 89.9% |
+| unique_authors | 88.3% | 88.1% | 94.3% | 83.2% |
+| citations_received_in_year | 87.7% | 92.2% | 91.5% | 79.8% |
+| intl_collab_share | 90.4% | 91.5% | 91.5% | 88.2% |
+| top10_share | 87.8% | 89.0% | 89.6% | 84.9% |
+| n_partner_countries | 87.9% | 85.0% | 90.6% | 88.2% |
+| n_intl_works | 87.3% | 87.6% | 87.7% | 86.6% |
+| n_partner_institutions | 84.3% | 80.5% | 89.6% | 83.2% |
+
+Покрытие выше номинала: 84–91% против 80%. Интервалы консервативны, то есть шире, чем нужно. Ниже 80% оказалась одна ячейка: цитирования крупных вузов, 79.8%. Терцили размера — по медиане works_count за 2010–2025.
+
+**SHAP.** TreeSHAP для LightGBM; для Ridge — модуль стандартизованного коэффициента. Модели переобучены на всех данных до 2025 (`shap_importance.csv`).
+- Во всех целях первым или вторым идёт прошлый уровень (level_lag1): чем больше вуз, тем медленнее рост, то есть регрессия к среднему.
+- Затем идёт прошлый рост (g_lag1).
+- Для unique_authors первый признак — log числа работ.
+- Для международных счётчиков в первую четвёрку входит рост авторов или работ.
+- Признаки страны в первую четвёрку не входят ни для одной цели.
+
+SHAP описывает модель, а не причины роста вузов.
 
 ## 8. AITU: прогноз и процентили
 

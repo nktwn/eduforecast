@@ -248,19 +248,39 @@ def verdicts(cr):
 
 # ── conformal, SHAP, AITU ───────────────────────────────────────────────────────────────
 
-def _sigma(rows, uni, upto):
-    g = rows[(rows["uni"] == uni) & (rows["year"] <= upto)]["g"].dropna()
+def growth_series(panel: pd.DataFrame, target: str) -> dict:
+    """Full growth series of each university (same transform as build_rows, without the lag requirement)."""
+    spec = C.TARGETS[target]
+    years = pd.Index(range(C.PANEL_YEARS[0], C.PANEL_YEARS[1] + 1), name="year")
+    out = {}
+    for uni, g in panel.groupby("uni"):
+        gi = g.set_index("year")
+        works = gi["works_count"].reindex(years)
+        start = works[works >= SERIES_START_MIN_WORKS].index.min()
+        if pd.isna(start):
+            continue
+        y = gi[target].reindex(years).where(years >= max(start, spec.get("min_year", start)))
+        tr = np.log(y.where(y > 0)) if spec["kind"] == "count" else y
+        out[uni] = tr.diff().dropna()
+    return out
+
+
+def _sigma(growths, uni, upto):
+    """CONFORMAL: sd of the university's growth in years <= origin, >= 3 values (else NaN)."""
+    g = growths.get(uni, pd.Series(dtype=float))
+    g = g[g.index <= upto]
     return g.std(ddof=1) if len(g) >= 3 else np.nan
 
 
 def conformal(preds, panel_name="extended"):
     out = []
     for target, model in C.PRIMARY_MODEL.items():
-        rows = build_rows(load(panel_name), target)
+        growths = growth_series(load(panel_name), target)
         p = preds[(preds["panel"] == panel_name) & (preds["target"] == target) & (preds["model"] == model)
                   & (preds["scheme"] == "rolling")].copy()
-        p["sigma"] = [_sigma(rows, u, o) for u, o in zip(p["uni"], p["origin"])]
+        p["sigma"] = [_sigma(growths, u, o) for u, o in zip(p["uni"], p["origin"])]
         floor = np.nanpercentile(p["sigma"], 5)
+        p["sigma_missing"] = p["sigma"].isna()      # < 3 growth values: panel median (decision, see report)
         p["sigma"] = p["sigma"].fillna(p["sigma"].median()).clip(lower=floor)
         p["score"] = np.abs(p["g"] - p["g_pred"]) / p["sigma"]
         for origin in C.EVAL_ORIGINS:
@@ -270,7 +290,7 @@ def conformal(preds, panel_name="extended"):
                 continue
             q = np.quantile(cal, min(1.0, np.ceil((len(cal) + 1) * 0.8) / len(cal)), method="higher")
             test["covered"] = np.abs(test["g"] - test["g_pred"]) <= q * test["sigma"]
-            test["q"] = q
+            test["q"], test["floor"] = q, floor
             out.append(test.assign(target=target))
     c = pd.concat(out)
     terc = pd.qcut(c.groupby("uni")["size"].first(), 3, labels=["small", "medium", "large"])
@@ -335,7 +355,7 @@ def aitu(verdict, cov_q):
         nxt["authors_g_lag1"] = np.log(au[last] / au[last - 1])
         nxt["age"] = ar["age"] + 1
         g = float(est.predict(nxt[cols])[0])
-        sig = rows[(rows["uni"] == "AITU")]["g"].dropna().std(ddof=1)
+        sig = max(_sigma(growth_series(a, target), "AITU", last), cov_q.get(f"{target}__floor", 0))
         q = float(cov_q.get(target, np.nan))
         y = float(ar["y"].iloc[0])
         f = (lambda d: y * np.exp(d)) if is_count else (lambda d: min(max(y + d, 0), 1))
@@ -370,7 +390,9 @@ def report():
     v.to_csv(OUT / "verdicts.csv", index=False)
     c, cov = conformal(preds)
     cov.to_csv(OUT / "conformal_coverage.csv")
-    q_last = c[c["origin"] == max(C.EVAL_ORIGINS)].groupby("target")["q"].first().to_dict()
+    last = c[c["origin"] == max(C.EVAL_ORIGINS)].groupby("target")
+    q_last = {**last["q"].first().to_dict(), **{f"{t}__floor": v for t, v in last["floor"].first().items()}}
+    c.groupby("target")["sigma_missing"].mean().to_csv(OUT / "conformal_sigma_fallback_share.csv")
     shap_primary().to_csv(OUT / "shap_importance.csv", index=False)
     aitu(v, q_last).to_csv(OUT / "aitu_forecast.csv", index=False)
     aitu_percentiles().to_csv(OUT / "aitu_percentiles.csv", index=False)
