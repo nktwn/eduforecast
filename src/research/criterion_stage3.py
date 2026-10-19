@@ -121,11 +121,16 @@ POWER_MDE80 = {  # relative gain detectable with 80% power, rolling / LOUO
     "n_partner_institutions": {13: (0.369, 0.374), 40: (0.210, 0.213), 50: (0.188, 0.191), 60: (0.172, 0.174)},
 }
 
+AMENDMENT_1 = ("2026-10-19, before any stage-3 model: the first version described naive as 'last observed growth', "
+               "contradicting C1 (= the stage-2 rule against the stage-2 naive, i.e. no change). Corrected to the "
+               "stage-2 naive; the power analysis of the new international counts used the same wrong naive and was "
+               "recomputed (relative detectable gains unchanged, absolute naive MAE changed).")
+
 # ── 6. Models and evaluation ────────────────────────────────────────────────────────────────────
 
 MODELS = ("naive", "drift3", "panel_mean", "age_mean", "ridge", "lgbm")
 MODEL_RULES = {
-    "naive": "next growth = last observed growth (counts: last log ratio; shares: last change)",
+    "naive": "stage-2 naive: next value = last observed value (growth 0), as in stage2.fit_predict",
     "drift3": "next growth = mean growth of the last 3 years of the series",
     "panel_mean": "next growth = mean target change of all training rows",
     "age_mean": "next growth = mean target change of training rows in the same age group",

@@ -66,7 +66,7 @@ def intl_naive_mae() -> dict:
             s = s.reindex(range(2010, 2026)).fillna(0)
             g = np.log(s.where(s > 0)).diff().loc[2019:2025].dropna()
             if len(g) >= 3:
-                maes.append(float(np.abs(g.diff().dropna()).mean()))  # naive growth = last year's growth
+                maes.append(float(np.abs(g).mean()))  # stage-2 naive: y_t = y_{t-1}, error = |log growth|
         out[name] = float(np.mean(maes))
     return out
 
