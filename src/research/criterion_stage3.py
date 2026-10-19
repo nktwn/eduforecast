@@ -126,6 +126,40 @@ AMENDMENT_1 = ("2026-10-19, before any stage-3 model: the first version describe
                "stage-2 naive; the power analysis of the new international counts used the same wrong naive and was "
                "recomputed (relative detectable gains unchanged, absolute naive MAE changed).")
 
+# ── Amendment 2: принято до запуска на новой панели ───────────────────────────────────────────
+# Committed before the extended panel is built and before any model runs on it. One smoke test of
+# src/research/stage3.py ran earlier on the STAGE-2 panel (13 universities, works_count only), at
+# 2026-10-19 17:11 +0500: after the commits 83489ae and 3d32a31, before this amendment. Its result
+# (works_count, lgbm: +27% rolling, +24% LOUO vs naive; C1 not passed in LOUO; C2 not passed against either
+# baseline) is reported in STAGE3_REPORT.md; nothing below was changed because of it.
+
+AMENDMENT_2 = "2026-10-19, принято до запуска на новой панели (decisions D1-D6 below)."
+DECISIONS_PRE_RUN = {
+    "D1_age": ("Two ages. Model feature 'age' = stage-2 definition ((t - 1) - first year with any work). "
+               "The age group of the age_mean baseline uses AGE_RULE (t - first year with >= 10 works + 1)."),
+    "D2_quality_years": ("top10_share is judged only on target years <= 2023 (stage-2 QUALITY_MAIN_MAX_TARGET_YEAR: "
+                         "the top-10% percentile of recent works is not settled yet); later years are not scored."),
+    "D3_share_range": "Forecasts of shares (intl_collab_share, top10_share) are clipped to [0, 1].",
+    "D4_org_type": ("Only OpenAlex type 'education' is eligible; candidates of any other type are listed in the "
+                    "selection table as rejected with the reason 'не университет (тип OpenAlex: ...)'."),
+    "D5_ror_parent": ("A candidate whose ROR record has a 'parent' relationship is a unit of another organization "
+                      "and is rejected ('подразделение другой организации (ROR parent)')."),
+    "D6_degree_granting": ("Candidates whose English name lacks university/academy/college/polytechnic/school are "
+                           "checked by hand for awarding their own degrees (official site); non-degree research "
+                           "institutes are rejected ('исследовательский институт, не вуз'). The check uses no outcome."),
+}
+NON_UNIVERSITY_NAME = r"universit|academy|college|polytechnic|school"
+DEGREE_CHECK = {  # D6, manual, recorded before the run
+    "I125989756": (True, "Skoltech: own MSc and PhD programmes (skoltech.ru)"),
+    "I48566637": (True, "UNIST: national university, own BSc/MSc/PhD (unist.ac.kr)"),
+    "I1310815967": (False, "CEITEC: research centre of a Brno university consortium; degrees are awarded by the "
+                           "member universities (ceitec.eu)"),
+}
+DOWNLOAD_INTEGRITY = ("Cache files are written atomically (per-process temp file + rename). Before building the panel "
+                      "temp leftovers and unreadable pages are removed and refetched; a university's works are used only "
+                      "if every year has as many works as OpenAlex reports for it; the extraction dates are stored per "
+                      "university.")
+
 # ── 6. Models and evaluation ────────────────────────────────────────────────────────────────────
 
 MODELS = ("naive", "drift3", "panel_mean", "age_mean", "ridge", "lgbm")

@@ -19,6 +19,29 @@ MIN_INTERVAL_S = 0.12
 BUDGET_RESERVE_USD = 0.002
 
 
+def write_json_atomic(path: Path, data, indent=None) -> None:
+    """Write to a per-process temp file, fsync, then rename: a crash never leaves a half-written file."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_name(f".{path.name}.{os.getpid()}.tmp")
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=indent)
+        f.flush()
+        os.fsync(f.fileno())
+    os.replace(tmp, path)
+
+
+def read_json(path: Path):
+    """Cached JSON or None if missing or unreadable (an unreadable file is removed and refetched)."""
+    if not path.exists():
+        return None
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except (json.JSONDecodeError, UnicodeDecodeError):
+        path.unlink(missing_ok=True)
+        return None
+
+
 class BudgetExhausted(RuntimeError):
     pass
 
@@ -146,19 +169,15 @@ def get(path: str, params: dict | None = None, use_cache: bool = True, transform
     url = f"{OPENALEX_API_BASE}/{path.lstrip('/')}"
     params = params or {}
     cache_path = _cache_path(url, params)
-    if use_cache and cache_path.exists():
+    cached = read_json(cache_path) if use_cache else None
+    if cached is not None:
         _State.cache_hits += 1
-        with open(cache_path, "r", encoding="utf-8") as f:
-            return json.load(f)
+        return cached
 
     data = _request(url, params)
     if transform is not None:
         data = transform(data)
-    cache_path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = cache_path.with_suffix(".tmp")
-    with open(tmp, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False)
-    tmp.replace(cache_path)
+    write_json_atomic(cache_path, data)
     return data
 
 
@@ -186,15 +205,13 @@ def fetch_institution(institution_id: str) -> dict:
 def fetch_ror(ror_url: str) -> dict:
     ror_id = ror_url.rstrip("/").rsplit("/", 1)[-1]
     cache_path = RAW_DIR / "ror" / f"{ror_id}.json"
-    if cache_path.exists():
-        with open(cache_path, "r", encoding="utf-8") as f:
-            return json.load(f)
+    cached = read_json(cache_path)
+    if cached is not None:
+        return cached
     resp = requests.get(f"https://api.ror.org/v2/organizations/{ror_id}", timeout=30)
     resp.raise_for_status()
     data = resp.json()
-    cache_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(cache_path, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False)
+    write_json_atomic(cache_path, data)
     return data
 
 
@@ -204,6 +221,5 @@ def fetch_yearly_work_counts(institution_id: str = OPENALEX_INSTITUTION_ID) -> d
         with open(snapshot, "r", encoding="utf-8") as f:
             return json.load(f)
     data = get("works", {"filter": f"institutions.id:{institution_id}", "group_by": "publication_year"})
-    with open(snapshot, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+    write_json_atomic(snapshot, data, indent=2)
     return data
