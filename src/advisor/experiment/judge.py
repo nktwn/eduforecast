@@ -14,7 +14,9 @@ import random
 import pandas as pd
 
 from src.advisor.experiment import preregistration as P
-from src.advisor.experiment.metrics import OUT, RAW
+from src.advisor.experiment.metrics import OUT
+
+RAW = OUT / P.PROVIDER_PRIMARY["raw"]          # primary run (amendment «provider»)
 from src.advisor.experiment.run import b_context, load_questions
 from src.advisor.facts.registry import registry
 

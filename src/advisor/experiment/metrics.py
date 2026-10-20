@@ -1,6 +1,7 @@
 """Metrics M1–M5 and the pre-registered analysis (src/advisor/experiment/preregistration.py).
 
-  python -m src.advisor.experiment.metrics      # reads results/advisor_experiment/raw.jsonl, writes tables
+  python -m src.advisor.experiment.metrics                    # primary: raw_cerebras.jsonl (amendment «provider»)
+  python -m src.advisor.experiment.metrics --provider groq    # secondary: partial Groq run, tables only
 """
 from __future__ import annotations
 
@@ -185,11 +186,21 @@ def tables(s: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
 
 
 def main():
-    s = load_scores()
-    s.to_csv(OUT / "scores.csv", index=False)
+    import argparse
+
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--provider", choices=["groq", "cerebras"], default="cerebras")
+    a = ap.parse_args()
+    raw = OUT / P.PROVIDER_PRIMARY["raw"] if a.provider == "cerebras" else RAW
+    tag = "" if a.provider == "cerebras" else "_groq"
+    s = load_scores(raw)
+    s.to_csv(OUT / f"scores{tag}.csv", index=False)
     by_cond, by_cat = tables(s)
-    by_cond.to_csv(OUT / "metrics_by_condition.csv")
-    by_cat.to_csv(OUT / "metrics_by_category.csv")
+    by_cond.to_csv(OUT / f"metrics_by_condition{tag}.csv")
+    by_cat.to_csv(OUT / f"metrics_by_category{tag}.csv")
+    if a.provider != "cerebras":          # secondary: partial run, descriptive tables only
+        print(by_cond.round(3))
+        return
     res = analyse(s)
     (OUT / "analysis.json").write_text(json.dumps(res, ensure_ascii=False, indent=1, default=float))
     pd.set_option("display.width", 200)
