@@ -67,6 +67,13 @@ def render() -> None:
                     'среднего роста. Интервал цитирований неинформативен из-за быстрого старта AITU в 2020–2022.',
                     unsafe_allow_html=True)
 
+    partial = reg.get("research.aitu.stage3.works_count.partial_2026")
+    fc = reg.get("research.aitu.stage3.works_count.forecast_2026")
+    if partial and fc and partial["value"] is not None and fc["value"] is not None and partial["value"] > fc["value"]:
+        ui.caveat(f"Точечный прогноз занижает рост быстрорастущих вузов: за неполный 2026 год у AITU уже "
+                  f"{reg.display(partial['id'])} работ (проверка 2026-10-20) при точечном прогнозе "
+                  f"{reg.display(fc['id'])}. Модель не пересчитывалась.", title="Проверка прогноза")
+
     st.markdown('<div class="section-title">AITU среди 50 вузов панели, 2025</div>', unsafe_allow_html=True)
     cols = st.columns(4)
     for col, (m, label) in zip(cols, (("works_count", "Публикации"), ("citations_per_author", "Цитирования на автора"),

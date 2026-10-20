@@ -240,6 +240,20 @@ def research_stage3() -> list[Fact]:
     fc = _read(f_src)
     cav = ("Модель обучена на 50 вузах панели; C2 не пройден — прогноз не доказанно лучше среднего роста. "
            "Интервал — конформный 80%. Данные OpenAlex на 2026-10-19.")
+    chk_src = d / "aitu_2026_partial_check.json"
+    chk = json.loads(chk_src.read_text()) if chk_src.exists() else None
+    growth_cav = (" Точечный прогноз занижает рост быстрорастущих вузов: за неполный 2026 год у AITU уже больше работ, "
+                  "чем в точечном прогнозе (проверка 2026-10-20).")
+    if chk is not None and chk["aitu_2026_partial_works"] > chk["point_forecast_2026"]:
+        cav_works = cav + growth_cav
+    else:
+        cav_works = cav
+    facts.append(_fact(id="research.aitu.stage3.works_count.partial_2026", module="research",
+                       metric="Публикации AITU за неполный 2026 год (проверка прогноза)",
+                       value=None if chk is None else chk["aitu_2026_partial_works"], unit="count",
+                       period="2026 (на 2026-10-20)", status="исследовательское", source=rel(chk_src),
+                       group="works_count", tags=["aitu_stage3"],
+                       caveat="Неполный год, живой запрос OpenAlex по правилам этапа 3; в модели не использовался."))
     for target, label in STAGE3_TARGETS.items():
         row = None if fc is None else fc[fc["target"] == target]
         row = None if row is None or row.empty else row.iloc[0]
@@ -255,7 +269,8 @@ def research_stage3() -> list[Fact]:
             facts.append(_fact(id=f"research.aitu.stage3.{target}.{part}_2026", module="research",
                                metric=f"AITU 2026, {label}: {pname}", value=None if row is None else row[part],
                                unit=unit, period="2026", status="исследовательское", source=rel(f_src),
-                               group=target, caveat=cav, tags=["aitu_stage3"]))
+                               group=target, caveat=cav_works if target == "works_count" else cav,
+                               tags=["aitu_stage3"]))
     p_src = d / "aitu_percentiles.csv"
     pc = _read(p_src)
     for metric, label in (("works_count", "публикации"), ("citations_per_author", "цитирования на автора"),
