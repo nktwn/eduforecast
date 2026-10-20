@@ -19,6 +19,7 @@ from src.advisor.experiment.metrics import OUT
 RAW = OUT / P.PROVIDER_PRIMARY["raw"]          # primary run (amendment «provider»)
 from src.advisor.experiment.run import b_context, load_questions
 from src.advisor.facts.registry import registry
+from src.config import BASE_DIR
 
 LABELS = ("верно", "частично", "неверно", "корректный отказ", "некорректный отказ")
 JUDGE_PROMPT = """Ты проверяешь ответ ИИ-советника руководства университета. Оцени только содержание, не стиль.
@@ -68,7 +69,7 @@ def llm():
     import anthropic
     from dotenv import load_dotenv
 
-    load_dotenv()
+    load_dotenv(BASE_DIR / ".env")
     client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
     path = OUT / "judge_labels.jsonl"
     done = {(r["qid"], r["condition"]) for r in map(json.loads, path.read_text().splitlines())} if path.exists() else set()
@@ -81,9 +82,10 @@ def llm():
         prompt = JUDGE_PROMPT.format(category=q["category"], question=q["question"],
                                      facts=b_context(reg, q) if q["answer_facts"] else "(эталонных чисел нет)",
                                      answer=r.text or "(пустой ответ)")
-        msg = client.messages.create(model=P.JUDGE_MODEL, max_tokens=300, temperature=0,
+        # Haiku 5.5: sampling parameters other than the default are rejected; thinking is on by default
+        msg = client.messages.create(model=P.JUDGE_MODEL, max_tokens=4000, output_config={"effort": "low"},
                                      messages=[{"role": "user", "content": prompt}])
-        text = msg.content[0].text
+        text = next((b.text for b in msg.content if b.type == "text"), "")
         try:
             out = json.loads(text[text.find("{"):text.rfind("}") + 1])
         except json.JSONDecodeError:

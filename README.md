@@ -201,6 +201,7 @@ OPENALEX_API_KEY=...              # только для пересборки п�
 |---|---|
 | [ACADEMIC_AUDIT.md](ACADEMIC_AUDIT.md) | аудит модуля Academic: утечки, оценка на неделе k, LSTM / TFT |
 | [DATA_AUDIT.md](DATA_AUDIT.md), [STAGE2_REPORT.md](STAGE2_REPORT.md) | Research: панель OpenAlex по 14 вузам, модели роста против naive |
+| [ADVISOR_EXPERIMENT_REPORT.md](ADVISOR_EXPERIMENT_REPORT.md) | эксперимент с ИИ-советником: голая LLM, факты в контексте, полная система; предрегистрация, 300 ответов, M1–M5 |
 | [STAGE3_REPORT.md](STAGE3_REPORT.md) | Research, этап 3: панель 50 вузов, международные показатели, критерии C1/C2, мощность, прогноз и процентили AITU |
 | [FINANCE_DATA_AUDIT.md](FINANCE_DATA_AUDIT.md) | Finance: данные IPEDS, гармонизация GASB / FASB, разрывы, baseline |
 | [FINANCE_BETA.md](FINANCE_BETA.md) | Finance: контракт API, провайдеры, экраны, что в бете мок |
