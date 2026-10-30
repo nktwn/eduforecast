@@ -1,7 +1,7 @@
 # Evidence
 
 All numbers below come from command output or the Jenkins API on 2026-10-30 (host: MacBook Apple M2,
-arm64, 8 GB RAM; Docker Desktop 27.4.0, VM memory 3.83 GiB). Full console logs: [logs/](logs/).
+arm64, 8 GB RAM; Docker Desktop 27.4.0, VM memory 3.83 GiB). Full console logs: [ci-logs/](ci-logs/).
 Jenkins runs read the local mirror `file:///mirror/eduforecast.git` (nothing was pushed to GitHub);
 the mirror's `main` = branch `devops/docker-jenkins`.
 
@@ -71,7 +71,7 @@ ok
 | lint in test image | `ruff 0.16.10`: All checks passed! |
 | pytest in test image | 123 passed, 7 skipped (same as a clean clone); coverage 43 % (`--cov=app --cov=src`) |
 | imports + Prophet in runtime | `import streamlit, pandas, sklearn, lightgbm, prophet, shap` OK; `Prophet().fit()` on 30 points OK |
-| container smoke (`smoke_container.sh`) | healthy, health `ok` from a second container, uid 10001, no `.env`/`secrets.toml`, 12/12 pages without exceptions ([log](logs/smoke-local.txt)) |
+| container smoke (`smoke_container.sh`) | healthy, health `ok` from a second container, uid 10001, no `.env`/`secrets.toml`, 12/12 pages without exceptions ([log](ci-logs/smoke-local.txt)) |
 
 The 7 skipped tests need local datasets (Finance panel, stage-2 result files) that are not in git and not in the image.
 

@@ -2,7 +2,7 @@
 
 This folder documents the CI/CD setup of EduForecast-SIS (Assignment 5).
 Operations: [RUNBOOK.md](RUNBOOK.md). Measured results: [EVIDENCE.md](EVIDENCE.md).
-Screenshot list: [SCREENSHOTS.md](SCREENSHOTS.md). Console logs: [logs/](logs/).
+Screenshot list: [SCREENSHOTS.md](SCREENSHOTS.md). Console logs: [ci-logs/](ci-logs/).
 
 ## Architecture
 

@@ -1,0 +1,19 @@
+smoke: started ef-smoke-local1 from eduforecast:dev
+smoke: health status = healthy
+smoke: GET http://ef-smoke-local1:8501/_stcore/health from a second container -> ok
+smoke: container uid = 10001 (app)
+smoke: no .env / secrets.toml under /app
+OK   pages/00_Command_Center.py         0.4s 
+OK   home.py                            0.5s 
+OK   pages/01_Students.py               0.0s 
+OK   pages/02_Analytics.py              0.0s 
+OK   pages/04_Research.py               0.5s 
+OK   pages/05_Finance.py                0.1s 
+OK   pages/06_International.py          0.0s 
+OK   pages/07_Upbringing.py             0.0s 
+OK   pages/03_AI_Advisor.py             0.0s 
+OK   pages/08_Verified.py               0.0s 
+OK   pages/09_Settings.py               0.0s 
+OK   main.py                            0.0s 
+page_smoke: 12/12 pages rendered without exceptions
+smoke: PASS
