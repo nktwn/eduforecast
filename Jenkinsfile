@@ -43,6 +43,8 @@ pipeline {
                     env.EF_ID = "${env.BRANCH_NAME ?: 'job'}-${env.BUILD_NUMBER}".toLowerCase().replaceAll('[^a-z0-9_.-]', '-')
                     env.TEST_IMAGE = "eduforecast-ci-test:${env.EF_ID}"
                     env.IS_MAIN = (env.BRANCH_NAME == 'main') ? 'true' : 'false'
+                    // build-N is per branch; prefix other branches so their tags never overwrite main's
+                    env.BUILD_TAG_NAME = (env.IS_MAIN == 'true') ? "build-${env.BUILD_NUMBER}" : "${env.EF_ID.replaceFirst('-[0-9]+$', '')}-build-${env.BUILD_NUMBER}"
                 }
                 sh '''#!/bin/bash
                     set -euo pipefail
@@ -101,7 +103,7 @@ pipeline {
             steps {
                 sh '''#!/bin/bash
                     set -euo pipefail
-                    tags=(-t "${IMAGE_NAME}:${SHORT_SHA}" -t "${IMAGE_NAME}:build-${BUILD_NUMBER}")
+                    tags=(-t "${IMAGE_NAME}:${SHORT_SHA}" -t "${IMAGE_NAME}:${BUILD_TAG_NAME}")
                     if [ "${IS_MAIN}" = "true" ]; then tags+=(-t "${IMAGE_NAME}:latest"); fi
                     DOCKER_BUILDKIT=1 docker build --target runtime \
                         --build-arg GIT_SHA="${GIT_FULL_SHA}" \
@@ -110,7 +112,7 @@ pipeline {
                     mkdir -p reports
                     {
                         echo "image=${IMAGE_NAME}:${SHORT_SHA}"
-                        echo "tags=${IMAGE_NAME}:${SHORT_SHA} ${IMAGE_NAME}:build-${BUILD_NUMBER}$([ "${IS_MAIN}" = "true" ] && echo " ${IMAGE_NAME}:latest")"
+                        echo "tags=${IMAGE_NAME}:${SHORT_SHA} ${IMAGE_NAME}:${BUILD_TAG_NAME}$([ "${IS_MAIN}" = "true" ] && echo " ${IMAGE_NAME}:latest")"
                         docker image inspect "${IMAGE_NAME}:${SHORT_SHA}" --format 'id={{.Id}}
 size_bytes={{.Size}}
 arch={{.Architecture}}
@@ -146,7 +148,7 @@ created={{index .Config.Labels "org.opencontainers.image.created"}}'
                     def first = target.tokenize('/')[0]
                     def isLocal = first.startsWith('localhost:') || first.startsWith('127.0.0.1:')
                     def pushBody = '''
-                        tags=("${SHORT_SHA}" "build-${BUILD_NUMBER}")
+                        tags=("${SHORT_SHA}" "${BUILD_TAG_NAME}")
                         if [ "${IS_MAIN}" = "true" ]; then tags+=(latest); fi
                         for t in "${tags[@]}"; do
                             docker tag "${IMAGE_NAME}:${SHORT_SHA}" "${PUSH_TARGET}:${t}"
