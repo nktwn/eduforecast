@@ -1,3 +1,6 @@
+> **⚠️ OUTDATED: snapshot of 2026-10-09. The current state is in [README.md](../README.md).**
+> **УСТАРЕЛО: снимок от 2026-10-09; актуальное состояние — в [README.md](../README.md).**
+
 # Состояние проекта EduForecast-SIS
 
 Дата: 2026-10-09. Ветка `main`, последний коммит `3867cf3`.
