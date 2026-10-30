@@ -185,7 +185,7 @@ created={{index .Config.Labels "org.opencontainers.image.created"}}'
                     set -euo pipefail
                     image="${IMAGE_NAME}:${SHORT_SHA}"
                     docker network inspect "${TEST_NETWORK}" >/dev/null 2>&1 || docker network create "${TEST_NETWORK}" >/dev/null
-                    previous="$(docker inspect -f '{{.Config.Image}}' "${TEST_CONTAINER}" 2>/dev/null || echo none)"
+                    previous="$(docker inspect -f '{{.Config.Image}}' "${TEST_CONTAINER}" 2>/dev/null)" || previous="none"
                     docker rm -f "${TEST_CONTAINER}" >/dev/null 2>&1 || true
                     docker run -d --name "${TEST_CONTAINER}" --network "${TEST_NETWORK}" \
                         --restart unless-stopped -p "127.0.0.1:${TEST_PORT}:8501" \
