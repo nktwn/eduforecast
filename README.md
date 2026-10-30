@@ -211,6 +211,18 @@ OPENALEX_API_KEY=...              # только для пересборки п�
 
 Ноутбуки `notebooks/01–06` воспроизводят исследование Academic (EDA, признаки, LR / RF, LSTM, TFT-inspired, SHAP); запускаются по порядку после подготовки OULAD.
 
+## DevOps: Docker and Jenkins CI/CD
+
+Docker image, local Jenkins (configured as code) and a pipeline that lints, runs the unit tests, builds and smoke-tests the image, optionally pushes it and deploys a test container on http://localhost:8502. Details: [docs/devops/](docs/devops/README.md) (runbook, evidence, screenshots).
+
+```bash
+make docker-test     # tests in the container
+make docker-build    # runtime image eduforecast:dev (no data, no secrets, non-root)
+make jenkins-up      # Jenkins on http://localhost:8080; admin password in jenkins/.env.jenkins
+```
+
+New environment variables (names only; values in the git-ignored `jenkins/.env.jenkins`, template `jenkins/.env.jenkins.example`): `JENKINS_ADMIN_ID`, `JENKINS_ADMIN_PASSWORD`, `GIT_REPO_URL`, `DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN`. Application variables are listed in `.env.example`.
+
 ## Структура
 
 ```
