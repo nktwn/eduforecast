@@ -51,3 +51,9 @@ Thumbs.db
 logs/
 .streamlit/secrets.toml
 data/app_cache/
+
+# DevOps (docs/devops/): generated secrets and local CI outputs
+jenkins/.env.jenkins
+reports/
+!.env.example
+!jenkins/.env.jenkins.example

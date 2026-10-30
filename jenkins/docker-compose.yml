@@ -1,0 +1,51 @@
+# Local Jenkins for EduForecast CI.
+#   up:    docker compose -f jenkins/docker-compose.yml up -d --build
+#   down:  docker compose -f jenkins/docker-compose.yml down        (keeps the jenkins_home volume)
+#   registry for push tests: add --profile testreg
+#
+# SECURITY: the host Docker socket is mounted and Jenkins runs as root, which is
+# root-equivalent on the Docker host. Acceptable only for this local study setup;
+# Jenkins is published on 127.0.0.1 only and has no inbound agent port.
+name: eduforecast
+
+services:
+  jenkins:
+    build:
+      context: .
+    image: eduforecast-jenkins:2.580.2-lts-jdk21
+    container_name: eduforecast-jenkins
+    user: root
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8080:8080"
+    env_file:
+      - .env.jenkins
+    environment:
+      JAVA_OPTS: >-
+        -Xmx768m
+        -Djenkins.install.runSetupWizard=false
+        -Dhudson.plugins.git.GitSCM.ALLOW_LOCAL_CHECKOUT=true
+      CASC_JENKINS_CONFIG: /var/jenkins_conf
+    volumes:
+      - eduforecast_jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${HOME}/.eduforecast-ci:/mirror:ro
+    mem_limit: 1536m
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "-o", "/dev/null", "http://127.0.0.1:8080/login"]
+      interval: 15s
+      timeout: 5s
+      start_period: 90s
+      retries: 10
+
+  registry:
+    profiles: ["testreg"]
+    image: registry:2.8.3
+    container_name: eduforecast-registry
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:5000:5000"
+
+volumes:
+  eduforecast_jenkins_home:
+    name: eduforecast_jenkins_home

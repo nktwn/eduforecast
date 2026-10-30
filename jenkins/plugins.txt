@@ -1,0 +1,16 @@
+# Pinned to the versions verified on jenkins/jenkins:2.580.2-lts-jdk21 (see plugins-resolved.txt).
+configuration-as-code:2143.vc78d4eb_d4174
+job-dsl:3732.v9a_c49a_61a_313
+git:5.11.0
+workflow-aggregator:608.v67378e9d3db_1
+workflow-multibranch:842.v3a_b_59b_57b_e6e
+branch-api:2.1303.v9f3b_95dc329d
+cloudbees-folder:6.1107.v31f8955765c8
+credentials:1514.vb_01eb_014e7d4
+credentials-binding:728.v902a_273b_8947
+plain-credentials:199.v9f8e1f741799
+junit:1455.v5c1b_eed56292
+timestamper:1.30
+ws-cleanup:0.49
+build-timeout:1.41
+pipeline-stage-view:2.41
