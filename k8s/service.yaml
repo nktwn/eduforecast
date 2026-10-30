@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: eduforecast
+  labels:
+    app.kubernetes.io/name: eduforecast
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: eduforecast
+  ports:
+    - name: http
+      port: 8501
+      targetPort: http
