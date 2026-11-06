@@ -3,6 +3,31 @@
 This folder documents the CI/CD setup of EduForecast-SIS (Assignment 5).
 Operations: [RUNBOOK.md](RUNBOOK.md). Measured results: [EVIDENCE.md](EVIDENCE.md).
 Screenshot list: [screenshots/README.md](screenshots/README.md). Console logs: [ci-logs/](ci-logs/).
+Facts for the written report: [REPORT_FACTS.md](REPORT_FACTS.md).
+
+## Quick start (from a fresh clone)
+
+Prerequisites: Docker Desktop with at least 4 GB of VM memory and about 8 GB of free disk, GNU make,
+free ports 8080, 8502 and 5000 on 127.0.0.1. Tested on macOS arm64 (Docker Desktop 4.37, engine 27.4).
+
+```bash
+git clone https://github.com/nktwn/eduforecast.git && cd eduforecast
+make jenkins-env      # jenkins/.env.jenkins (git-ignored): random admin password,
+                      # GIT_REPO_URL=https://github.com/nktwn/eduforecast.git
+make jenkins-up       # builds the controller image (~9 min the first time), starts http://localhost:8080
+make registry-up      # optional: local registry 127.0.0.1:5000 for the PUSH_IMAGE parameter
+```
+
+1. Open http://localhost:8080, log in as `admin` with `JENKINS_ADMIN_PASSWORD` from `jenkins/.env.jenkins`.
+2. The job `eduforecast` exists already (Job DSL). Within 2 minutes it scans GitHub and builds `main`
+   (or click **Scan Multibranch Pipeline Now** once).
+3. A green `main` build deploys the app to http://localhost:8502 (`curl -s http://localhost:8502/_stcore/health` → `ok`).
+4. Push to a registry: branch → **Build with Parameters** → `PUSH_IMAGE=true`, `REGISTRY_IMAGE=localhost:5000/eduforecast`.
+5. Check everything at once: `scripts/devops/final_check.sh` (read-only, PASS/FAIL per item).
+
+Without Jenkins: `make docker-test` (tests in the container), `make docker-build`, `make docker-run`
+(app on http://localhost:8501). Stop: `make jenkins-down`, `make registry-down`,
+`docker rm -f eduforecast-test`. All commands: [RUNBOOK.md](RUNBOOK.md).
 
 ## Architecture
 
