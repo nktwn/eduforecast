@@ -22,6 +22,7 @@ Times UTC. Tests: passed / failed / skipped from the Jenkins JUnit report. Logs:
 | main #7 | 0a0518da (merge commit of PR #1) | Branch indexing, 13:29:15 = **39 s after the merge** (13:28:36), no click | SUCCESS | 60.1 s | 123 / 0 / 7 | `eduforecast:0a0518da`, `build-7`, `latest` | deploy `eduforecast:a3da0b9b -> eduforecast:0a0518da (status healthy, health ok)` |
 | ci-failure-demo #6 | 1838cc01 (deliberately failing test) | Branch indexing, 13:33:16 = 90 s after `git push` (13:31:46) | **FAILURE at Unit tests** | 26.9 s | 122 / **1** / 7 | **none** | Build image, Smoke test, Push image, Deploy skipped; branch deleted afterwards |
 | main #8 | 0a0518da | Started by user admin, `PUSH_IMAGE=true`, `REGISTRY_IMAGE=localhost:5000/eduforecast` | SUCCESS | 55.4 s | 123 / 0 / 7 | `0a0518da`, `build-8`, `latest` pushed | Push image 2.6 s; deploy `eduforecast:0a0518da -> eduforecast:0a0518da` |
+| docs/devops-evidence #1 | b04cb6f6 | Branch indexing, 13:53:17 = 112 s after `git push` (13:51:25), no click | SUCCESS | 45.5 s | 123 / 0 / 7 | `docs-devops-evidence-build-1` | evidence PR #2, one build for the pushed commit |
 
 The table is extended by the build of the evidence PR and its merge (see `docs/devops/REPORT_FACTS.md`).
 

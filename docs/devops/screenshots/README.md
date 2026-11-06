@@ -30,4 +30,4 @@ Earlier screenshots from the local-mirror validation (2026-10-30) are in the git
 | `14_app_test_server.png` | the deployed app on `http://localhost:8502`, page "Settings and status": no LLM key, which datasets are present (no financial figures shown) | image `eduforecast:0a0518da` |
 | `15_registry_tags.png` | local registry `localhost:5000/eduforecast` tags after main #8: `0a0518da`, `build-8`, `latest` (plus `39a3c2e4`, `build-4` from the mirror validation) | main #8 |
 | `16_github_repo.png` | public GitHub `main`: `.dockerignore`, `Dockerfile`, `Jenkinsfile`, `Makefile`, `jenkins/`, `k8s/`, `scripts/` | `0a0518da` |
-| `17_github_pr_merged.png` | PR #1 `devops/docker-jenkins` → `main`, merged with a merge commit (46 commits) | PR #1 |
+| `17_github_pr_merged.png` | PR #1 `devops/docker-jenkins` → `main`, merged with a merge commit (46 commits). The PR was opened in the browser with an empty description; title and description were completed after the merge ("edited") | PR #1 |
