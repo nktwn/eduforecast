@@ -5,16 +5,16 @@ Captured headlessly by `scripts/devops/jenkins_screenshots.py --main-build 4 --r
 
 | file | shows |
 |---|---|
-| `screenshots/01_dashboard.png` | Jenkins dashboard with the `eduforecast` multibranch job |
-| `screenshots/02_stage_view_main.png` | Stage View of branch `main`: builds #1–#4 green, all stages incl. Push and Deploy |
-| `screenshots/03_console_stages.png` | console of main #4 (timestamps) during the Smoke test stage: `page_smoke.py` rendering each page `OK` inside the container |
-| `screenshots/04_test_result.png` | Test Result of main #4: 123 passed, 7 skipped |
-| `screenshots/05_test_trend.png` | branch page with the Test Result Trend chart and last successful artifacts |
-| `screenshots/06_red_run_stage_view.png` | `ci-failure-demo`: #2 red at Unit tests, later stages not run; #3 green after the fix |
-| `screenshots/07_red_run_test_result.png` | Test Result of the red run: 1 failure (`test_russian_format`) |
-| `screenshots/08_artifacts.png` | archived artifacts: `junit.xml`, `coverage.xml`, `image-info.txt`, `pip-freeze.txt` |
-| `screenshots/09_multibranch_job.png` | multibranch job with branches `main` and `ci-failure-demo` |
-| `screenshots/10_app_test_server.png` | the deployed app at http://localhost:8502 (Command Center, no LLM key, no data) |
+| `01_dashboard.png` | Jenkins dashboard with the `eduforecast` multibranch job |
+| `02_stage_view_main.png` | Stage View of branch `main`: builds #1–#4 green, all stages incl. Push and Deploy |
+| `03_console_stages.png` | console of main #4 (timestamps) during the Smoke test stage: `page_smoke.py` rendering each page `OK` inside the container |
+| `04_test_result.png` | Test Result of main #4: 123 passed, 7 skipped |
+| `05_test_trend.png` | branch page with the Test Result Trend chart and last successful artifacts |
+| `06_red_run_stage_view.png` | `ci-failure-demo`: #2 red at Unit tests, later stages not run; #3 green after the fix |
+| `07_red_run_test_result.png` | Test Result of the red run: 1 failure (`test_russian_format`) |
+| `08_artifacts.png` | archived artifacts: `junit.xml`, `coverage.xml`, `image-info.txt`, `pip-freeze.txt` |
+| `09_multibranch_job.png` | multibranch job with branches `main` and `ci-failure-demo` |
+| `10_app_test_server.png` | the deployed app at http://localhost:8502 (Command Center, no LLM key, no data) |
 
 ## To capture by hand (optional)
 

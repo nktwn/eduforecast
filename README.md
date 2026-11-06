@@ -211,17 +211,38 @@ OPENALEX_API_KEY=...              # только для пересборки п�
 
 Ноутбуки `notebooks/01–06` воспроизводят исследование Academic (EDA, признаки, LR / RF, LSTM, TFT-inspired, SHAP); запускаются по порядку после подготовки OULAD.
 
-## DevOps: Docker and Jenkins CI/CD
+## DevOps: Docker и Jenkins CI/CD
 
-Docker image, local Jenkins (configured as code) and a pipeline that lints, runs the unit tests, builds and smoke-tests the image, optionally pushes it and deploys a test container on http://localhost:8502. Details: [docs/devops/](docs/devops/README.md) (runbook, evidence, screenshots).
+Проект упакован в Docker-образ и проверяется локальным Jenkins, настроенным кодом (JCasC). Пайплайн [Jenkinsfile](Jenkinsfile) на каждый новый коммит в GitHub выполняет: сборку тестового образа → lint (ruff) → unit-тесты (pytest, отчёт JUnit и coverage) → сборку runtime-образа → smoke-тест контейнера → (по параметру) push в registry → на `main` деплой тестового контейнера на http://localhost:8502.
+
+| документ | что в нём |
+|---|---|
+| [docs/devops/README.md](docs/devops/README.md) | архитектура, стадии, как работает «тесты на каждый коммит», решения |
+| [docs/devops/RUNBOOK.md](docs/devops/RUNBOOK.md) | все команды: запуск, параметры, registry, Docker Hub, диагностика |
+| [docs/devops/EVIDENCE.md](docs/devops/EVIDENCE.md) | таблица прогонов, размеры, время сборок, трудности |
+| [docs/devops/screenshots/](docs/devops/screenshots/README.md) | скриншоты Jenkins и приложения с подписями |
+| [Dockerfile](Dockerfile), [jenkins/](jenkins/), [k8s/](k8s/) | образ приложения, контроллер Jenkins, манифесты Kubernetes (не запускались) |
+
+**Требования:** Docker Desktop (проверено на 4.37, macOS arm64), не меньше 4 GB памяти для Docker VM и около 8 GB свободного диска (образ приложения 1.6 GB, Jenkins 1.1 GB, кэш сборки); GNU make; порты 8080, 8502 и 5000 свободны на 127.0.0.1.
 
 ```bash
-make docker-test     # tests in the container
-make docker-build    # runtime image eduforecast:dev (no data, no secrets, non-root)
-make jenkins-up      # Jenkins on http://localhost:8080; admin password in jenkins/.env.jenkins
+git clone https://github.com/nktwn/eduforecast.git && cd eduforecast
+
+# 1. Образ без Jenkins
+make docker-test        # тестовый образ + pytest в контейнере (reports/junit.xml)
+make docker-build       # runtime-образ eduforecast:dev (без данных и секретов, non-root)
+make docker-run         # приложение на http://localhost:8501 (Ctrl+C — стоп)
+
+# 2. Jenkins
+make jenkins-env        # создаёт git-ignored jenkins/.env.jenkins: случайный пароль admin,
+                        # GIT_REPO_URL=https://github.com/nktwn/eduforecast.git (шаблон: jenkins/.env.jenkins.example)
+make jenkins-up         # сборка и старт Jenkins на http://localhost:8080 (первая сборка образа ~9 мин)
+make registry-up        # необязательно: локальный registry на 127.0.0.1:5000 для параметра PUSH_IMAGE
 ```
 
-New environment variables (names only; values in the git-ignored `jenkins/.env.jenkins`, template `jenkins/.env.jenkins.example`): `JENKINS_ADMIN_ID`, `JENKINS_ADMIN_PASSWORD`, `GIT_REPO_URL`, `DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN`. Application variables are listed in `.env.example`.
+Вход: пользователь `admin`, пароль — значение `JENKINS_ADMIN_PASSWORD` в `jenkins/.env.jenkins` (скрипты его не печатают). Job `eduforecast` (multibranch) создаётся автоматически и каждые 2 минуты сканирует GitHub; каждый новый коммит любой ветки собирается один раз. Вебхуков нет: Jenkins слушает только 127.0.0.1. Остановка: `make jenkins-down`, `make registry-down`, `docker rm -f eduforecast-test`.
+
+Переменные окружения (только имена; значения в `jenkins/.env.jenkins`): `JENKINS_ADMIN_ID`, `JENKINS_ADMIN_PASSWORD`, `GIT_REPO_URL`, `DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN`. Переменные приложения перечислены в `.env.example`.
 
 ## Структура
 
