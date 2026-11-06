@@ -1,13 +1,94 @@
 # Evidence
 
-All numbers below come from command output or the Jenkins API on 2026-10-30 (host: MacBook Apple M2,
-arm64, 8 GB RAM; Docker Desktop 27.4.0, VM memory 3.83 GiB). Full console logs: [ci-logs/](ci-logs/).
-Jenkins runs read the local mirror `file:///mirror/eduforecast.git` (nothing was pushed to GitHub);
-the mirror's `main` = branch `devops/docker-jenkins`.
+All numbers below come from command output or the Jenkins API. Host: MacBook Apple M2, arm64, 8 GB RAM;
+Docker Desktop 4.37.2 (engine 27.4.0), Docker VM memory 3.83 GiB. Full console logs: [ci-logs/](ci-logs/).
+Screenshots with captions: [screenshots/README.md](screenshots/README.md).
 
-## Pipeline runs
+Two phases:
 
-Times are local (UTC+5). Tests: passed / failed / skipped from the Jenkins JUnit report.
+1. **GitHub-sourced runs (2026-11-06)**: the job reads `https://github.com/nktwn/eduforecast.git`.
+   These are the runs that prove the assignment.
+2. **Pre-publication validation from a local mirror (2026-10-30)**: before anything was pushed, Jenkins
+   read the bare mirror `file:///mirror/eduforecast.git` (`scripts/devops/sync_mirror.sh`).
+
+## 1. GitHub-sourced runs (2026-11-06)
+
+Times UTC. Tests: passed / failed / skipped from the Jenkins JUnit report. Logs: `ci-logs/github-*.txt`.
+
+| branch #build | commit | trigger | result | duration | tests | image / tags | notes |
+|---|---|---|---|---|---|---|---|
+| devops/docker-jenkins #1 | 3e895c47 | Branch indexing, 13:23:00 | ABORTED (all stages ran green) | 75.1 s | 123 / 0 / 7 | `eduforecast:3e895c47`, `devops-docker-jenkins-build-1` | duplicate: indexing at Jenkins start-up plus a manual scan 6 s later; the second queue item cancelled this run after it finished (`Queue task was cancelled`) |
+| devops/docker-jenkins #2 | 3e895c47 | Branch indexing, 13:23:20 | SUCCESS | 108.0 s | 123 / 0 / 7 | `eduforecast:3e895c47`, `devops-docker-jenkins-build-2` | merge gate for PR #1; no deploy (not `main`) |
+| main #7 | 0a0518da (merge commit of PR #1) | Branch indexing, 13:29:15 = **39 s after the merge** (13:28:36), no click | SUCCESS | 60.1 s | 123 / 0 / 7 | `eduforecast:0a0518da`, `build-7`, `latest` | deploy `eduforecast:a3da0b9b -> eduforecast:0a0518da (status healthy, health ok)` |
+| ci-failure-demo #6 | 1838cc01 (deliberately failing test) | Branch indexing, 13:33:16 = 90 s after `git push` (13:31:46) | **FAILURE at Unit tests** | 26.9 s | 122 / **1** / 7 | **none** | Build image, Smoke test, Push image, Deploy skipped; branch deleted afterwards |
+| main #8 | 0a0518da | Started by user admin, `PUSH_IMAGE=true`, `REGISTRY_IMAGE=localhost:5000/eduforecast` | SUCCESS | 55.4 s | 123 / 0 / 7 | `0a0518da`, `build-8`, `latest` pushed | Push image 2.6 s; deploy `eduforecast:0a0518da -> eduforecast:0a0518da` |
+
+The table is extended by the build of the evidence PR and its merge (see `docs/devops/REPORT_FACTS.md`).
+
+### Stages of main #7 (from `wfapi/describe`)
+
+| stage | status | duration |
+|---|---|---|
+| Declarative: Checkout SCM | SUCCESS | 8.7 s |
+| Checkout | SUCCESS | 0.9 s |
+| Build test image | SUCCESS | 5.8 s (layers cached) |
+| Lint | SUCCESS | 1.0 s |
+| Unit tests | SUCCESS | 17.8 s (pytest 10–11 s, coverage 43 %) |
+| Build image | SUCCESS | 4.9 s (layers cached) |
+| Smoke test | SUCCESS | 10.1 s (health, uid 10001, no `.env`, 12/12 pages) |
+| Push image | NOT_EXECUTED (`PUSH_IMAGE=false`) | — |
+| Deploy to test server | SUCCESS | 6.6 s |
+
+### Negative proof
+
+red commit: 1838cc01629d62e520ae765634fa09077894cf9f
+
+- Change: `tests/test_ui_theme.py:33` expected `"1 234 568"` instead of `"1 234 567"`; branch `ci-failure-demo` created from `main`, pushed, never merged.
+- Console (`ci-logs/github-ci-failure-demo-6.txt`): `1 failed, 122 passed, 7 skipped`, `pytest exit code: 1`, then `Stage "Build image" skipped due to earlier failure(s)` (same for Smoke test, Push image, Deploy to test server), `Finished: FAILURE`.
+- `docker images | grep 1838cc01` → nothing: no runtime image for the failing commit. The test server kept `eduforecast:0a0518da`.
+- Jenkins Stage View and even `wfapi/describe` report the skipped stages as `FAILED` with 21–24 ms; the console shows they were skipped (screenshots 09–11).
+- Afterwards: `git push origin --delete ci-failure-demo`; GitHub API `/branches/ci-failure-demo` → 404; `/compare/1838cc01...main` → `behind` (the commit is not in `main`).
+
+### Deployment and registry
+
+```
+$ curl -s http://127.0.0.1:8502/_stcore/health
+ok
+$ docker ps --filter name=eduforecast-test --format '{{.Names}} {{.Image}} {{.Status}} {{.Ports}}'
+eduforecast-test eduforecast:0a0518da Up 24 seconds (healthy) 127.0.0.1:8502->8501/tcp
+$ docker inspect -f '{{index .Config.Labels "eduforecast.revision"}}' eduforecast-test
+0a0518da9d84da2df0447be11a22655672128783
+$ curl -s http://127.0.0.1:5000/v2/eduforecast/tags/list
+{"name":"eduforecast","tags":["build-4","build-8","0a0518da","latest","39a3c2e4"]}
+```
+
+### Runtime image `eduforecast:0a0518da`
+
+| check | result |
+|---|---|
+| user | `app`; `docker exec eduforecast-test id` → `uid=10001(app) gid=10001(app)` |
+| HEALTHCHECK | `python -c ... urlopen('http://127.0.0.1:8501/_stcore/health')`; state `healthy` |
+| OCI labels | `revision=0a0518da9d84da2df0447be11a22655672128783`, `source=https://github.com/nktwn/eduforecast`, `created=2026-11-06T13:36:37Z` |
+| `docker history --no-trunc` | build args only `GIT_SHA`, `BUILD_DATE`, `SOURCE_URL`; lines matching password/token/secret/api_key/gsk_/sk-ant-: 0 |
+| `.env` / `secrets.toml` under `/app` | 0 files |
+| size | `.Size` 357,629,371 B; `docker images` 1.64 GB (containerd store, layers shared between tags); arm64 |
+| exposed port | 8501/tcp, published as `127.0.0.1:8502` |
+
+### Jenkins
+
+| check | result |
+|---|---|
+| version | `X-Jenkins: 2.580.2`, OpenJDK 21.0.13, Docker CLI 29.9.2 → daemon 27.4.0 |
+| plugins | 15 pinned in `jenkins/plugins.txt`, 79 installed with dependencies |
+| security | admin login HTTP 200; anonymous `GET /api/json` HTTP 403; published on 127.0.0.1:8080 only |
+| job source | `config.xml` → `<remote>https://github.com/nktwn/eduforecast.git</remote>` |
+| Jenkinsfile linter | `POST /pipeline-model-converter/validate` → `Jenkinsfile successfully validated.` |
+
+## 2. Pre-publication validation from a local mirror (2026-10-30)
+
+Jenkins read `file:///mirror/eduforecast.git`; the mirror's `main` = branch `devops/docker-jenkins` at that time.
+
+Times are local (UTC+5). Logs: `ci-logs/jenkins-*.txt`. Tests: passed / failed / skipped from the Jenkins JUnit report.
 Image size: `docker image inspect .Size` (Docker Desktop containerd store; `docker images` lists the same image as 1.64 GB of disk).
 
 | branch #build | commit | trigger | result | duration | tests | image size | tags | notes |
@@ -20,7 +101,9 @@ Image size: `docker image inspect .Size` (Docker Desktop containerd store; `dock
 | ci-failure-demo #1 | 0a67aa5 | Branch indexing | FAILURE | 1.7 s | — | — | — | checkout failed: mirror objects hard-linked (see difficulties) |
 | ci-failure-demo #2 | 0a67aa5 | Started by user admin (re-run after the fix of the mirror) | **FAILURE at Unit tests** | 24.9 s | 122 / **1** / 7 | not built | — | `test_russian_format` broken on purpose; Build image, Smoke, Push, Deploy skipped |
 | ci-failure-demo #3 | b1f8ac1 (revert) | Branch indexing, 17 s after the fix reached the mirror | SUCCESS | 48.0 s | 123 / 0 / 7 | 357,629,362 B | b1f8ac1d, build-3 | not main: no deploy; its `build-3` overwrote main #3's tag (fixed, see difficulties) |
-| ci-failure-demo #4 | 366fdf8 | Branch indexing (mirror branch moved to the current head to verify branch-prefixed tags) | SUCCESS | 39.5 s | 123 / 0 / 7 | — | 366fdf8c, ci-failure-demo-build-4 | tag fix verified |
+| ci-failure-demo #4 | 366fdf8 | Started by an SCM change (pollSCM; mirror branch moved to the current head to verify branch-prefixed tags) | SUCCESS | 39.5 s | 123 / 0 / 7 | — | 366fdf8c, ci-failure-demo-build-4 | tag fix verified |
+| ci-failure-demo #5 | 366fdf8 | Branch indexing (20:08:45) | SUCCESS | 35.1 s | 123 / 0 / 7 | — | ci-failure-demo-build-5 | duplicate of #4 (second trigger, same commit) |
+| main #6 | a3da0b9 | Branch indexing (20:10:16) | SUCCESS | 51 s | 123 / 0 / 7 | — | a3da0b9b, build-6, latest | last mirror run; deploy `366fdf8c -> a3da0b9b` |
 
 The negative-test commits exist only in the mirror branch `ci-failure-demo`; they were made in a throw-away
 clone of the mirror and never touched the repository's branches or `origin`.
@@ -57,7 +140,7 @@ $ curl -s http://localhost:8502/_stcore/health
 ok
 ```
 
-## Docker image (Phase 1, built by hand before Jenkins)
+## Docker image (Phase 1, built by hand before Jenkins, 2026-10-30)
 
 | check | result |
 |---|---|
@@ -75,7 +158,7 @@ ok
 
 The 7 skipped tests need local datasets (Finance panel, stage-2 result files) that are not in git and not in the image.
 
-## Jenkins (Phase 2)
+## Jenkins (Phase 2, 2026-10-30)
 
 | check | result |
 |---|---|
@@ -102,6 +185,10 @@ The 7 skipped tests need local datasets (Finance panel, stage-2 result files) th
 | 6 | risk found before the first run (not a failure): `src/finance/config.py` and `src/research/config.py` create directories at import | `data/`, `results/`, `logs/`, `docs/` in the image are owned by the app user; code stays root-owned |
 | 7 | `build-N` tags collided between branches: ci-failure-demo #3 re-tagged `eduforecast:build-3` that main #3 had created | non-main branches now get `<branch>-build-N` (commit 366fdf8); verified by ci-failure-demo #4 → `eduforecast:ci-failure-demo-build-4` |
 | 8 | free disk on the host fell from 19 GiB to 9.2 GiB during the work (Docker Desktop disk image grew: Jenkins image, runtime/test images, build cache) | stale `eduforecast:*` tags removed; no further builds were needed. Docker.raw does not shrink automatically |
+| 9 | (2026-11-06) the first build of the published branch ran twice (#1 and #2, same commit) | Jenkins re-indexes the repository when JCasC/Job DSL re-applies the job at start-up; a manual "Scan Multibranch Pipeline Now" 6 s later scheduled the branch again before #1 had recorded its revision. Not a trigger defect: after that, every commit (merge → main #7, failing commit → ci-failure-demo #6, evidence PR) was built once. Lesson: do not scan by hand right after recreating Jenkins |
+| 10 | no `gh` CLI and no GitHub token on the host | the PR was opened and merged by the owner in the browser ("Create a merge commit"); the title and body were added afterwards |
+| 11 | Stage View shows stages skipped after a failure as red "failed" cells | kept Jenkins as is; the console screenshots 10–11 and `ci-logs/github-ci-failure-demo-6.txt` prove the stages were skipped and no image was built |
+| 12 | screenshot tooling: a locator on console text centred the whole console `<pre>`; GitHub pages embed file names in `<script>` JSON; the Streamlit deep link `/academic` showed "Page not found" | text-node search with `scrollTo` that skips `script`/hidden nodes; the app page is opened through the sidebar |
 
 ## Versions
 
