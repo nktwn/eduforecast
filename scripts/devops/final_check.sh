@@ -158,8 +158,8 @@ else
 fi
 
 # Tag (part of D14)
-tagrefs="$(git ls-remote --tags "https://github.com/${REPO}.git" assignment5-final)"
-peeled="$(grep -F '^{}' <<<"${tagrefs}" | cut -c1-8)"
+# no ref pattern: with a pattern GitHub omits the peeled "^{}" line of an annotated tag
+peeled="$(git ls-remote --tags "https://github.com/${REPO}.git" | grep -F 'refs/tags/assignment5-final^{}' | cut -c1-8)"
 mainsha="$(git ls-remote "https://github.com/${REPO}.git" refs/heads/main | cut -c1-8)"
 [ -n "${peeled}" ] && line D14 PASS "annotated tag assignment5-final -> ${peeled} (main ${mainsha})" \
                    || line D14 FAIL "annotated tag assignment5-final not on GitHub"
