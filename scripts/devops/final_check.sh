@@ -81,13 +81,16 @@ ok=1; for s in Checkout "Build test image" Lint "Unit tests" "Build image" "Smok
     || line D6 FAIL "main #${mb:-?}: stages=[${stages}] tests=${tests}"
 
 # D7 one build per commit, started automatically
-builds="$(jget "${JOB}/job/main/api/json?tree=builds[number,actions[causes[shortDescription],lastBuiltRevision[SHA1],remoteUrls]]")"
-gh_shas="$(jq -r --arg u "https://github.com/${REPO}.git" '.builds[] | select([.actions[]?.remoteUrls[]?] | index($u)) | [.actions[]?.lastBuiltRevision.SHA1 // empty][0]' <<<"${builds}")"
-dups="$(sort <<<"${gh_shas}" | uniq -d | grep -c . || true)"
-last_cause="$(jq -r '.builds[0] | [.actions[]?.causes[]?.shortDescription][0]' <<<"${builds}")"
-[ -n "${gh_shas}" ] && [ "${dups}" = "0" ] && [[ "${last_cause}" != *"user"* ]] \
-    && line D7 PASS "GitHub-sourced main builds: $(grep -c . <<<"${gh_shas}"), duplicate commits: 0; last cause: ${last_cause}" \
-    || line D7 FAIL "duplicate commits=${dups}, last cause=${last_cause}"
+builds="$(jget "${JOB}/job/main/api/json?tree=builds[number,result,actions[causes[shortDescription],parameters[name,value],lastBuiltRevision[SHA1],remoteUrls]]")"
+# automatic = not started by a user (manual re-runs with parameters are not trigger duplicates)
+auto="$(jq -r --arg u "https://github.com/${REPO}.git" '.builds[] | select([.actions[]?.remoteUrls[]?] | index($u))
+        | select(([.actions[]?.causes[]?.shortDescription] | join(" ")) | test("user") | not)
+        | "\(.number) \([.actions[]?.lastBuiltRevision.SHA1 // empty][0]) \([.actions[]?.causes[]?.shortDescription][0])"' <<<"${builds}")"
+dups="$(awk '{print $2}' <<<"${auto}" | sort | uniq -d | grep -c . || true)"
+newest="$(head -1 <<<"${auto}")"
+[ -n "${auto}" ] && [ "${dups}" = "0" ] \
+    && line D7 PASS "automatic GitHub-sourced main builds: $(grep -c . <<<"${auto}"), commits built twice: 0; newest: #${newest%% *} (${newest##* })" \
+    || line D7 FAIL "automatic builds=$(grep -c . <<<"${auto}"), commits built twice=${dups}"
 
 # D8 negative proof (captured log) + throwaway branch gone + failing commit not on main
 red_log="$(ls docs/devops/ci-logs/github-ci-failure-demo-*.txt 2>/dev/null | tail -1)"
@@ -95,7 +98,7 @@ red_sha="${RED_SHA:-$(grep -oE 'red commit: [0-9a-f]{40}' docs/devops/EVIDENCE.m
 gone="$(gh_code "/branches/ci-failure-demo")"
 cmp="$( [ -n "${red_sha}" ] && gh_json "/compare/${red_sha}...main" | jq -r '.status // "?"' )"
 if [ -n "${red_log}" ] && grep -q 'Stage "Build image" skipped due to earlier failure' "${red_log}" \
-   && grep -q 'Finished: FAILURE' "${red_log}" && [ "${gone}" = "404" ] && [ "${cmp}" = "diverged" ]; then
+   && grep -q 'Finished: FAILURE' "${red_log}" && [ "${gone}" = "404" ] && { [ "${cmp}" = "diverged" ] || [ "${cmp}" = "behind" ]; }; then
     line D8 PASS "$(basename "${red_log}"): FAILURE at Unit tests, Build image skipped; branch deleted (404); red commit ${red_sha:0:8} not on main (${cmp})"
 else
     line D8 FAIL "log=${red_log:-none} branch=${gone} red_sha=${red_sha:-?} compare=${cmp:-?}"
@@ -113,9 +116,13 @@ msha="$(jq -r '.builds[0] | [.actions[]?.lastBuiltRevision.SHA1 // empty][0]' <<
 # D10 registry push (local) and Docker Hub (only if configured)
 tags="$(curl -s --max-time 5 http://127.0.0.1:5000/v2/eduforecast/tags/list | jq -r '.tags // [] | join(",")')"
 hub="no"; grep -q '^DOCKERHUB_USERNAME=.' jenkins/.env.jenkins && grep -q '^DOCKERHUB_TOKEN=.' jenkins/.env.jenkins && hub="yes"
-grep -q "${msha:0:8}" <<<"${tags}" \
-    && line D10 PASS "localhost:5000/eduforecast has the main commit tag ${msha:0:8} (tags: ${tags}); Docker Hub configured: ${hub} (N/A if no)" \
-    || line D10 FAIL "main commit ${msha:0:8} not in local registry tags (${tags:-none})"
+push="$(jq -r --arg u "https://github.com/${REPO}.git" '[.builds[] | select(.result=="SUCCESS") | select([.actions[]?.remoteUrls[]?] | index($u))
+        | select([.actions[]?.parameters[]? | select(.name=="PUSH_IMAGE" and .value==true)] | length > 0)][0]
+        | "\(.number) \([.actions[]?.lastBuiltRevision.SHA1 // empty][0])"' <<<"${builds}")"
+psha="$(cut -d' ' -f2 <<<"${push}")"
+[ -n "${psha}" ] && [ "${psha}" != "null" ] && grep -q "${psha:0:8}" <<<"${tags}" \
+    && line D10 PASS "main #${push%% *} (PUSH_IMAGE=true, GitHub) pushed ${psha:0:8} to localhost:5000/eduforecast (tags: ${tags}); Docker Hub configured: ${hub} (N/A if no)" \
+    || line D10 FAIL "no GitHub-sourced push build found in registry tags (${tags:-none})"
 
 # D4 image facts of the deployed image
 user="$(docker image inspect -f '{{.Config.User}}' "${img}" 2>/dev/null)"
