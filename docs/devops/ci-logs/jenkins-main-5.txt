@@ -1,0 +1,431 @@
+Branch indexing
+ > git rev-parse --resolve-git-dir /var/jenkins_home/caches/git-a2639878d1d6701c56ffd6d7a7d9f322/.git # timeout=10
+Setting origin to file:///mirror/eduforecast.git
+ > git config remote.origin.url file:///mirror/eduforecast.git # timeout=10
+Fetching origin...
+Fetching upstream changes from origin
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+ > git config --get remote.origin.url # timeout=10
+ > git fetch --no-tags --force --progress -- origin +refs/heads/*:refs/remotes/origin/* # timeout=10
+Seen branch in repository origin/ci-failure-demo
+Seen branch in repository origin/main
+Seen 2 remote branches
+Obtained Jenkinsfile from 366fdf8cdf648d87eb3f2579188597e1f27cbdcb
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/jobs/eduforecast/branches/main/workspace
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+The recommended git tool is: git
+No credentials specified
+Cloning the remote Git repository
+Cloning with configured refspecs honoured and without tags
+Cloning repository file:///mirror/eduforecast.git
+ > git init /var/jenkins_home/jobs/eduforecast/branches/main/workspace # timeout=10
+Fetching upstream changes from file:///mirror/eduforecast.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+ > git fetch --no-tags --force --progress -- file:///mirror/eduforecast.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git config remote.origin.url file:///mirror/eduforecast.git # timeout=10
+ > git config --add remote.origin.fetch +refs/heads/*:refs/remotes/origin/* # timeout=10
+Avoid second fetch
+Checking out Revision 366fdf8cdf648d87eb3f2579188597e1f27cbdcb (main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 366fdf8cdf648d87eb3f2579188597e1f27cbdcb # timeout=10
+Commit message: "Jenkinsfile: branch-unique build-N tags so other branches never overwrite main's"
+ > git rev-list --no-walk 39a3c2e4899d64a7f0072f94cd0570d2ac62758c # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] timeout
+[2026-10-30T15:06:18.129Z] Timeout set to expire in 30 min
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
+[2026-10-30T15:06:18.504Z] + git rev-parse --short=8 HEAD
+[Pipeline] sh
+[2026-10-30T15:06:18.797Z] + git rev-parse HEAD
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] sh
+[2026-10-30T15:06:19.117Z] branch=main commit=366fdf8cdf648d87eb3f2579188597e1f27cbdcb short=366fdf8c build=5
+[2026-10-30T15:06:19.117Z] author=nktwn date=2026-10-30T20:05:00+05:00 subject=Jenkinsfile: branch-unique build-N tags so other branches never overwrite main's
+[2026-10-30T15:06:19.373Z] docker client 29.9.2 / daemon 27.4.0 (arm64)
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build test image)
+[Pipeline] sh
+[2026-10-30T15:06:20.787Z] #0 building with "default" instance using docker driver
+[2026-10-30T15:06:20.787Z] 
+[2026-10-30T15:06:20.787Z] #1 [internal] load build definition from Dockerfile
+[2026-10-30T15:06:20.787Z] #1 transferring dockerfile: 3.49kB 0.0s done
+[2026-10-30T15:06:20.787Z] #1 DONE 0.0s
+[2026-10-30T15:06:20.787Z] 
+[2026-10-30T15:06:20.787Z] #2 resolve image config for docker-image://docker.io/docker/dockerfile:1.7
+[2026-10-30T15:06:22.655Z] #2 DONE 2.1s
+[2026-10-30T15:06:22.655Z] 
+[2026-10-30T15:06:22.655Z] #3 docker-image://docker.io/docker/dockerfile:1.7@sha256:a57df69d0ea827fb7266491f2813635de6f17269be881f696fbfdf2d83dda33e
+[2026-10-30T15:06:22.655Z] #3 resolve docker.io/docker/dockerfile:1.7@sha256:a57df69d0ea827fb7266491f2813635de6f17269be881f696fbfdf2d83dda33e 0.0s done
+[2026-10-30T15:06:22.655Z] #3 CACHED
+[2026-10-30T15:06:22.907Z] 
+[2026-10-30T15:06:22.907Z] #4 [internal] load metadata for docker.io/library/python:3.12.13-slim-bookworm
+[2026-10-30T15:06:24.779Z] #4 DONE 1.6s
+[2026-10-30T15:06:24.779Z] 
+[2026-10-30T15:06:24.779Z] #5 [internal] load .dockerignore
+[2026-10-30T15:06:24.779Z] #5 transferring context: 585B done
+[2026-10-30T15:06:24.779Z] #5 DONE 0.0s
+[2026-10-30T15:06:24.779Z] 
+[2026-10-30T15:06:24.779Z] #6 [base 1/5] FROM docker.io/library/python:3.12.13-slim-bookworm@sha256:4766d8b510c428e595d74b9cc5bbb2fae8e26316fffb4adc89908d79aacd58a2
+[2026-10-30T15:06:24.779Z] #6 resolve docker.io/library/python:3.12.13-slim-bookworm@sha256:4766d8b510c428e595d74b9cc5bbb2fae8e26316fffb4adc89908d79aacd58a2 0.0s done
+[2026-10-30T15:06:24.779Z] #6 DONE 0.0s
+[2026-10-30T15:06:24.779Z] 
+[2026-10-30T15:06:24.779Z] #7 [internal] load build context
+[2026-10-30T15:06:24.779Z] #7 transferring context: 1.19MB 0.1s done
+[2026-10-30T15:06:24.779Z] #7 DONE 0.1s
+[2026-10-30T15:06:24.779Z] 
+[2026-10-30T15:06:24.779Z] #8 [base 5/5] RUN --mount=type=cache,target=/root/.cache/pip     pip install -r requirements-ci.txt
+[2026-10-30T15:06:24.779Z] #8 CACHED
+[2026-10-30T15:06:24.779Z] 
+[2026-10-30T15:06:24.779Z] #9 [test 1/3] RUN apt-get update     && apt-get install -y --no-install-recommends git     && rm -rf /var/lib/apt/lists/*
+[2026-10-30T15:06:24.779Z] #9 CACHED
+[2026-10-30T15:06:24.779Z] 
+[2026-10-30T15:06:24.779Z] #10 [base 2/5] RUN apt-get update     && apt-get install -y --no-install-recommends libgomp1     && rm -rf /var/lib/apt/lists/*
+[2026-10-30T15:06:24.779Z] #10 CACHED
+[2026-10-30T15:06:24.779Z] 
+[2026-10-30T15:06:24.779Z] #11 [base 4/5] COPY requirements-ci.txt .
+[2026-10-30T15:06:24.779Z] #11 CACHED
+[2026-10-30T15:06:24.779Z] 
+[2026-10-30T15:06:24.779Z] #12 [base 3/5] WORKDIR /app
+[2026-10-30T15:06:24.779Z] #12 CACHED
+[2026-10-30T15:06:24.779Z] 
+[2026-10-30T15:06:24.779Z] #13 [test 2/3] RUN --mount=type=cache,target=/root/.cache/pip     pip install "ruff==0.16.10" "pytest-cov==7.1.0"
+[2026-10-30T15:06:24.779Z] #13 CACHED
+[2026-10-30T15:06:24.779Z] 
+[2026-10-30T15:06:24.779Z] #14 [test 3/3] COPY . .
+[2026-10-30T15:06:24.779Z] #14 DONE 0.1s
+[2026-10-30T15:06:24.779Z] 
+[2026-10-30T15:06:24.779Z] #15 exporting to image
+[2026-10-30T15:06:24.779Z] #15 exporting layers 0.1s done
+[2026-10-30T15:06:24.779Z] #15 exporting manifest sha256:6a15fa978f834339ce53faaa38e566ba14ad1c5d13219c05dd7aa6fccfa56559
+[2026-10-30T15:06:25.031Z] #15 exporting manifest sha256:6a15fa978f834339ce53faaa38e566ba14ad1c5d13219c05dd7aa6fccfa56559 done
+[2026-10-30T15:06:25.031Z] #15 exporting config sha256:82681a893dc1f9db0897a2b834094389c60af62ecbc959452dbce987a13d95ce done
+[2026-10-30T15:06:25.031Z] #15 exporting attestation manifest sha256:db14075484abd847deba9e7c2351264b1b7eeb5a368b24ab64b196f1d5b53bbe done
+[2026-10-30T15:06:25.031Z] #15 exporting manifest list sha256:438d37e3c97d2b03847b114100d20894b76a7f2d9ef58ee4284847e38e492f78 done
+[2026-10-30T15:06:25.031Z] #15 naming to docker.io/library/eduforecast-ci-test:main-5 done
+[2026-10-30T15:06:25.031Z] #15 unpacking to docker.io/library/eduforecast-ci-test:main-5
+[2026-10-30T15:06:29.166Z] #15 unpacking to docker.io/library/eduforecast-ci-test:main-5 3.6s done
+[2026-10-30T15:06:29.166Z] #15 DONE 3.8s
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Lint)
+[Pipeline] sh
+[2026-10-30T15:06:30.614Z] All checks passed!
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Unit tests)
+[Pipeline] sh
+[2026-10-30T15:06:44.135Z] .........................................s.............................. [ 55%]
+[2026-10-30T15:06:50.006Z] .............................ssssss.......................               [100%]
+[2026-10-30T15:06:50.007Z] ================================ tests coverage ================================
+[2026-10-30T15:06:50.007Z] _______________ coverage: platform linux, python 3.12.13-final-0 _______________
+[2026-10-30T15:06:50.007Z] 
+[2026-10-30T15:06:50.007Z] Name                                        Stmts   Miss  Cover
+[2026-10-30T15:06:50.007Z] ---------------------------------------------------------------
+[2026-10-30T15:06:50.007Z] app/components/__init__.py                      0      0   100%
+[2026-10-30T15:06:50.007Z] app/components/app_cache.py                    37     16    57%
+[2026-10-30T15:06:50.007Z] app/components/charts.py                      110     77    30%
+[2026-10-30T15:06:50.007Z] app/components/concept.py                      26      0   100%
+[2026-10-30T15:06:50.007Z] app/components/data_loader.py                 151    123    19%
+[2026-10-30T15:06:50.007Z] app/components/finance_charts.py               93      3    97%
+[2026-10-30T15:06:50.007Z] app/components/finance_data_loader.py          42      3    93%
+[2026-10-30T15:06:50.007Z] app/components/research_charts.py              24      0   100%
+[2026-10-30T15:06:50.007Z] app/components/research_data_loader.py         26      2    92%
+[2026-10-30T15:06:50.007Z] app/components/research_stage3.py              47      1    98%
+[2026-10-30T15:06:50.007Z] app/components/risk_model.py                  125     10    92%
+[2026-10-30T15:06:50.007Z] app/components/shell.py                        35      2    94%
+[2026-10-30T15:06:50.007Z] app/components/styles.py                       31     12    61%
+[2026-10-30T15:06:50.007Z] app/components/theme.py                        63     13    79%
+[2026-10-30T15:06:50.007Z] app/components/ui.py                           59      2    97%
+[2026-10-30T15:06:50.007Z] app/home.py                                    71     62    13%
+[2026-10-30T15:06:50.007Z] app/main.py                                    16      1    94%
+[2026-10-30T15:06:50.007Z] app/pages/00_Command_Center.py                 60      7    88%
+[2026-10-30T15:06:50.007Z] app/pages/01_Students.py                       94     83    12%
+[2026-10-30T15:06:50.007Z] app/pages/02_Analytics.py                     119    106    11%
+[2026-10-30T15:06:50.007Z] app/pages/03_AI_Advisor.py                    112     42    62%
+[2026-10-30T15:06:50.007Z] app/pages/04_Research.py                       40      0   100%
+[2026-10-30T15:06:50.007Z] app/pages/05_Finance.py                       231     66    71%
+[2026-10-30T15:06:50.007Z] app/pages/06_International.py                   7      1    86%
+[2026-10-30T15:06:50.007Z] app/pages/07_Upbringing.py                      7      1    86%
+[2026-10-30T15:06:50.007Z] app/pages/08_Verified.py                       35      1    97%
+[2026-10-30T15:06:50.007Z] app/pages/09_Settings.py                       45      3    93%
+[2026-10-30T15:06:50.007Z] src/__init__.py                                 0      0   100%
+[2026-10-30T15:06:50.007Z] src/advisor/__init__.py                         0      0   100%
+[2026-10-30T15:06:50.007Z] src/advisor/briefing.py                        68      3    96%
+[2026-10-30T15:06:50.007Z] src/advisor/config.py                          38      3    92%
+[2026-10-30T15:06:50.007Z] src/advisor/control_questions.py               55     17    69%
+[2026-10-30T15:06:50.007Z] src/advisor/core.py                           119      6    95%
+[2026-10-30T15:06:50.007Z] src/advisor/experiment/__init__.py              0      0   100%
+[2026-10-30T15:06:50.007Z] src/advisor/experiment/judge.py                72     72     0%
+[2026-10-30T15:06:50.007Z] src/advisor/experiment/metrics.py             137     48    65%
+[2026-10-30T15:06:50.007Z] src/advisor/experiment/preregistration.py      45      0   100%
+[2026-10-30T15:06:50.007Z] src/advisor/experiment/run.py                 273     59    78%
+[2026-10-30T15:06:50.007Z] src/advisor/facts/__init__.py                   0      0   100%
+[2026-10-30T15:06:50.007Z] src/advisor/facts/builders.py                 244     23    91%
+[2026-10-30T15:06:50.007Z] src/advisor/facts/fmt.py                       37      3    92%
+[2026-10-30T15:06:50.007Z] src/advisor/facts/registry.py                  58     12    79%
+[2026-10-30T15:06:50.007Z] src/advisor/facts/schema.py                    56      8    86%
+[2026-10-30T15:06:50.007Z] src/advisor/guard.py                           38      0   100%
+[2026-10-30T15:06:50.007Z] src/advisor/llm.py                             78     42    46%
+[2026-10-30T15:06:50.007Z] src/advisor/roles.py                           13      0   100%
+[2026-10-30T15:06:50.007Z] src/advisor/tools.py                           67      2    97%
+[2026-10-30T15:06:50.007Z] src/advisor/validate.py                        85     10    88%
+[2026-10-30T15:06:50.007Z] src/config.py                                  16      0   100%
+[2026-10-30T15:06:50.007Z] src/data_loader.py                             39     39     0%
+[2026-10-30T15:06:50.007Z] src/evaluate.py                                39     39     0%
+[2026-10-30T15:06:50.007Z] src/features.py                                52     52     0%
+[2026-10-30T15:06:50.007Z] src/finance/__init__.py                         0      0   100%
+[2026-10-30T15:06:50.007Z] src/finance/aitu_profile.py                    83      9    89%
+[2026-10-30T15:06:50.007Z] src/finance/api/__init__.py                     0      0   100%
+[2026-10-30T15:06:50.007Z] src/finance/api/cli.py                         24     24     0%
+[2026-10-30T15:06:50.007Z] src/finance/api/contract.py                    17      0   100%
+[2026-10-30T15:06:50.007Z] src/finance/api/demo_model.py                  38     18    53%
+[2026-10-30T15:06:50.007Z] src/finance/api/features.py                    59     46    22%
+[2026-10-30T15:06:50.007Z] src/finance/api/providers.py                  206    129    37%
+[2026-10-30T15:06:50.007Z] src/finance/api/stage2_provider.py             68     68     0%
+[2026-10-30T15:06:50.007Z] src/finance/audit.py                          140    140     0%
+[2026-10-30T15:06:50.007Z] src/finance/baseline.py                        72     61    15%
+[2026-10-30T15:06:50.007Z] src/finance/benchmark.py                       65     47    28%
+[2026-10-30T15:06:50.007Z] src/finance/budget_outcomes.py                138     76    45%
+[2026-10-30T15:06:50.007Z] src/finance/config.py                          39      0   100%
+[2026-10-30T15:06:50.007Z] src/finance/criterion.py                       21      0   100%
+[2026-10-30T15:06:50.007Z] src/finance/criterion_stage2.py                28      0   100%
+[2026-10-30T15:06:50.007Z] src/finance/download.py                        79     61    23%
+[2026-10-30T15:06:50.007Z] src/finance/exploratory.py                     48     48     0%
+[2026-10-30T15:06:50.007Z] src/finance/features_stage2.py                 21      0   100%
+[2026-10-30T15:06:50.007Z] src/finance/models_stage2.py                  304    254    16%
+[2026-10-30T15:06:50.007Z] src/finance/panel.py                          221    178    19%
+[2026-10-30T15:06:50.007Z] src/finance/panel_stage2.py                   144    112    22%
+[2026-10-30T15:06:50.007Z] src/finance/rules.py                           64     16    75%
+[2026-10-30T15:06:50.007Z] src/finance/validate.py                        83     37    55%
+[2026-10-30T15:06:50.007Z] src/models.py                                  67     67     0%
+[2026-10-30T15:06:50.007Z] src/research/__init__.py                        0      0   100%
+[2026-10-30T15:06:50.007Z] src/research/aggregate.py                      18      0   100%
+[2026-10-30T15:06:50.007Z] src/research/audit.py                         147    147     0%
+[2026-10-30T15:06:50.007Z] src/research/audit_stage3.py                   71     71     0%
+[2026-10-30T15:06:50.007Z] src/research/baseline.py                       77     50    35%
+[2026-10-30T15:06:50.007Z] src/research/candidates.py                    106    106     0%
+[2026-10-30T15:06:50.007Z] src/research/config.py                         23      0   100%
+[2026-10-30T15:06:50.007Z] src/research/criterion_stage3.py               41     41     0%
+[2026-10-30T15:06:50.007Z] src/research/forecast.py                       75      0   100%
+[2026-10-30T15:06:50.007Z] src/research/institutions.py                   14     14     0%
+[2026-10-30T15:06:50.007Z] src/research/openalex_client.py               163     79    52%
+[2026-10-30T15:06:50.007Z] src/research/panel.py                         145    145     0%
+[2026-10-30T15:06:50.007Z] src/research/panel_stage3.py                  132    132     0%
+[2026-10-30T15:06:50.007Z] src/research/power_stage3.py                   60     60     0%
+[2026-10-30T15:06:50.007Z] src/research/sdu_check.py                      55     55     0%
+[2026-10-30T15:06:50.007Z] src/research/stage2.py                        313    313     0%
+[2026-10-30T15:06:50.007Z] src/research/stage2_config.py                  29     29     0%
+[2026-10-30T15:06:50.007Z] src/research/stage3.py                        313    313     0%
+[2026-10-30T15:06:50.007Z] src/visualize.py                               63     63     0%
+[2026-10-30T15:06:50.007Z] ---------------------------------------------------------------
+[2026-10-30T15:06:50.007Z] TOTAL                                        7209   4084    43%
+[2026-10-30T15:06:50.007Z] Coverage XML written to file /tmp/reports/coverage.xml
+[2026-10-30T15:06:50.007Z] 123 passed, 7 skipped in 17.75s
+[2026-10-30T15:06:50.561Z] pytest exit code: 0
+Post stage
+[Pipeline] junit
+[2026-10-30T15:06:50.619Z] Recording test results
+[2026-10-30T15:06:50.685Z] [Checks API] No suitable checks publisher found.
+[Pipeline] archiveArtifacts
+[2026-10-30T15:06:50.717Z] Archiving artifacts
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build image)
+[Pipeline] sh
+[2026-10-30T15:06:51.324Z] #0 building with "default" instance using docker driver
+[2026-10-30T15:06:51.324Z] 
+[2026-10-30T15:06:51.324Z] #1 [internal] load build definition from Dockerfile
+[2026-10-30T15:06:51.324Z] #1 transferring dockerfile: 3.49kB done
+[2026-10-30T15:06:51.324Z] #1 DONE 0.0s
+[2026-10-30T15:06:51.324Z] 
+[2026-10-30T15:06:51.324Z] #2 resolve image config for docker-image://docker.io/docker/dockerfile:1.7
+[2026-10-30T15:06:51.575Z] #2 DONE 0.5s
+[2026-10-30T15:06:51.831Z] 
+[2026-10-30T15:06:51.831Z] #3 docker-image://docker.io/docker/dockerfile:1.7@sha256:a57df69d0ea827fb7266491f2813635de6f17269be881f696fbfdf2d83dda33e
+[2026-10-30T15:06:51.831Z] #3 resolve docker.io/docker/dockerfile:1.7@sha256:a57df69d0ea827fb7266491f2813635de6f17269be881f696fbfdf2d83dda33e 0.0s done
+[2026-10-30T15:06:51.832Z] #3 CACHED
+[2026-10-30T15:06:51.832Z] 
+[2026-10-30T15:06:51.832Z] #4 [internal] load metadata for docker.io/library/python:3.12.13-slim-bookworm
+[2026-10-30T15:06:52.384Z] #4 DONE 0.5s
+[2026-10-30T15:06:52.384Z] 
+[2026-10-30T15:06:52.384Z] #5 [internal] load .dockerignore
+[2026-10-30T15:06:52.384Z] #5 transferring context: 585B 0.0s done
+[2026-10-30T15:06:52.384Z] #5 DONE 0.0s
+[2026-10-30T15:06:52.384Z] 
+[2026-10-30T15:06:52.384Z] #6 [base 1/5] FROM docker.io/library/python:3.12.13-slim-bookworm@sha256:4766d8b510c428e595d74b9cc5bbb2fae8e26316fffb4adc89908d79aacd58a2
+[2026-10-30T15:06:52.384Z] #6 resolve docker.io/library/python:3.12.13-slim-bookworm@sha256:4766d8b510c428e595d74b9cc5bbb2fae8e26316fffb4adc89908d79aacd58a2 done
+[2026-10-30T15:06:52.384Z] #6 DONE 0.0s
+[2026-10-30T15:06:52.384Z] 
+[2026-10-30T15:06:52.384Z] #7 [internal] load build context
+[2026-10-30T15:06:52.384Z] #7 transferring context: 5.35kB done
+[2026-10-30T15:06:52.384Z] #7 DONE 0.0s
+[2026-10-30T15:06:52.384Z] 
+[2026-10-30T15:06:52.384Z] #8 [base 2/5] RUN apt-get update     && apt-get install -y --no-install-recommends libgomp1     && rm -rf /var/lib/apt/lists/*
+[2026-10-30T15:06:52.384Z] #8 CACHED
+[2026-10-30T15:06:52.384Z] 
+[2026-10-30T15:06:52.384Z] #9 [base 4/5] COPY requirements-ci.txt .
+[2026-10-30T15:06:52.384Z] #9 CACHED
+[2026-10-30T15:06:52.384Z] 
+[2026-10-30T15:06:52.384Z] #10 [base 3/5] WORKDIR /app
+[2026-10-30T15:06:52.384Z] #10 CACHED
+[2026-10-30T15:06:52.384Z] 
+[2026-10-30T15:06:52.384Z] #11 [base 5/5] RUN --mount=type=cache,target=/root/.cache/pip     pip install -r requirements-ci.txt
+[2026-10-30T15:06:52.384Z] #11 CACHED
+[2026-10-30T15:06:52.384Z] 
+[2026-10-30T15:06:52.384Z] #12 [runtime 1/8] RUN useradd --uid 10001 --create-home --home-dir /home/app --shell /usr/sbin/nologin app
+[2026-10-30T15:06:52.384Z] #12 DONE 0.1s
+[2026-10-30T15:06:52.636Z] 
+[2026-10-30T15:06:52.636Z] #13 [runtime 2/8] COPY app/ app/
+[2026-10-30T15:06:52.636Z] #13 DONE 0.0s
+[2026-10-30T15:06:52.636Z] 
+[2026-10-30T15:06:52.636Z] #14 [runtime 3/8] COPY src/ src/
+[2026-10-30T15:06:52.636Z] #14 DONE 0.0s
+[2026-10-30T15:06:52.636Z] 
+[2026-10-30T15:06:52.636Z] #15 [runtime 4/8] COPY .streamlit/config.toml .streamlit/config.toml
+[2026-10-30T15:06:52.636Z] #15 DONE 0.0s
+[2026-10-30T15:06:52.636Z] 
+[2026-10-30T15:06:52.636Z] #16 [runtime 5/8] COPY data/aitu/ data/aitu/
+[2026-10-30T15:06:52.636Z] #16 DONE 0.0s
+[2026-10-30T15:06:52.887Z] 
+[2026-10-30T15:06:52.887Z] #17 [runtime 6/8] COPY data/research/raw/yearly_work_counts_I4405257690.json data/research/raw/
+[2026-10-30T15:06:52.887Z] #17 DONE 0.0s
+[2026-10-30T15:06:52.887Z] 
+[2026-10-30T15:06:52.887Z] #18 [runtime 7/8] COPY scripts/devops/page_smoke.py scripts/devops/page_smoke.py
+[2026-10-30T15:06:52.887Z] #18 DONE 0.0s
+[2026-10-30T15:06:52.887Z] 
+[2026-10-30T15:06:52.887Z] #19 [runtime 8/8] RUN mkdir -p data/research data/finance data/app_cache results logs docs/finance_audit     && chown -R app:app data results logs docs
+[2026-10-30T15:06:52.887Z] #19 DONE 0.2s
+[2026-10-30T15:06:52.887Z] 
+[2026-10-30T15:06:52.887Z] #20 exporting to image
+[2026-10-30T15:06:52.887Z] #20 exporting layers 0.1s done
+[2026-10-30T15:06:52.887Z] #20 exporting manifest sha256:6a3a4a42410f6d97044ee33bf054715aa0b4c2e9c8e94a45add102a04b545e9f
+[2026-10-30T15:06:53.139Z] #20 exporting manifest sha256:6a3a4a42410f6d97044ee33bf054715aa0b4c2e9c8e94a45add102a04b545e9f done
+[2026-10-30T15:06:53.139Z] #20 exporting config sha256:b1cca2cc502adb7bc16ae8d1a0ed021469f7664e4258d6533530659a070dfead done
+[2026-10-30T15:06:53.139Z] #20 exporting attestation manifest sha256:84a2093bfb4686c84d740bc88ffddb9f00507f91feddb721cebd5d8f16d3025f done
+[2026-10-30T15:06:53.139Z] #20 exporting manifest list sha256:38f2fb0d62c03f82ab602b54bb17b426b5f057616ad458feaa4ec0a111c0fc54 done
+[2026-10-30T15:06:53.139Z] #20 naming to docker.io/library/eduforecast:366fdf8c done
+[2026-10-30T15:06:53.139Z] #20 unpacking to docker.io/library/eduforecast:366fdf8c 0.1s done
+[2026-10-30T15:06:53.139Z] #20 naming to docker.io/library/eduforecast:build-5 done
+[2026-10-30T15:06:53.139Z] #20 unpacking to docker.io/library/eduforecast:build-5 done
+[2026-10-30T15:06:53.139Z] #20 naming to docker.io/library/eduforecast:latest done
+[2026-10-30T15:06:53.139Z] #20 unpacking to docker.io/library/eduforecast:latest done
+[2026-10-30T15:06:53.139Z] #20 DONE 0.2s
+[2026-10-30T15:06:53.139Z] image=eduforecast:366fdf8c
+[2026-10-30T15:06:53.139Z] tags=eduforecast:366fdf8c eduforecast:build-5 eduforecast:latest
+[2026-10-30T15:06:53.139Z] id=sha256:38f2fb0d62c03f82ab602b54bb17b426b5f057616ad458feaa4ec0a111c0fc54
+[2026-10-30T15:06:53.139Z] size_bytes=357629393
+[2026-10-30T15:06:53.139Z] arch=arm64
+[2026-10-30T15:06:53.139Z] user=app
+[2026-10-30T15:06:53.139Z] revision=366fdf8cdf648d87eb3f2579188597e1f27cbdcb
+[2026-10-30T15:06:53.139Z] created=2026-10-30T15:06:50Z
+[2026-10-30T15:06:54.489Z] pip freeze: 71 packages
+[Pipeline] archiveArtifacts
+[2026-10-30T15:06:54.529Z] Archiving artifacts
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Smoke test)
+[Pipeline] sh
+[2026-10-30T15:06:54.840Z] smoke: started ef-smoke-main-5 from eduforecast:366fdf8c
+[2026-10-30T15:07:01.348Z] smoke: health status = healthy
+[2026-10-30T15:07:01.348Z] smoke: GET http://ef-smoke-main-5:8501/_stcore/health from a second container -> ok
+[2026-10-30T15:07:01.348Z] smoke: container uid = 10001 (app)
+[2026-10-30T15:07:01.348Z] smoke: no .env / secrets.toml under /app
+[2026-10-30T15:07:01.348Z] 2026-10-30 15:07:01.327 WARNING streamlit.runtime.scriptrunner_utils.script_run_context: Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+[2026-10-30T15:07:01.901Z] OK   pages/00_Command_Center.py         0.5s 
+[2026-10-30T15:07:01.901Z] 2026-10-30 15:07:01.807 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+[2026-10-30T15:07:02.816Z] OK   home.py                            0.9s 
+[2026-10-30T15:07:02.816Z] 2026-10-30 15:07:02.750 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+[2026-10-30T15:07:02.816Z] OK   pages/01_Students.py               0.0s 
+[2026-10-30T15:07:02.816Z] 2026-10-30 15:07:02.757 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+[2026-10-30T15:07:03.071Z] OK   pages/02_Analytics.py              0.1s 
+[2026-10-30T15:07:03.071Z] 2026-10-30 15:07:02.827 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+[2026-10-30T15:07:04.423Z] 15:07:03 - cmdstanpy - INFO - Chain [1] start processing
+[2026-10-30T15:07:04.424Z] 15:07:04 - cmdstanpy - INFO - Chain [1] done processing
+[2026-10-30T15:07:04.424Z] 15:07:04 - cmdstanpy - INFO - Chain [1] start processing
+[2026-10-30T15:07:04.424Z] 15:07:04 - cmdstanpy - INFO - Chain [1] done processing
+[2026-10-30T15:07:04.424Z] 15:07:04 - cmdstanpy - INFO - Chain [1] start processing
+[2026-10-30T15:07:04.424Z] 15:07:04 - cmdstanpy - INFO - Chain [1] done processing
+[2026-10-30T15:07:04.424Z] 15:07:04 - cmdstanpy - INFO - Chain [1] start processing
+[2026-10-30T15:07:04.424Z] 15:07:04 - cmdstanpy - INFO - Chain [1] done processing
+[2026-10-30T15:07:04.424Z] OK   pages/04_Research.py               1.4s 
+[2026-10-30T15:07:04.424Z] 2026-10-30 15:07:04.201 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+[2026-10-30T15:07:04.424Z] OK   pages/05_Finance.py                0.2s 
+[2026-10-30T15:07:04.424Z] 2026-10-30 15:07:04.412 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+[2026-10-30T15:07:04.424Z] OK   pages/06_International.py          0.0s 
+[2026-10-30T15:07:04.424Z] 2026-10-30 15:07:04.414 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+[2026-10-30T15:07:04.424Z] OK   pages/07_Upbringing.py             0.0s 
+[2026-10-30T15:07:04.424Z] 2026-10-30 15:07:04.417 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+[2026-10-30T15:07:04.675Z] OK   pages/03_AI_Advisor.py             0.0s 
+[2026-10-30T15:07:04.675Z] 2026-10-30 15:07:04.437 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+[2026-10-30T15:07:04.675Z] OK   pages/08_Verified.py               0.0s 
+[2026-10-30T15:07:04.675Z] 2026-10-30 15:07:04.447 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+[2026-10-30T15:07:04.675Z] OK   pages/09_Settings.py               0.0s 
+[2026-10-30T15:07:04.675Z] 2026-10-30 15:07:04.459 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+[2026-10-30T15:07:04.675Z] OK   main.py                            0.0s 
+[2026-10-30T15:07:04.675Z] page_smoke: 12/12 pages rendered without exceptions
+[2026-10-30T15:07:04.926Z] smoke: PASS
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push image)
+Stage "Push image" skipped due to when conditional
+[Pipeline] getContext
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy to test server)
+[Pipeline] sh
+[2026-10-30T15:07:13.698Z] deploy: eduforecast:39a3c2e4 -> eduforecast:366fdf8c (status healthy, health ok)
+[2026-10-30T15:07:13.698Z] deploy: test server URL http://localhost:8502
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] sh
+[2026-10-30T15:07:14.350Z] cleanup: removed temporary ef-* resources of main-5
+[Pipeline] cleanWs
+[2026-10-30T15:07:14.385Z] [WS-CLEANUP] Deleting project workspace...
+[2026-10-30T15:07:14.387Z] [WS-CLEANUP] Deferred wipeout is used...
+[2026-10-30T15:07:14.415Z] [WS-CLEANUP] done
+[Pipeline] echo
+[2026-10-30T15:07:14.444Z] Pipeline passed: eduforecast:366fdf8c
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timeout
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

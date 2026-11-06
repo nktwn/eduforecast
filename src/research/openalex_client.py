@@ -19,6 +19,29 @@ MIN_INTERVAL_S = 0.12
 BUDGET_RESERVE_USD = 0.002
 
 
+def write_json_atomic(path: Path, data, indent=None) -> None:
+    """Write to a per-process temp file, fsync, then rename: a crash never leaves a half-written file."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_name(f".{path.name}.{os.getpid()}.tmp")
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=indent)
+        f.flush()
+        os.fsync(f.fileno())
+    os.replace(tmp, path)
+
+
+def read_json(path: Path):
+    """Cached JSON or None if missing or unreadable (an unreadable file is removed and refetched)."""
+    if not path.exists():
+        return None
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except (json.JSONDecodeError, UnicodeDecodeError):
+        path.unlink(missing_ok=True)
+        return None
+
+
 class BudgetExhausted(RuntimeError):
     pass
 
@@ -26,16 +49,64 @@ class BudgetExhausted(RuntimeError):
 class _State:
     last_call = 0.0
     remaining_usd: float | None = None
+    remaining_credits: int | None = None
+    limit_credits: int | None = None
     calls = 0
+    cache_hits = 0
+    credits = 0
     cost_usd = 0.0
 
 
+def key_present() -> bool:
+    return bool(_API_KEY)
+
+
 def budget() -> dict:
+    """Spend in this process (network calls only; cache hits are free). Never contains the key."""
     return {
+        "key": "present" if _API_KEY else "absent",
         "calls": _State.calls,
+        "cache_hits": _State.cache_hits,
+        "credits_used": _State.credits,
         "cost_usd": round(_State.cost_usd, 4),
+        "remaining_credits": _State.remaining_credits,
+        "daily_limit_credits": _State.limit_credits,
         "remaining_usd": _State.remaining_usd,
     }
+
+
+def rate_limit_status() -> dict:
+    """Remaining daily budget. With a key: GET /rate-limit (docs: rate-limits-and-authentication);
+    without a key that endpoint refuses, so the last response headers are reported instead."""
+    if _API_KEY:
+        try:
+            r = requests.get(f"{OPENALEX_API_BASE}/rate-limit", params={"api_key": _API_KEY}, timeout=30)
+            if r.status_code == 200:
+                return {"source": "/rate-limit", **r.json()}
+            return {"source": "/rate-limit", "error": f"HTTP {r.status_code}"}
+        except requests.RequestException as exc:
+            return {"source": "/rate-limit", "error": type(exc).__name__}
+    return {"source": "response headers (no key)", "remaining_credits": _State.remaining_credits,
+            "daily_limit_credits": _State.limit_credits, "remaining_usd": _State.remaining_usd}
+
+
+def log_usage(stage: str, path=None) -> dict:
+    """Append this process's spend for a stage to the usage CSV (no secrets)."""
+    import csv
+    from datetime import datetime, timezone
+
+    from src.research.config import RESEARCH_RESULTS_DIR
+
+    path = path or (RESEARCH_RESULTS_DIR / "api_usage.csv")
+    row = {"ts": datetime.now(timezone.utc).isoformat(timespec="seconds"), "stage": stage, **budget()}
+    new = not path.exists()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "a", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=list(row))
+        if new:
+            w.writeheader()
+        w.writerow(row)
+    return row
 
 
 def _cache_path(url: str, params: dict) -> Path:
@@ -65,11 +136,18 @@ def _request(url: str, params: dict) -> dict:
             time.sleep(2 ** attempt)
             continue
 
-        remaining = resp.headers.get("X-RateLimit-Remaining-USD")
-        if remaining is not None:
-            _State.remaining_usd = float(remaining)
-        _State.cost_usd += float(resp.headers.get("X-RateLimit-Cost-USD") or 0)
+        h = resp.headers
+        if h.get("X-RateLimit-Remaining-USD") is not None:
+            _State.remaining_usd = float(h["X-RateLimit-Remaining-USD"])
+        if h.get("X-RateLimit-Remaining") is not None:
+            _State.remaining_credits = int(float(h["X-RateLimit-Remaining"]))
+        if h.get("X-RateLimit-Limit") is not None:
+            _State.limit_credits = int(float(h["X-RateLimit-Limit"]))
+        _State.credits += int(float(h.get("X-RateLimit-Credits-Used") or 0))
+        _State.cost_usd += float(h.get("X-RateLimit-Cost-USD") or 0)
         _State.calls += 1
+        if resp.status_code == 403 and "key_not_activated" in resp.text:
+            raise RuntimeError("OpenAlex API key is not activated yet (403 key_not_activated)")
 
         if resp.status_code == 429:
             if _State.remaining_usd is not None and _State.remaining_usd < BUDGET_RESERVE_USD:
@@ -79,7 +157,9 @@ def _request(url: str, params: dict) -> dict:
         if resp.status_code >= 500:
             time.sleep(2 ** (attempt + 1))
             continue
-        resp.raise_for_status()
+        if resp.status_code >= 400:
+            # the URL carries api_key: report only the path, never the query string
+            raise RuntimeError(f"OpenAlex HTTP {resp.status_code} for {url.split('?')[0]} (filter={params.get('filter')})")
         return resp.json()
 
     raise RuntimeError(f"OpenAlex request failed after {MAX_RETRIES} attempts: {url} {params}")
@@ -89,18 +169,15 @@ def get(path: str, params: dict | None = None, use_cache: bool = True, transform
     url = f"{OPENALEX_API_BASE}/{path.lstrip('/')}"
     params = params or {}
     cache_path = _cache_path(url, params)
-    if use_cache and cache_path.exists():
-        with open(cache_path, "r", encoding="utf-8") as f:
-            return json.load(f)
+    cached = read_json(cache_path) if use_cache else None
+    if cached is not None:
+        _State.cache_hits += 1
+        return cached
 
     data = _request(url, params)
     if transform is not None:
         data = transform(data)
-    cache_path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = cache_path.with_suffix(".tmp")
-    with open(tmp, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False)
-    tmp.replace(cache_path)
+    write_json_atomic(cache_path, data)
     return data
 
 
@@ -128,15 +205,13 @@ def fetch_institution(institution_id: str) -> dict:
 def fetch_ror(ror_url: str) -> dict:
     ror_id = ror_url.rstrip("/").rsplit("/", 1)[-1]
     cache_path = RAW_DIR / "ror" / f"{ror_id}.json"
-    if cache_path.exists():
-        with open(cache_path, "r", encoding="utf-8") as f:
-            return json.load(f)
+    cached = read_json(cache_path)
+    if cached is not None:
+        return cached
     resp = requests.get(f"https://api.ror.org/v2/organizations/{ror_id}", timeout=30)
     resp.raise_for_status()
     data = resp.json()
-    cache_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(cache_path, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False)
+    write_json_atomic(cache_path, data)
     return data
 
 
@@ -146,6 +221,5 @@ def fetch_yearly_work_counts(institution_id: str = OPENALEX_INSTITUTION_ID) -> d
         with open(snapshot, "r", encoding="utf-8") as f:
             return json.load(f)
     data = get("works", {"filter": f"institutions.id:{institution_id}", "group_by": "publication_year"})
-    with open(snapshot, "w", encoding="utf-8") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+    write_json_atomic(snapshot, data, indent=2)
     return data

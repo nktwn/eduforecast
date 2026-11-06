@@ -1,0 +1,63 @@
+# EduForecast-SIS test deployment for a local k3d (k3s in Docker) cluster named "eduforecast".
+# The image is imported into the cluster by scripts/devops/k8s_deploy.sh (no registry, no secrets).
+# Runs without an LLM key (briefing mode) and without datasets.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eduforecast
+  labels:
+    app.kubernetes.io/name: eduforecast
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: eduforecast
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: eduforecast
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: eduforecast
+          image: eduforecast:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8501
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop: ["ALL"]
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: "1"
+              memory: 1Gi
+          startupProbe:
+            httpGet:
+              path: /_stcore/health
+              port: http
+            periodSeconds: 5
+            failureThreshold: 24
+          readinessProbe:
+            httpGet:
+              path: /_stcore/health
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /_stcore/health
+              port: http
+            periodSeconds: 20
+            timeoutSeconds: 3
+            failureThreshold: 3

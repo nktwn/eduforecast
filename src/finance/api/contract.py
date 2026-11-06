@@ -4,7 +4,7 @@ from pathlib import Path
 
 from jsonschema import Draft202012Validator
 
-CONTRACT_VERSION = "finance-forecast/0.1.0"
+CONTRACT_VERSION = "finance-forecast/0.2.0"  # 0.2.0: + provider stage2-lightgbm, flag CRITERION_NOT_MET
 SCHEMA_PATH = Path(__file__).with_name("forecast_response.schema.json")
 
 TARGET_META = {
@@ -29,6 +29,8 @@ FLAGS = {
     "MISSING_VALUE": ("info", "Значение за год отсутствует"),
     "OUTLIER_CHANGE": ("warning", "Аномальное изменение за год"),
     "SHORT_HISTORY": ("warning", "Короткая история ряда (меньше 5 лет)"),
+    "CRITERION_NOT_MET": ("warning", "Модель по этому показателю не прошла критерий успеха: прогноз не лучше naive "
+                                     "(«как в прошлом году»)"),
 }
 
 

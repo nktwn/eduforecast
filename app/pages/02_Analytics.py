@@ -3,34 +3,29 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import streamlit as st
+from components import ui
 import pandas as pd
 import numpy as np
 import requests
 from components.data_loader import (
     DATA_DIR as OULAD_DIR,
-    FACULTY_MAP, train_risk_model, get_all_faculties_summary, get_retention_data,
+    FACULTY_MAP, train_risk_model, get_all_faculties_summary, get_retention_data, get_risk_week,
 )
+from components.risk_model import FEATURE_LABELS
 from components.charts import (
     faculty_comparison_chart, withdrawal_comparison_chart,
     retention_forecast_chart, worldbank_chart, shap_bar_chart,
 )
 from components.styles import GLASS_CSS, demo_data_banner, require_data, sidebar_logo
 
-st.set_page_config(
-    page_title="Аналитика | EduForecast-SIS",
-    page_icon="А",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
-st.markdown(GLASS_CSS, unsafe_allow_html=True)
 require_data([OULAD_DIR / f for f in ("studentInfo.csv", "studentVle.csv", "studentAssessment.csv", "assessments.csv", "studentRegistration.csv")], "Подготовка данных → Academic (OULAD)")
 demo_data_banner()
 st.markdown("""
 <style>
 .bench-pill {
-    background: #ffffff;
+    background: var(--ef-surface);
     border-radius: 8px;
-    border: 1px solid #e3e6eb;
+    border: 1px solid var(--ef-border);
     padding: 16px 14px;
     text-align: center;
 }
@@ -41,14 +36,20 @@ selected_code = st.session_state.get("selected_faculty", "AAA")
 selected_code = sidebar_logo(selected_code, FACULTY_MAP)
 faculty_name  = FACULTY_MAP[selected_code]
 
-st.markdown(
-    f'<h1 style="margin:0 0 4px 0; font-size:1.7rem;">Аналитика</h1>'
-    f'<p style="color:#9ca3af; margin:0 0 22px 0; font-size:0.85rem;">{faculty_name}</p>',
-    unsafe_allow_html=True,
-)
+ui.page_header("Академический: аналитика", f"{faculty_name} · сравнение факультетов и факторы риска", status="демо")
+ui.how_to_read([
+    ("Что показывает", "Сравнение условных факультетов, иллюстративные бенчмарки, удержание по неделям, данные "
+                       "Всемирного банка по Казахстану, главные факторы риска."),
+    ("Как читать", f"Факторы риска — средний |{ui.term('SHAP')}| модели на неделе k."),
+    ("Результат", "Описательная аналитика; прогнозом является только модель риска."),
+    ("Проверка", "Модель риска — вне обучающей выборки; остальные блоки описательные."),
+    ("Оговорки", "Бенчмарки («Мировой топ-100», «Цель AIU» и др.) и цель удержания 75% заданы вручную для "
+                 "иллюстрации; удержание — линейная экстраполяция, а не модель."),
+])
 
 with st.spinner("Вычисление аналитики..."):
-    df_model, _, feature_cols, shap_vals = train_risk_model(selected_code)
+    risk_week = get_risk_week()
+    df_model, _, feature_cols, shap_vals = train_risk_model(selected_code, risk_week)
     summary_df = get_all_faculties_summary()
 
 st.markdown('<div class="section-title">Сравнение факультетов</div>', unsafe_allow_html=True)
@@ -66,7 +67,7 @@ with cb:
 
 with st.container(border=True):
     st.markdown(
-        '<div style="font-size:0.8rem; font-weight:600; color:#374151;'
+        '<div style="font-size:0.8rem; font-weight:600; color:var(--ef-text-2);'
         'margin-bottom:14px;">Рейтинг факультетов</div>',
         unsafe_allow_html=True,
     )
@@ -96,11 +97,11 @@ curr_wr = summary_df.loc[summary_df["module"] == selected_code, "withdrawal_rate
 curr_ret = 100 - float(curr_wr[0]) if len(curr_wr) else 80
 
 BENCHMARKS = [
-    ("Текущий факультет", curr_ret, "#2563eb", "Ваш результат"),
-    ("Мировой топ-100",   91,       "#0f172a", "Лучшие университеты мира"),
-    ("Лучшие в СНГ",      85,       "#0f172a", "Топ-университеты СНГ"),
-    ("Цель AIU",          80,       "#0f172a", "Стратегический целевой показатель"),
-    ("Казахстан (ср.)",   74,       "#0f172a", "Среднее по стране"),
+    ("Текущий факультет", curr_ret, "var(--ef-primary)", "Ваш результат"),
+    ("Мировой топ-100",   91,       "var(--ef-text)", "Лучшие университеты мира"),
+    ("Лучшие в СНГ",      85,       "var(--ef-text)", "Топ-университеты СНГ"),
+    ("Цель AIU",          80,       "var(--ef-text)", "Стратегический целевой показатель"),
+    ("Казахстан (ср.)",   74,       "var(--ef-text)", "Среднее по стране"),
 ]
 
 b_cols = st.columns(len(BENCHMARKS))
@@ -110,15 +111,15 @@ for i, (label, val, color, desc) in enumerate(BENCHMARKS):
     with b_cols[i]:
         d_html = ""
         if delta is not None:
-            dc = "#059669" if delta >= 0 else "#dc2626"
+            dc = "var(--ef-ok)" if delta >= 0 else "var(--ef-danger)"
             d_html = (f'<div style="font-size:0.78rem; font-weight:600; color:{dc}; margin-top:4px;">'
                       f'{"↑" if delta > 0 else "↓" if delta < 0 else "→"} {abs(delta):.1f}%</div>')
         border_style = f"border-top:2px solid {color};" if is_current else ""
         st.markdown(
             f'<div class="bench-pill" style="{border_style}">'
             f'  <div style="font-size:1.6rem; font-weight:700; color:{color};">{val:.1f}%</div>'
-            f'  <div style="font-size:0.72rem; font-weight:600; color:#374151; margin-top:4px;">{label}</div>'
-            f'  <div style="font-size:0.68rem; color:#9ca3af; margin-top:2px;">{desc}</div>'
+            f'  <div style="font-size:0.72rem; font-weight:600; color:var(--ef-text-2); margin-top:4px;">{label}</div>'
+            f'  <div style="font-size:0.68rem; color:var(--ef-muted); margin-top:2px;">{desc}</div>'
             f'  {d_html}'
             f'</div>',
             unsafe_allow_html=True,
@@ -145,20 +146,20 @@ with rf2:
             end_v   = fcst_p[-1]
             cur_v   = surv_pct[-1] if surv_pct else 100
             change  = end_v - cur_v
-            cc      = "#dc2626" if change < -5 else "#d97706" if change < 0 else "#059669"
+            cc      = "var(--ef-danger)" if change < -5 else "var(--ef-warn)" if change < 0 else "var(--ef-ok)"
             arrow   = "↓" if change < 0 else "→" if change == 0 else "↑"
             status  = "Ниже цели 75%" if end_v < 75 else "Выше цели 75%"
-            st_col  = "#dc2626" if end_v < 75 else "#059669"
-            st_bg   = "#fef2f2" if end_v < 75 else "#ecfdf5"
+            st_col  = "var(--ef-danger)" if end_v < 75 else "var(--ef-ok)"
+            st_bg   = "var(--ef-danger-bg)" if end_v < 75 else "var(--ef-ok-bg)"
             st.markdown(
                 f'<div style="padding:16px 0;">'
-                f'  <div style="font-size:0.72rem; color:#9ca3af;">через 12 недель</div>'
-                f'  <div style="font-size:2.4rem; font-weight:700; color:#0f172a;'
+                f'  <div style="font-size:0.72rem; color:var(--ef-muted);">через 12 недель</div>'
+                f'  <div style="font-size:2.4rem; font-weight:700; color:var(--ef-text);'
                 f'    line-height:1.2; margin:8px 0;">{end_v:.1f}%</div>'
-                f'  <div style="font-size:0.8rem; color:#6b7280;">удержание студентов</div>'
+                f'  <div style="font-size:0.8rem; color:var(--ef-muted);">удержание студентов</div>'
                 f'  <div style="font-size:1.1rem; font-weight:600; color:{cc}; margin-top:12px;">'
                 f'    {arrow} {abs(change):.1f}%</div>'
-                f'  <div style="font-size:0.78rem; color:#9ca3af;">изменение от сегодня</div>'
+                f'  <div style="font-size:0.78rem; color:var(--ef-muted);">изменение от сегодня</div>'
                 f'  <div style="font-size:0.82rem; font-weight:600; color:{st_col};'
                 f'    margin-top:14px; padding:8px; border-radius:6px;'
                 f'    background:{st_bg};">'
@@ -205,7 +206,8 @@ for col, (ind, lbl) in zip([wb1, wb2], INDICATORS):
             st.plotly_chart(worldbank_chart(df_wb, lbl),
                             width="stretch", config={"displayModeBar": False})
 
-st.markdown('<div class="section-title">Факторы риска — SHAP анализ</div>', unsafe_allow_html=True)
+st.markdown(f'<div class="section-title">Факторы риска — SHAP анализ (неделя {risk_week})</div>',
+            unsafe_allow_html=True)
 
 sh1, sh2 = st.columns([3, 1])
 mean_shap = np.abs(shap_vals).mean(axis=0)
@@ -218,23 +220,11 @@ with sh1:
 with sh2:
     with st.container(border=True):
         st.markdown(
-            '<div style="font-size:0.8rem; font-weight:600; color:#374151;'
+            '<div style="font-size:0.8rem; font-weight:600; color:var(--ef-text-2);'
             'margin-bottom:12px;">Топ факторы</div>',
             unsafe_allow_html=True,
         )
-        feat_labels = {
-            "total_clicks": "Активность в LMS",
-            "active_days":  "Активные дни",
-            "assessments_submitted": "Задания",
-            "avg_score":    "Средний балл",
-            "min_score":    "Мин. балл",
-            "num_of_prev_attempts": "Повт. попытки",
-            "studied_credits": "Нагрузка",
-            "unregistered": "Регистрация",
-            "edu_enc":      "Образование",
-            "imd_enc":      "Соц. фактор",
-            "age_enc":      "Возраст",
-        }
+        feat_labels = FEATURE_LABELS
         for rank_i, idx in enumerate(np.argsort(mean_shap)[::-1][:6], 1):
             val  = float(mean_shap[idx])
             lbl  = feat_labels.get(feature_cols[idx], feature_cols[idx])
@@ -242,19 +232,21 @@ with sh2:
             st.markdown(
                 f'<div style="margin-bottom:10px;">'
                 f'  <div style="display:flex; justify-content:space-between; font-size:0.8rem;">'
-                f'    <span style="color:#374151; font-weight:500;">#{rank_i} {lbl}</span>'
-                f'    <span style="color:#0f172a; font-weight:600;">{val:.3f}</span>'
+                f'    <span style="color:var(--ef-text-2); font-weight:500;">#{rank_i} {lbl}</span>'
+                f'    <span style="color:var(--ef-text); font-weight:600;">{val:.3f}</span>'
                 f'  </div>'
-                f'  <div style="height:4px; background:#eef0f3;'
+                f'  <div style="height:4px; background:var(--ef-surface-2);'
                 f'    border-radius:2px; margin-top:4px;">'
                 f'    <div style="height:4px; border-radius:2px; width:{bar:.0f}%;'
-                f'    background:#2563eb;"></div>'
+                f'    background:var(--ef-primary);"></div>'
                 f'  </div>'
                 f'</div>',
                 unsafe_allow_html=True,
             )
         st.markdown(
-            '<div style="font-size:0.7rem; color:#9ca3af; margin-top:12px; line-height:1.6;">'
-            'Чем выше |SHAP|, тем сильнее фактор влияет на предсказание риска отчисления.</div>',
+            '<div style="font-size:0.7rem; color:var(--ef-muted); margin-top:12px; line-height:1.6;">'
+            'Чем выше |SHAP|, тем сильнее фактор влияет на предсказание риска отчисления. '
+            f'Модель видит только данные до конца недели {risk_week}; SHAP посчитан для ещё учащихся '
+            'моделью, которая их не видела.</div>',
             unsafe_allow_html=True,
         )

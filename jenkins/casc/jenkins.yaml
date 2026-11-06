@@ -1,0 +1,57 @@
+# Jenkins Configuration as Code for the local EduForecast CI controller.
+# Secrets come from environment variables (jenkins/.env.jenkins, git-ignored).
+jenkins:
+  systemMessage: "EduForecast CI - local study setup, configured by code (JCasC)"
+  numExecutors: 1
+  mode: NORMAL
+  # No inbound agents: the controller builds everything itself.
+  slaveAgentPort: -1
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "${JENKINS_ADMIN_ID:-admin}"
+          password: "${JENKINS_ADMIN_PASSWORD}"
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+  # CSRF protection uses the default crumb issuer (enabled by default).
+
+unclassified:
+  location:
+    url: "http://localhost:8080/"
+
+jobs:
+  - script: |
+      multibranchPipelineJob('eduforecast') {
+        displayName('eduforecast')
+        description('EduForecast-SIS: lint, unit tests, Docker image, smoke test, push, test deploy')
+        branchSources {
+          branchSource {
+            source {
+              git {
+                id('eduforecast-git')
+                remote('${GIT_REPO_URL:-https://github.com/nktwn/eduforecast.git}')
+                traits {
+                  gitBranchDiscovery()
+                }
+              }
+            }
+          }
+        }
+        factory {
+          workflowBranchProjectFactory {
+            scriptPath('Jenkinsfile')
+          }
+        }
+        triggers {
+          periodicFolderTrigger {
+            interval('2m')
+          }
+        }
+        orphanedItemStrategy {
+          discardOldItems {
+            numToKeep(10)
+          }
+        }
+      }

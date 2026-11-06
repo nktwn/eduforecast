@@ -2,6 +2,9 @@ import plotly.graph_objects as go
 import pandas as pd
 import numpy as np
 
+from components import theme
+from components.risk_model import FEATURE_LABELS
+
 C_VIOLET  = "#2563eb"
 C_INDIGO  = "#64748b"
 C_BLUE    = "#94a3b8"
@@ -15,40 +18,35 @@ LINE_COLOR  = "#e3e6eb"
 
 FONT_STACK = "-apple-system, Helvetica, Arial, sans-serif"
 
+LIGHT_TO_TOKEN = {"#0f172a": "text", "#374151": "text_2", "#6b7280": "muted", "#64748b": "muted",
+                  "#94a3b8": "muted", "#2563eb": "primary", "#ffffff": "surface", "#e3e6eb": "border",
+                  "#eef0f3": "grid"}
+
+
+def _retheme_color(c, p):
+    if isinstance(c, str) and c.lower() in LIGHT_TO_TOKEN:
+        return p[LIGHT_TO_TOKEN[c.lower()]]
+    if isinstance(c, (list, tuple)):
+        return [_retheme_color(x, p) for x in c]
+    return c
+
+
 def _base(fig: go.Figure, title: str = "", height: int = 350) -> go.Figure:
-    fig.update_layout(
-        title=dict(
-            text=title,
-            font=dict(size=13, color=C_DARK, family=FONT_STACK),
-            x=0, xanchor="left",
-        ),
-        height=height,
-        plot_bgcolor=TRANSPARENT,
-        paper_bgcolor=TRANSPARENT,
-        font=dict(family=FONT_STACK, color=C_DARK, size=12),
-        margin=dict(l=8, r=8, t=40, b=8),
-        legend=dict(
-            bgcolor="rgba(255,255,255,0)",
-            bordercolor=LINE_COLOR,
-            borderwidth=0,
-            font=dict(size=11),
-        ),
-        hoverlabel=dict(
-            bgcolor="#ffffff",
-            bordercolor=LINE_COLOR,
-            font=dict(color=C_DARK, family=FONT_STACK, size=12),
-        ),
-    )
-    fig.update_xaxes(
-        showgrid=True, gridcolor=GRID_COLOR, gridwidth=1,
-        linecolor=LINE_COLOR, zerolinecolor=LINE_COLOR,
-        tickfont=dict(color=C_MUTED, size=11),
-    )
-    fig.update_yaxes(
-        showgrid=True, gridcolor=GRID_COLOR, gridwidth=1,
-        linecolor=LINE_COLOR, zerolinecolor=GRID_COLOR,
-        tickfont=dict(color=C_MUTED, size=11),
-    )
+    """Common chart layout from the design system (light/dark palette, Russian number separators)."""
+    p = theme.palette()
+    fig.update_layout(template=theme.plotly_template(), title=dict(text=title, x=0, xanchor="left"),
+                      height=height, margin=dict(l=8, r=8, t=44, b=8))
+    fig.update_xaxes(showgrid=True, gridcolor=p["grid"], linecolor=p["border"], zerolinecolor=p["border"])
+    fig.update_yaxes(showgrid=True, gridcolor=p["grid"], linecolor=p["border"], zerolinecolor=p["grid"])
+    if theme.mode() == "dark":  # charts were drawn with light-theme literals; map them to the dark tokens
+        for tr in fig.data:
+            for attr in ("marker", "line", "textfont"):
+                obj = getattr(tr, attr, None)
+                if obj is not None and getattr(obj, "color", None) is not None:
+                    obj.color = _retheme_color(obj.color, p)
+        for ann in fig.layout.annotations or []:
+            if ann.font and ann.font.color:
+                ann.font.color = _retheme_color(ann.font.color, p)
     return fig
 
 def activity_line_chart(weekly_df: pd.DataFrame) -> go.Figure:
@@ -82,7 +80,7 @@ def activity_line_chart(weekly_df: pd.DataFrame) -> go.Figure:
     )
     return _base(fig, "Активность студентов по неделям", 340)
 
-def risk_donut_chart(risk_counts: dict) -> go.Figure:
+def risk_donut_chart(risk_counts: dict, title: str = "Распределение риска") -> go.Figure:
     labels = ["Высокий", "Средний", "Низкий"]
     values = [risk_counts.get("HIGH", 0), risk_counts.get("MEDIUM", 0), risk_counts.get("LOW", 0)]
     colors = [RISK_COLORS["HIGH"], RISK_COLORS["MEDIUM"], RISK_COLORS["LOW"]]
@@ -106,7 +104,7 @@ def risk_donut_chart(risk_counts: dict) -> go.Figure:
             x=0.5, y=0.5, font=dict(size=14, color=C_DARK), showarrow=False,
         )],
     )
-    return _base(fig, "Распределение риска", 300)
+    return _base(fig, title, 300)
 
 def faculty_comparison_chart(summary_df: pd.DataFrame) -> go.Figure:
     df = summary_df.sort_values("health_index", ascending=True)
@@ -210,19 +208,7 @@ def worldbank_chart(wb_df: pd.DataFrame, indicator_name: str) -> go.Figure:
     return _base(fig, indicator_name, 300)
 
 def shap_bar_chart(feature_cols: list, mean_shap: np.ndarray) -> go.Figure:
-    labels = {
-        "total_clicks": "Активность в LMS",
-        "active_days": "Активные дни",
-        "assessments_submitted": "Сданные задания",
-        "avg_score": "Средний балл",
-        "min_score": "Минимальный балл",
-        "num_of_prev_attempts": "Повторные попытки",
-        "studied_credits": "Учебная нагрузка",
-        "unregistered": "Статус регистрации",
-        "edu_enc": "Уровень образования",
-        "imd_enc": "Соц-эконом. фактор",
-        "age_enc": "Возраст",
-    }
+    labels = FEATURE_LABELS
     n = 8
     idx = np.argsort(mean_shap)[::-1][:n]
     ys = [labels.get(feature_cols[i], feature_cols[i]) for i in idx][::-1]
@@ -239,3 +225,25 @@ def shap_bar_chart(feature_cols: list, mean_shap: np.ndarray) -> go.Figure:
     ))
     fig.update_xaxes(title="Средний |SHAP| (влияние на риск)")
     return _base(fig, "Топ-факторы риска (SHAP-анализ)", 320)
+
+
+def reliability_chart(rel: pd.DataFrame, title: str) -> go.Figure:
+    """Calibration: mean predicted risk vs observed withdrawal rate per decile."""
+    top = float(max(rel["pred"].max(), rel["obs"].max())) * 1.08
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(
+        x=[0, top], y=[0, top], mode="lines", name="Идеальная калибровка",
+        line=dict(color=C_BLUE, dash="dash", width=1), hoverinfo="skip",
+    ))
+    fig.add_trace(go.Scatter(
+        x=rel["pred"], y=rel["obs"], mode="lines+markers", name="Модель",
+        line=dict(color=C_VIOLET, width=2), marker=dict(size=7),
+        customdata=rel["n"],
+        hovertemplate="Прогноз %{x:.1%} · факт %{y:.1%} · n=%{customdata}<extra></extra>",
+    ))
+    fig.update_xaxes(title="Средний прогноз риска (дециль)", tickformat=".0%", range=[0, top],
+                     gridcolor=GRID_COLOR)
+    fig.update_yaxes(title="Доля реально ушедших", tickformat=".0%", range=[0, top],
+                     gridcolor=GRID_COLOR)
+    fig.update_layout(legend=dict(orientation="h", y=-0.25))
+    return _base(fig, title, 320)

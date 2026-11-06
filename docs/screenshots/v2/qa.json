@@ -1,0 +1,787 @@
+[
+ {
+  "page": "command-center",
+  "device": "desktop",
+  "theme": "light",
+  "file": "01_command_center_desktop_light.png",
+  "console_errors": [],
+  "hscroll": false,
+  "scrollWidth": 1440,
+  "innerWidth": 1440,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "academic",
+  "device": "desktop",
+  "theme": "light",
+  "file": "02_academic_overview_desktop_light.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/academic/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/academic/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 1440,
+  "innerWidth": 1440,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "students",
+  "device": "desktop",
+  "theme": "light",
+  "file": "03_academic_students_desktop_light.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/Students/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/Students/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 1440,
+  "innerWidth": 1440,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "analytics",
+  "device": "desktop",
+  "theme": "light",
+  "file": "04_academic_analytics_desktop_light.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/Analytics/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/Analytics/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 1440,
+  "innerWidth": 1440,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "research",
+  "device": "desktop",
+  "theme": "light",
+  "file": "05_research_desktop_light.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/Research/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/Research/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 1440,
+  "innerWidth": 1440,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "finance",
+  "device": "desktop",
+  "theme": "light",
+  "file": "06_finance_desktop_light.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/Finance/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/Finance/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 1440,
+  "innerWidth": 1440,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "international",
+  "device": "desktop",
+  "theme": "light",
+  "file": "07_international_desktop_light.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/international/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/international/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 1440,
+  "innerWidth": 1440,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "upbringing",
+  "device": "desktop",
+  "theme": "light",
+  "file": "08_upbringing_desktop_light.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/upbringing/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/upbringing/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 1440,
+  "innerWidth": 1440,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "advisor",
+  "device": "desktop",
+  "theme": "light",
+  "file": "09_advisor_desktop_light.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/AI_Advisor/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/AI_Advisor/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 1440,
+  "innerWidth": 1440,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "verified",
+  "device": "desktop",
+  "theme": "light",
+  "file": "10_verified_desktop_light.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/verified/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/verified/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 1440,
+  "innerWidth": 1440,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "settings",
+  "device": "desktop",
+  "theme": "light",
+  "file": "11_settings_desktop_light.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/settings/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/settings/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 1440,
+  "innerWidth": 1440,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "command-center",
+  "device": "mobile",
+  "theme": "light",
+  "file": "01_command_center_mobile_light.png",
+  "console_errors": [],
+  "hscroll": false,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "academic",
+  "device": "mobile",
+  "theme": "light",
+  "file": "02_academic_overview_mobile_light.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/academic/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/academic/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "students",
+  "device": "mobile",
+  "theme": "light",
+  "file": "03_academic_students_mobile_light.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/Students/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/Students/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "analytics",
+  "device": "mobile",
+  "theme": "light",
+  "file": "04_academic_analytics_mobile_light.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/Analytics/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/Analytics/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "research",
+  "device": "mobile",
+  "theme": "light",
+  "file": "05_research_mobile_light.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/Research/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/Research/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "finance",
+  "device": "mobile",
+  "theme": "light",
+  "file": "06_finance_mobile_light.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/Finance/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/Finance/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "international",
+  "device": "mobile",
+  "theme": "light",
+  "file": "07_international_mobile_light.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/international/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/international/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "upbringing",
+  "device": "mobile",
+  "theme": "light",
+  "file": "08_upbringing_mobile_light.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/upbringing/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/upbringing/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "advisor",
+  "device": "mobile",
+  "theme": "light",
+  "file": "09_advisor_mobile_light.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/AI_Advisor/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/AI_Advisor/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "verified",
+  "device": "mobile",
+  "theme": "light",
+  "file": "10_verified_mobile_light.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/verified/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/verified/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "settings",
+  "device": "mobile",
+  "theme": "light",
+  "file": "11_settings_mobile_light.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/settings/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/settings/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "command-center",
+  "device": "desktop",
+  "theme": "dark",
+  "file": "01_command_center_desktop_dark.png",
+  "console_errors": [],
+  "hscroll": false,
+  "scrollWidth": 1440,
+  "innerWidth": 1440,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "academic",
+  "device": "desktop",
+  "theme": "dark",
+  "file": "02_academic_overview_desktop_dark.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/academic/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/academic/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 1440,
+  "innerWidth": 1440,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "students",
+  "device": "desktop",
+  "theme": "dark",
+  "file": "03_academic_students_desktop_dark.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/Students/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/Students/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 1440,
+  "innerWidth": 1440,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "analytics",
+  "device": "desktop",
+  "theme": "dark",
+  "file": "04_academic_analytics_desktop_dark.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/Analytics/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/Analytics/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 1440,
+  "innerWidth": 1440,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "research",
+  "device": "desktop",
+  "theme": "dark",
+  "file": "05_research_desktop_dark.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/Research/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/Research/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 1440,
+  "innerWidth": 1440,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "finance",
+  "device": "desktop",
+  "theme": "dark",
+  "file": "06_finance_desktop_dark.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/Finance/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/Finance/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 1440,
+  "innerWidth": 1440,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "international",
+  "device": "desktop",
+  "theme": "dark",
+  "file": "07_international_desktop_dark.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/international/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/international/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 1440,
+  "innerWidth": 1440,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "upbringing",
+  "device": "desktop",
+  "theme": "dark",
+  "file": "08_upbringing_desktop_dark.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/upbringing/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/upbringing/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 1440,
+  "innerWidth": 1440,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "advisor",
+  "device": "desktop",
+  "theme": "dark",
+  "file": "09_advisor_desktop_dark.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/AI_Advisor/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/AI_Advisor/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 1440,
+  "innerWidth": 1440,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "verified",
+  "device": "desktop",
+  "theme": "dark",
+  "file": "10_verified_desktop_dark.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/verified/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/verified/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 1440,
+  "innerWidth": 1440,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "settings",
+  "device": "desktop",
+  "theme": "dark",
+  "file": "11_settings_desktop_dark.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/settings/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/settings/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 1440,
+  "innerWidth": 1440,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "command-center",
+  "device": "mobile",
+  "theme": "dark",
+  "file": "01_command_center_mobile_dark.png",
+  "console_errors": [],
+  "hscroll": false,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "academic",
+  "device": "mobile",
+  "theme": "dark",
+  "file": "02_academic_overview_mobile_dark.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/academic/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/academic/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "students",
+  "device": "mobile",
+  "theme": "dark",
+  "file": "03_academic_students_mobile_dark.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/Students/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/Students/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "analytics",
+  "device": "mobile",
+  "theme": "dark",
+  "file": "04_academic_analytics_mobile_dark.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/Analytics/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/Analytics/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "research",
+  "device": "mobile",
+  "theme": "dark",
+  "file": "05_research_mobile_dark.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/Research/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/Research/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "finance",
+  "device": "mobile",
+  "theme": "dark",
+  "file": "06_finance_mobile_dark.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/Finance/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/Finance/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "international",
+  "device": "mobile",
+  "theme": "dark",
+  "file": "07_international_mobile_dark.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/international/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/international/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "upbringing",
+  "device": "mobile",
+  "theme": "dark",
+  "file": "08_upbringing_mobile_dark.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/upbringing/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/upbringing/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "advisor",
+  "device": "mobile",
+  "theme": "dark",
+  "file": "09_advisor_mobile_dark.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/AI_Advisor/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/AI_Advisor/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "verified",
+  "device": "mobile",
+  "theme": "dark",
+  "file": "10_verified_mobile_dark.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/verified/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/verified/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "settings",
+  "device": "mobile",
+  "theme": "dark",
+  "file": "11_settings_mobile_dark.png",
+  "console_errors": [
+   "HTTP 404 http://localhost:8611/settings/_stcore/health",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)",
+   "HTTP 404 http://localhost:8611/settings/_stcore/host-config",
+   "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  ],
+  "hscroll": false,
+  "scrollWidth": 390,
+  "innerWidth": 390,
+  "low_contrast": [],
+  "n_low": 0,
+  "clipped": []
+ },
+ {
+  "page": "in-app navigation",
+  "device": "desktop",
+  "theme": "light",
+  "file": "",
+  "console_errors": [],
+  "hscroll": false,
+  "n_low": 0,
+  "clipped": [],
+  "low_contrast": [],
+  "scrollWidth": 0,
+  "innerWidth": 1440
+ }
+]

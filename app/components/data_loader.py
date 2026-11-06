@@ -1,10 +1,9 @@
 import pandas as pd
-import numpy as np
 from pathlib import Path
 import streamlit as st
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.preprocessing import LabelEncoder
-import shap
+
+from components import app_cache, risk_model
+from components.risk_model import DEFAULT_K, K_OPTIONS  # noqa: F401  (re-exported for pages)
 
 DATA_DIR = Path(__file__).parent.parent.parent / "data" / "raw"
 
@@ -29,6 +28,13 @@ RESULT_RU      = {
 
 @st.cache_data(show_spinner="Загрузка данных OULAD...")
 def load_raw_data():
+    cached = app_cache.load("oulad_raw", app_cache.oulad_signature())
+    if cached is not None:
+        return cached
+    return _read_raw_csv()
+
+
+def _read_raw_csv():
     na = {"na_values": ["?"]}
     info = pd.read_csv(DATA_DIR / "studentInfo.csv", **na)
     vle = pd.read_csv(
@@ -140,75 +146,57 @@ def get_all_faculties_summary() -> pd.DataFrame:
         )
     return pd.DataFrame(rows)
 
-@st.cache_data(show_spinner="Обучение модели прогнозирования...")
-def train_risk_model(module_code: str):
-    df = get_faculty_data(module_code).copy()
-    df["is_withdrawn"] = (df["final_result"] == "Withdrawn").astype(int)
+def get_risk_week() -> int:
+    """Forecast week k chosen on the Students page (shared by all Academic pages)."""
+    k = st.session_state.get("risk_week", DEFAULT_K)
+    return k if k in K_OPTIONS else DEFAULT_K
 
-    le_edu = LabelEncoder()
-    le_imd = LabelEncoder()
-    le_age = LabelEncoder()
-    df["edu_enc"] = le_edu.fit_transform(df["highest_education"].fillna("Unknown"))
-    df["imd_enc"] = le_imd.fit_transform(df["imd_band"].fillna("Unknown"))
-    df["age_enc"] = le_age.fit_transform(df["age_band"].fillna("Unknown"))
 
-    feature_cols = [
-        "total_clicks", "active_days", "assessments_submitted",
-        "avg_score", "min_score", "num_of_prev_attempts",
-        "studied_credits", "edu_enc", "imd_enc", "age_enc",
-    ]
-    X_df = df[feature_cols].fillna(0)
-    y = df["is_withdrawn"].values
+@st.cache_resource(show_spinner="Обучение модели раннего предупреждения...")
+def _pooled_risk(k: int) -> dict:
+    """Out-of-fold risk for all modules at week k (see components/risk_model.py)."""
+    info, vle, assessments_raw, assessments, registration = load_raw_data()
+    feats = risk_model.build_features(info, vle, assessments_raw, assessments, registration, k)
+    res = risk_model.fit_out_of_fold(feats)
+    res["n_registered"] = feats.groupby("code_module").size().to_dict()
+    return res
 
-    rf = RandomForestClassifier(
-        n_estimators=100, random_state=42, n_jobs=-1, max_depth=8
-    )
-    rf.fit(X_df.values, y)
 
-    risk_proba = rf.predict_proba(X_df.values)[:, 1]
-    df["risk_score"] = risk_proba
-    df["risk_score_pct"] = (risk_proba * 100).round(1)
-    df["risk_level"] = pd.cut(
-        risk_proba,
-        bins=[-0.001, 0.3, 0.6, 1.001],
-        labels=["LOW", "MEDIUM", "HIGH"],
-    ).astype(str)
+@st.cache_data(show_spinner="Оценка риска студентов...")
+def train_risk_model(module_code: str, k: int = DEFAULT_K):
+    """Precomputed by scripts/prepare_app.py when available (same computation, persisted)."""
+    cached = app_cache.load(f"risk_{module_code}_k{k}", app_cache.oulad_signature())
+    if cached is not None:
+        return cached
+    return compute_risk_model(module_code, k)
 
-    explainer = shap.TreeExplainer(rf)
-    raw_shap = explainer.shap_values(X_df)
 
-    if isinstance(raw_shap, list):
-        shap_vals = np.array(raw_shap[1])
-    elif isinstance(raw_shap, np.ndarray) and raw_shap.ndim == 3:
-        shap_vals = raw_shap[:, :, 1]
-    else:
-        shap_vals = np.array(raw_shap)
-        if shap_vals.ndim == 3:
-            shap_vals = shap_vals[:, :, 1]
+def compute_risk_model(module_code: str, k: int = DEFAULT_K):
+    """Risk at week k for the module's registrations still enrolled at week k.
 
-    feature_labels = {
-        "total_clicks": "Низкая активность в LMS",
-        "active_days": "Мало активных дней",
-        "assessments_submitted": "Мало сданных заданий",
-        "avg_score": "Низкий средний балл",
-        "min_score": "Очень низкий минимальный балл",
-        "num_of_prev_attempts": "Повторные попытки прохождения",
-        "studied_credits": "Сниженная учебная нагрузка",
-        "edu_enc": "Уровень начального образования",
-        "imd_enc": "Социально-экономический фактор",
-        "age_enc": "Возрастная группа",
+    Returns (df, quality, feature_cols, shap_vals):
+    - df: one row per still-enrolled registration with out-of-fold `risk_score`,
+      percentile group `risk_level` and `top_risk_reason` (signed SHAP);
+    - quality: out-of-sample metrics on OULAD for this module and overall,
+      plus a reliability table (calibration);
+    - shap_vals: signed SHAP for the student features `feature_cols`.
+    """
+    res = _pooled_risk(k)
+    all_rows = res["df"]
+    df, shap_vals = risk_model.explain(all_rows.loc[all_rows["code_module"] == module_code], res["models"])
+    y, p = df["is_withdrawn"].to_numpy(), df["risk_score"].to_numpy()
+    y_all, p_all = all_rows["is_withdrawn"].to_numpy(), all_rows["risk_score"].to_numpy()
+    n_reg = int(res["n_registered"].get(module_code, 0))
+    quality = {
+        "k": k,
+        "faculty": risk_model.quality(y, p),
+        "overall": risk_model.quality(y_all, p_all),
+        "reliability": risk_model.reliability(y_all, p_all),
+        "n_registered": n_reg,
+        "n_left_by_k": n_reg - len(df),
     }
-
-    def top_reason(row_idx):
-        idx = int(np.argmax(shap_vals[row_idx]))
-        if shap_vals[row_idx][idx] <= 0:
-            return "Нет выраженных факторов риска"
-        return feature_labels.get(feature_cols[idx], feature_cols[idx])
-
-    df["top_risk_reason"] = [top_reason(i) for i in range(len(df))]
-    df.reset_index(drop=True, inplace=True)
-
-    return df, rf, feature_cols, shap_vals
+    n_student = len(risk_model.STUDENT_FEATURES)
+    return df, quality, list(risk_model.STUDENT_FEATURES), shap_vals[:, :n_student]
 
 def compute_health_index(df: pd.DataFrame) -> float:
     total = len(df)
@@ -231,25 +219,25 @@ def get_alerts(df: pd.DataFrame) -> list:
     inactive_pct = (df["total_clicks"] == 0).sum() / total * 100
 
     if withdrawal_pct > 30:
-        alerts.append({"level": "КРИТИЧНО", "color": "#dc2626",
+        alerts.append({"level": "КРИТИЧНО", "color": "var(--ef-danger)",
                         "msg": f"{withdrawal_pct:.1f}% студентов отчислились — срочное вмешательство необходимо"})
     elif withdrawal_pct > 20:
-        alerts.append({"level": "ВНИМАНИЕ", "color": "#d97706",
+        alerts.append({"level": "ВНИМАНИЕ", "color": "var(--ef-warn)",
                         "msg": f"{withdrawal_pct:.1f}% студентов в зоне отчисления — требуется мониторинг"})
 
     if avg_score < 40:
-        alerts.append({"level": "КРИТИЧНО", "color": "#dc2626",
+        alerts.append({"level": "КРИТИЧНО", "color": "var(--ef-danger)",
                         "msg": f"Средний балл крайне низкий: {avg_score:.1f}/100"})
     elif avg_score < 55:
-        alerts.append({"level": "ВНИМАНИЕ", "color": "#d97706",
+        alerts.append({"level": "ВНИМАНИЕ", "color": "var(--ef-warn)",
                         "msg": f"Средний балл ниже нормы: {avg_score:.1f}/100"})
 
     if inactive_pct > 15:
-        alerts.append({"level": "ПРЕДУПРЕЖДЕНИЕ", "color": "#d97706",
+        alerts.append({"level": "ПРЕДУПРЕЖДЕНИЕ", "color": "var(--ef-warn)",
                         "msg": f"{inactive_pct:.1f}% студентов ни разу не открывали материалы курса"})
 
     if not alerts:
-        alerts.append({"level": "НОРМА", "color": "#059669",
+        alerts.append({"level": "НОРМА", "color": "var(--ef-ok)",
                         "msg": "Все ключевые показатели в пределах нормы"})
     return alerts
 

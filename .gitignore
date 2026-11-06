@@ -24,8 +24,11 @@ ENV/
 data/raw/
 data/processed/
 data/research/
-data/finance/
-results/
+data/finance/*
+!data/finance/DATA_DICTIONARY.md
+results/*
+!results/academic_audit/
+results/academic_audit/predictions/
 
 # Environment
 .env
@@ -43,3 +46,14 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Advisor query log and Streamlit secrets
+logs/
+.streamlit/secrets.toml
+data/app_cache/
+
+# DevOps (docs/devops/): generated secrets and local CI outputs
+jenkins/.env.jenkins
+reports/
+!.env.example
+!jenkins/.env.jenkins.example

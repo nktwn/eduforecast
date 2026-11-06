@@ -1,0 +1,42 @@
+# EduForecast-SIS theme. Colors mirror app/components/theme.py (PALETTES); contrast checked in
+# tests/test_ui_theme.py (WCAG AA: text >= 4.5:1). Secrets go to .streamlit/secrets.toml (gitignored).
+
+[server]
+headless = true
+runOnSave = false
+
+[browser]
+gatherUsageStats = false
+
+[client]
+toolbarMode = "minimal"
+
+[theme]
+font = "sans-serif"
+baseRadius = "0.5rem"
+showSidebarBorder = true
+
+[theme.light]
+primaryColor = "#1d4ed8"
+backgroundColor = "#f6f7f9"
+secondaryBackgroundColor = "#ffffff"
+textColor = "#111827"
+linkColor = "#1d4ed8"
+borderColor = "#d9dde3"
+
+[theme.light.sidebar]
+backgroundColor = "#eef1f5"
+textColor = "#111827"
+
+[theme.dark]
+# widget accent (white text on it: 4.93:1); text links use linkColor
+primaryColor = "#2f6bdc"
+backgroundColor = "#0f1318"
+secondaryBackgroundColor = "#171c23"
+textColor = "#e6e9ee"
+linkColor = "#9ec0ff"
+borderColor = "#2c333d"
+
+[theme.dark.sidebar]
+backgroundColor = "#131820"
+textColor = "#e6e9ee"

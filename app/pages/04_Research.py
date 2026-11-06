@@ -3,29 +3,39 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import streamlit as st
+from components import research_stage3, ui
 
 from components.research_data_loader import INSTITUTION_NAME, TRAINING_WINDOW, get_forecast_comparison
 from components.research_charts import forecast_comparison_chart
 from components.styles import GLASS_CSS, require_data, sidebar_brand
 from src.research.config import OPENALEX_INSTITUTION_ID, RAW_DIR as RESEARCH_RAW_DIR
 
-st.set_page_config(
-    page_title="Научная продуктивность | EduForecast-SIS",
-    page_icon="Н",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
-st.markdown(GLASS_CSS, unsafe_allow_html=True)
 
-sidebar_brand("Модуль Research", "Данные: OpenAlex (копия в репозитории)<br>Модель: Prophet linear / logistic")
+sidebar_brand("Модуль Research", "Данные: OpenAlex, панель 50 вузов<br>Модели: LightGBM, Ridge; иллюстрация Prophet")
+
+ui.page_header("Научный", f"{INSTITUTION_NAME} и панель 50 вузов · данные OpenAlex · весь вуз, без разбивки "
+               "по факультетам")
+ui.how_to_read([
+    ("Что показывает", "Проверку прогноза на панели 50 вузов, прогноз AITU на 2026 и положение AITU среди вузов "
+                       "панели; ниже — прежняя иллюстрация Prophet."),
+    ("Как читать", f"Выигрыш — насколько ошибка модели меньше ошибки {ui.term('naive')}. C1 — лучше naive, "
+                   "C2 — лучше среднего роста панели и возрастной группы."),
+    ("Результат", "Модели лучше naive для счётчиков (публикации, авторы, цитирования, международные связи), "
+                  "но не для долей; лучше среднего роста — ни для одного показателя."),
+    ("Проверка", "Критерии зафиксированы до запуска; rolling origin и leave-one-university-out 2019–2025; "
+                 "STAGE3_REPORT.md."),
+    ("Оговорки", "OpenAlex учитывает не все публикации и меняет данные задним числом; процентили — описательный "
+                 "бенчмарк, не причинность."),
+])
+
+research_stage3.render()
+
+st.markdown('<div class="section-title">Иллюстрация: Prophet по ряду AITU</div>', unsafe_allow_html=True)
+ui.status_badge("исследовательское")
+st.caption("Ряд для этой иллюстрации — сохранённая ранее копия годовых счётчиков OpenAlex без исключения отозванных "
+           "работ и paratext. Поэтому число публикаций за год здесь может отличаться от панели выше "
+           "(выгрузка 2026-10-19, правила этапа 3).")
 require_data([RESEARCH_RAW_DIR / f"yearly_work_counts_{OPENALEX_INSTITUTION_ID}.json"], "Подготовка данных → Research (OpenAlex)")
-
-st.markdown(
-    f'<h1 style="margin:0 0 4px 0; font-size:1.7rem;">Научная продуктивность</h1>'
-    f'<p style="color:#9ca3af; margin:0 0 22px 0; font-size:0.85rem;">'
-    f'{INSTITUTION_NAME} · данные OpenAlex · весь вуз целиком, без разбивки по факультетам</p>',
-    unsafe_allow_html=True,
-)
 
 with st.spinner("Загрузка данных и построение прогноза..."):
     comparison = get_forecast_comparison()
@@ -38,14 +48,15 @@ if not comparison.partial.empty:
         "отдельной точкой и не используется ни в обучении, ни в оценке."
     )
 
-st.warning(
-    "**Proof-of-concept, не высокоточный прогноз.** Модель обучена всего на "
+ui.caveat(
+
+    " Модель обучена всего на "
     f"{TRAINING_WINDOW[1] - TRAINING_WINDOW[0] + 1} полных годовых точках "
     f"({TRAINING_WINDOW[0]}–{TRAINING_WINDOW[1]}; 2019 исключён — всего 1 публикация, "
     "дорегистрационный период вуза). При таком малом N доверительные интервалы "
     "прогноза широкие, а бэктест ниже — это проверка на одном отложенном годе, "
-    f"**не** кросс-валидация.{partial_note}",
-    icon="⚠️",
+    f"<b>не</b> кросс-валидация.{partial_note}",
+    title="Proof-of-concept, не высокоточный прогноз",
 )
 
 st.markdown('<div class="section-title">Факт и прогноз (linear vs logistic)</div>', unsafe_allow_html=True)
@@ -62,7 +73,7 @@ with st.container(border=True):
         width="stretch", config={"displayModeBar": False},
     )
     st.markdown(
-        '<div style="font-size:0.72rem; color:#9ca3af; margin-top:8px; line-height:1.6;">'
+        '<div style="font-size:0.72rem; color:var(--ef-muted); margin-top:8px; line-height:1.6;">'
         'Потолок логистической модели — экспертная оценка (текущий пик × 2), а не величина, '
         'выведенная из данных (см. src/research/config.py).</div>',
         unsafe_allow_html=True,
@@ -77,8 +88,8 @@ bc1, bc2, bc3 = st.columns(3)
 with bc1:
     with st.container(border=True):
         st.markdown(
-            f'<div style="font-size:0.72rem; color:#9ca3af;">Факт {bt.backtest_year}</div>'
-            f'<div style="font-size:2rem; font-weight:700; color:#0f172a;">{bt.actual:.0f}</div>',
+            f'<div style="font-size:0.72rem; color:var(--ef-muted);">Факт {bt.backtest_year}</div>'
+            f'<div style="font-size:2rem; font-weight:700; color:var(--ef-text);">{bt.actual:.0f}</div>',
             unsafe_allow_html=True,
         )
 
@@ -87,11 +98,11 @@ for col, growth, label in ((bc2, "linear", "Linear"), (bc3, "logistic", "Logisti
     with col:
         with st.container(border=True):
             st.markdown(
-                f'<div style="font-size:0.72rem; color:#9ca3af;">Прогноз ({label}) на {bt.backtest_year}</div>'
-                f'<div style="font-size:2rem; font-weight:700; color:#0f172a;">{pred["predicted"]:.0f}</div>'
-                f'<div style="font-size:0.78rem; color:#6b7280; margin-top:4px;">'
+                f'<div style="font-size:0.72rem; color:var(--ef-muted);">Прогноз ({label}) на {bt.backtest_year}</div>'
+                f'<div style="font-size:2rem; font-weight:700; color:var(--ef-text);">{pred["predicted"]:.0f}</div>'
+                f'<div style="font-size:0.78rem; color:var(--ef-muted); margin-top:4px;">'
                 f'[{pred["lower"]:.0f}, {pred["upper"]:.0f}]</div>'
-                f'<div style="font-size:0.85rem; font-weight:600; color:#dc2626; margin-top:8px;">'
+                f'<div style="font-size:0.85rem; font-weight:600; color:var(--ef-danger); margin-top:8px;">'
                 f'Ошибка: {pred["abs_error"]:.0f} ({pred["pct_error"]:.1f}%)</div>',
                 unsafe_allow_html=True,
             )
