@@ -14,9 +14,10 @@ pipeline {
         disableConcurrentBuilds()
     }
 
-    triggers {
-        pollSCM('H/2 * * * *')
-    }
+    // No triggers block on purpose: the multibranch job (jenkins/casc/jenkins.yaml) scans
+    // the repository every 2 minutes and starts exactly one build per new commit.
+    // A pollSCM trigger here would detect the same commit again (duplicate build, see
+    // docs/devops/EVIDENCE.md). GitHub webhooks cannot reach a Jenkins on 127.0.0.1.
 
     parameters {
         booleanParam(name: 'PUSH_IMAGE', defaultValue: false,

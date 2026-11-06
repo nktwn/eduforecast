@@ -2,7 +2,7 @@
 
 This folder documents the CI/CD setup of EduForecast-SIS (Assignment 5).
 Operations: [RUNBOOK.md](RUNBOOK.md). Measured results: [EVIDENCE.md](EVIDENCE.md).
-Screenshot list: [SCREENSHOTS.md](SCREENSHOTS.md). Console logs: [ci-logs/](ci-logs/).
+Screenshot list: [screenshots/README.md](screenshots/README.md). Console logs: [ci-logs/](ci-logs/).
 
 ## Architecture
 
@@ -10,8 +10,8 @@ Screenshot list: [SCREENSHOTS.md](SCREENSHOTS.md). Console logs: [ci-logs/](ci-l
 flowchart LR
     dev[Developer commit] --> gh[GitHub nktwn/eduforecast]
     dev -. pre-push validation .-> mirror[Local bare mirror<br/>~/.eduforecast-ci/eduforecast.git]
-    gh -- periodic scan / pollSCM 2 min --> jenkins
-    mirror -- periodic scan / pollSCM 2 min --> jenkins
+    gh -- periodic branch scan, 2 min --> jenkins
+    mirror -. pre-publication validation only .-> jenkins
     subgraph host[Docker Desktop on macOS arm64]
         jenkins[Jenkins LTS 2.580.2 JDK 21<br/>eduforecast-jenkins, 127.0.0.1:8080<br/>JCasC + Job DSL]
         jenkins -- docker.sock --> daemon[(Docker daemon)]
@@ -54,7 +54,17 @@ flowchart LR
 
 `post { always }` removes only this build's `ef-tests-*`, `ef-smoke-*` resources and the build's test-image tag, then cleans the workspace.
 
-Triggers: `pollSCM('H/2 * * * *')` in the Jenkinsfile and a 2-minute periodic branch scan of the multibranch job (Job DSL). No webhooks.
+### How "tests on every commit" works
+
+One trigger only: the multibranch job (`jenkins/casc/jenkins.yaml`, `periodicFolderTrigger 2m`) scans
+`https://github.com/nktwn/eduforecast.git` every 2 minutes. When a branch head has moved, branch
+indexing starts exactly one build of that commit (cause `Branch indexing`); a new branch gets its
+first build the same way. Expected delay from `git push` to build start: up to about 2 minutes.
+
+- The Jenkinsfile has no `triggers {}` block. An earlier version also had `pollSCM('H/2 * * * *')`;
+  both mechanisms saw the same commit and built it twice (mirror run main #3, see EVIDENCE.md).
+- No GitHub webhook: Jenkins listens on 127.0.0.1 only, so github.com cannot reach it. A webhook
+  would need a public URL or a tunnel, which this local study setup avoids on purpose.
 
 ## Design decisions
 

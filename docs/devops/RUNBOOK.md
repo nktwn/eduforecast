@@ -32,8 +32,8 @@ make jenkins-down         # stop; the jenkins_home volume eduforecast_jenkins_ho
 
 | value | when |
 |---|---|
-| `file:///mirror/eduforecast.git` | before pushing to GitHub; update with `scripts/devops/sync_mirror.sh` (`src:dst` maps a local branch to a mirror branch, e.g. `devops/docker-jenkins:main`) |
-| `https://github.com/nktwn/eduforecast.git` | after pushing (public repo, no credentials needed) |
+| `https://github.com/nktwn/eduforecast.git` | default (public repo, no credentials needed) |
+| `file:///mirror/eduforecast.git` | only to validate commits that are not pushed yet; update with `scripts/devops/sync_mirror.sh` (`src:dst` maps a local branch to a mirror branch, e.g. `devops/docker-jenkins:main`) |
 
 After changing it: `docker compose -f jenkins/docker-compose.yml up -d --force-recreate jenkins`, then **Scan Multibranch Pipeline Now** on the job (or wait 2 minutes).
 
@@ -106,7 +106,7 @@ The scripts never use the default kubeconfig, so the stale `minikube` context is
 | Checkout fails `unable to open loose object ... Permission denied` on `file:///mirror/...` | objects in the mirror were hard-linked from a `git clone` of the mirror; Docker Desktop file sharing could not read them. Clone the mirror with `git clone --no-local` |
 | Build job HTTP 400 from `/build` | the job is parameterized; use `/buildWithParameters` |
 | `tests/test_advisor_facts.py` fails with `FileNotFoundError: 'git'` in the test image | git missing in slim image; the test stage installs it |
-| one commit built twice on main | both `pollSCM` and the periodic branch scan detected it (see EVIDENCE.md); harmless |
+| one commit built twice on main | happened while the Jenkinsfile also had `pollSCM`; removed, only the 2-minute branch scan triggers builds now. The first build after the change can still be doubled because the old trigger is stored in the job until a build with the new Jenkinsfile runs |
 | `docker: permission denied` inside Jenkins | the container must run as root (compose `user: root`) to use the mounted socket |
 | Jenkins killed / slow | `mem_limit: 1536m`, heap `-Xmx768m`; Docker VM has 3.8 GiB, stop other stacks if needed |
 
